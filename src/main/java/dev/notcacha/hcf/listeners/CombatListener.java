@@ -6,7 +6,7 @@ import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
-import dev.notcacha.hcf.utils.CooldownName;
+import dev.notcacha.hcf.utils.Cooldown;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.message.TranslatableMessage;
 import org.bukkit.configuration.Configuration;
@@ -72,8 +72,8 @@ public class CombatListener implements Listener {
                 }
             }
 
-            cooldownManager.add(CooldownName.COMBAT_COOLDOWN, player.getUniqueId().toString(), Long.parseLong("30"));
-            cooldownManager.add(CooldownName.COMBAT_COOLDOWN, damager.getUniqueId().toString(), Long.parseLong("30"));
+            cooldownManager.add(Cooldown.COMBAT_COOLDOWN, player.getUniqueId().toString(), Long.parseLong("30"));
+            cooldownManager.add(Cooldown.COMBAT_COOLDOWN, damager.getUniqueId().toString(), Long.parseLong("30"));
             combatCache.add(player.getName(), damager.getName());
             combatCache.add(damager.getName(), player.getName());
         }

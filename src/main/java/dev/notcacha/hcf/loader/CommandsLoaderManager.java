@@ -4,8 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
-import dev.notcacha.hcf.commands.KitManagerCommand;
-import dev.notcacha.hcf.commands.SOTWCommand;
+import dev.notcacha.hcf.commands.*;
 import dev.notcacha.hcf.i18n.CustomI18n;
 import me.fixeddev.ebcm.Command;
 import me.fixeddev.ebcm.bukkit.BukkitCommandManager;
@@ -32,6 +31,12 @@ public class CommandsLoaderManager implements LoaderManager {
     private SOTWCommand sotwCommand;
     @Inject
     private KitManagerCommand kitManagerCommand;
+    @Inject
+    private FactionCommand factionCommand;
+    @Inject
+    private AddCooldownCommand addCooldownCommand;
+    @Inject
+    private RemoveCooldownCommand removeCooldownCommand;
 
     public CommandsLoaderManager() {
         this.builder = new ReflectionParametricCommandBuilder();
@@ -45,6 +50,9 @@ public class CommandsLoaderManager implements LoaderManager {
         List<Command> commandList = new ArrayList<>();
         commandList.addAll(builder.fromClass(this.sotwCommand));
         commandList.addAll(builder.fromClass(this.kitManagerCommand));
+        commandList.addAll(builder.fromClass(this.factionCommand));
+        commandList.addAll(builder.fromClass(this.addCooldownCommand));
+        commandList.addAll(builder.fromClass(this.removeCooldownCommand));
 
         commandManager.registerCommands(commandList);
     }

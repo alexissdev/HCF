@@ -51,6 +51,11 @@ cooldown:
   pearl: "&cYou have to wait %cooldown% seconds!"
   enchant-golden-apple: "&cYou have to wait %cooldown%!"
   golden-apple: "&cYou have to wait %cooldown% seconds!"
+  not-exists-cooldown: "&cThe cooldown %cooldown_name% does not exist!"
+  no-contains: "&c%player_name% does not contain the cooldown %cooldown_name%!"
+  contains: "&c%player_name% already contains the cooldown %cooldown_name%!"
+  remove: "&eYou have removed the cooldown &6%cooldown name% &efrom &6%player_name%&e!"
+  add: "&eYou has been added the cooldown &6%cooldown name% &efrom &6%player_name%&e!"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

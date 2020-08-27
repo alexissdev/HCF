@@ -5,7 +5,7 @@ import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
-import dev.notcacha.hcf.utils.CooldownName;
+import dev.notcacha.hcf.utils.Cooldown;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.message.TranslatableMessage;
 import org.bukkit.Material;
@@ -41,7 +41,7 @@ public class AppleListener implements Listener {
             Optional<User> user = userCache.find(player.getUniqueId());
             if (user.isPresent()) {
                 if (item.getDurability() == 1) {
-                    Optional<Long> cooldown = cooldownManager.find(CooldownName.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString());
+                    Optional<Long> cooldown = cooldownManager.find(Cooldown.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString());
                     if (cooldown.isPresent()) {
                         Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.enchant-golden-apple");
                         if (message.isPresent()) {
@@ -51,10 +51,10 @@ public class AppleListener implements Listener {
                         }
                         return;
                     }
-                    cooldownManager.add(CooldownName.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString(), Long.parseLong("3600"));
+                    cooldownManager.add(Cooldown.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString(), Long.parseLong("3600"));
                     return;
                 }
-                Optional<Long> cooldown = cooldownManager.find(CooldownName.GOLDEN_APPLE, player.getUniqueId().toString());
+                Optional<Long> cooldown = cooldownManager.find(Cooldown.GOLDEN_APPLE, player.getUniqueId().toString());
                 if (cooldown.isPresent()) {
                     Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.golden-apple");
                     if (message.isPresent()) {
@@ -64,7 +64,7 @@ public class AppleListener implements Listener {
                     }
                     return;
                 }
-                cooldownManager.add(CooldownName.GOLDEN_APPLE, player.getUniqueId().toString(), Long.parseLong("30"));
+                cooldownManager.add(Cooldown.GOLDEN_APPLE, player.getUniqueId().toString(), Long.parseLong("30"));
             }
 
         }

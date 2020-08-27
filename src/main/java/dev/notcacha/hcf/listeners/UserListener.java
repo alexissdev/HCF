@@ -8,7 +8,7 @@ import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.guice.anotations.storage.UserStorage;
 import dev.notcacha.hcf.user.User;
-import dev.notcacha.hcf.utils.CooldownName;
+import dev.notcacha.hcf.utils.Cooldown;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -41,7 +41,7 @@ public class UserListener implements Listener {
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
             if (!user.get().hasTimer()) {
-                cooldownManager.add(CooldownName.PVP_TIMER, player.getUniqueId().toString(), Long.parseLong("3600"));
+                cooldownManager.add(Cooldown.PVP_TIMER, player.getUniqueId().toString(), Long.parseLong("3600"));
             }
 
             userCache.add(player.getUniqueId(), user.get());

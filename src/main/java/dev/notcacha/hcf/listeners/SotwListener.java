@@ -2,7 +2,7 @@ package dev.notcacha.hcf.listeners;
 
 import com.google.inject.Inject;
 import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.utils.CooldownName;
+import dev.notcacha.hcf.utils.Cooldown;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,7 +17,7 @@ public class SotwListener implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player) {
-            if (cooldownManager.exists(CooldownName.SOTW_TIMER)) {
+            if (cooldownManager.exists(Cooldown.SOTW_TIMER)) {
                 event.setCancelled(true);
             }
         }
@@ -26,7 +26,7 @@ public class SotwListener implements Listener {
     @EventHandler
     public void onEntityDamageByBlock(EntityDamageByBlockEvent event) {
         if (event.getEntity() instanceof Player) {
-            if (cooldownManager.exists(CooldownName.SOTW_TIMER)) {
+            if (cooldownManager.exists(Cooldown.SOTW_TIMER)) {
                 event.setCancelled(true);
             }
         }

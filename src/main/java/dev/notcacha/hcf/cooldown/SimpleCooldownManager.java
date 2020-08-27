@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
-import dev.notcacha.hcf.utils.CooldownName;
+import dev.notcacha.hcf.utils.Cooldown;
 
 import java.util.Optional;
 
@@ -38,9 +38,9 @@ public class SimpleCooldownManager implements CooldownManager {
 
     @Override
     public void removeAll(String id) {
-        cooldownCache.remove(CooldownName.COMBAT_COOLDOWN.replace("%id%", id));
-        cooldownCache.remove(CooldownName.PEARL_COOLDOWN.replace("%id%", id));
-        cooldownCache.remove(CooldownName.GOLDEN_APPLE.replace("%id%", id));
-        cooldownCache.remove(CooldownName.ENCHANT_GOLDEN_APPLE.replace("%id%", id));
+        cooldownCache.remove(Cooldown.COMBAT_COOLDOWN.replace("%id%", id));
+        cooldownCache.remove(Cooldown.PEARL_COOLDOWN.replace("%id%", id));
+        cooldownCache.remove(Cooldown.GOLDEN_APPLE.replace("%id%", id));
+        cooldownCache.remove(Cooldown.ENCHANT_GOLDEN_APPLE.replace("%id%", id));
     }
 }

@@ -18,6 +18,10 @@ public class LanguageUtils {
     @UserCache
     private CacheProvider<UUID, User> userCache;
 
+    /**
+     * @return a language, in any case that {@param sender} is a player it will return the language of that player or if it does not return the default
+     */
+
     public String getLanguage(CommandSender sender) {
         String language = "EN";
 
