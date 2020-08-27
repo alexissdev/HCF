@@ -30,6 +30,7 @@ public class FactionStorageProvider implements StorageProvider<Faction> {
         if (!exists(s)) {
             return Optional.empty();
         }
+
         JsonFile jsonFile = new JsonFile(plugin, new File(plugin.getDataFolder() + "/factions/"), s + ".json");
         Gson gson = gsonManager.getGson();
         return Optional.of(gson.fromJson(jsonFile.getText(), Faction.class));
