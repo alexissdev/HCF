@@ -50,6 +50,20 @@ public class PlaceholderAPIWrapper extends PlaceholderExpansion {
                 return String.valueOf(user.get().getKillsManager().get());
             case "deaths":
                 return String.valueOf(user.get().getDeathsManager().get());
+            case "diamonds":
+                return String.valueOf(user.get().getDiamondsManager().get());
+            case "emeralds":
+                return String.valueOf(user.get().getEmeraldsManager().get());
+            case "redstone":
+                return String.valueOf(user.get().getRedstoneManager().get());
+            case "lapis":
+                return String.valueOf(user.get().getLapisManager().get());
+            case "gold":
+                return String.valueOf(user.get().getGoldManager().get());
+            case "iron":
+                return String.valueOf(user.get().getIronManager().get());
+            case "coal":
+                return String.valueOf(user.get().getCoalManager().get());
             case "language":
                 return user.get().getLanguage();
             default:

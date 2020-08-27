@@ -19,7 +19,9 @@ public interface CooldownManager {
      * @param id   from identify cooldown
      * */
 
-    Optional<Long> find(String type, String id);
+    default Optional<Long> find(String type, String id) {
+        return find(type.replace("%id%", id));
+    }
 
     /**
      * Add cooldown
@@ -38,7 +40,9 @@ public interface CooldownManager {
      * @param time from cooldown
      */
 
-    void add(String type, String id, Long time);
+    default void add(String type, String id, Long time) {
+        add(type.replace("%id%", id), time);
+    }
 
     /**
      * Return exists cooldown
@@ -55,7 +59,9 @@ public interface CooldownManager {
      * @param id from identify
      * */
 
-    boolean exists(String type, String id);
+    default boolean exists(String type, String id) {
+        return exists(type.replace("%id%", id));
+    }
 
     /**
      * Remove specify cooldown
@@ -72,7 +78,9 @@ public interface CooldownManager {
      * @param id   from identify
      */
 
-    void remove(String type, String id);
+    default void remove(String type, String id) {
+        remove(type.replace("%id%", id));
+    }
 
     /**
      * Remove all cooldowns

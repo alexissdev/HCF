@@ -2,7 +2,9 @@ name: HCF
 version: ${project.version}
 main: dev.notcacha.hcf.HCF
 api-version: 1.13
-authors: [NotCacha]
-description: HCF Core has been created by NotCacha
+author: NotCacha
+description: Simple HCF core
 website: cloudly.team
-depends: [PlaceholderAPI, Vault]
+depend:
+  - Vault
+  - PlaceholderAPI

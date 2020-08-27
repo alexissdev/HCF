@@ -22,6 +22,13 @@ public class SimplePlaceholderApplier implements PlaceholderApplier {
                 text.replace("%player_name%", user.getName())
                         .replace("%player_kills%", String.valueOf(user.getKillsManager().get()))
                         .replace("%player_deaths%", String.valueOf(user.getDeathsManager().get()))
+                        .replace("%player_diamonds%", String.valueOf(user.getDiamondsManager().get()))
+                        .replace("%player_emeralds%", String.valueOf(user.getEmeraldsManager().get()))
+                        .replace("%player_readstone%", String.valueOf(user.getRedstoneManager().get()))
+                        .replace("%player_lapis%", String.valueOf(user.getLapisManager().get()))
+                        .replace("%player_gold%", String.valueOf(user.getGoldManager().get()))
+                        .replace("%player_iron%", String.valueOf(user.getIronManager().get()))
+                        .replace("%player_coal%", String.valueOf(user.getCoalManager().get()))
         ).orElse(text);
     }
 }

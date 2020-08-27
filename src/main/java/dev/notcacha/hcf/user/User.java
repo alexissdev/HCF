@@ -52,4 +52,47 @@ public interface User extends Model {
 
     StatisticsManager getDeathsManager();
 
+    /**
+     * @return an object 'StatisticsManager' in order to handle the diamonds of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getDiamondsManager();
+
+    /**
+     * @return a 'StatisticsManager' object in order to handle the emeralds of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getEmeraldsManager();
+
+    /**
+     * @return an object 'StatisticsManager' in order to handle the redstone of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getRedstoneManager();
+
+    /**
+     * @return a 'StatisticsManager' object in order to handle the lapis of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getLapisManager();
+
+    /**
+     * @return an object 'StatisticsManager' in order to handle the gold of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getGoldManager();
+
+    /**
+     * @return a 'StatisticsManager' object in order to handle the iron of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getIronManager();
+
+    /**
+     * @return an object 'StatisticsManager' in order to handle the coal of this user and to be able to keep a better control
+     */
+
+    StatisticsManager getCoalManager();
+
+
 }

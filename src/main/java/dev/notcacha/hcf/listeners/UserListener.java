@@ -7,7 +7,6 @@ import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.guice.anotations.storage.UserStorage;
-import dev.notcacha.hcf.user.HCFUser;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.CooldownName;
 import org.bukkit.entity.Player;
