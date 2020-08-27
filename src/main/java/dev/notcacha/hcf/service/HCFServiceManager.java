@@ -8,6 +8,7 @@ import dev.notcacha.hcf.guice.anotations.loader.CommandsLoader;
 import dev.notcacha.hcf.guice.anotations.loader.ListenersLoader;
 import dev.notcacha.hcf.guice.anotations.service.APIService;
 import dev.notcacha.hcf.guice.anotations.service.SchedulerService;
+import dev.notcacha.hcf.placeholders.PlaceholderAPIWrapper;
 
 @Singleton
 public class HCFServiceManager implements ServiceManager {
@@ -26,12 +27,17 @@ public class HCFServiceManager implements ServiceManager {
     @ListenersLoader
     private LoaderManager listenersLoader;
 
+    @Inject
+    private PlaceholderAPIWrapper placeholderAPIWrapper;
+
     @Override
     public void start() {
         this.schedulerService.start();
         this.apiService.start();
         this.commandsLoader.load();
         this.listenersLoader.load();
+
+        placeholderAPIWrapper.register();
     }
 
     @Override
