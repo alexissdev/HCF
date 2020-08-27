@@ -53,7 +53,7 @@ public class UserListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        combatCache.remove(player.getUniqueId().toString());
+        cooldownManager.removeAll(player.getUniqueId().toString());
         combatCache.remove(player.getName());
 
         userCache.find(player.getUniqueId()).ifPresent(user -> userStorage.save(user));
