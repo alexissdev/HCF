@@ -26,6 +26,21 @@ public interface User extends Model {
     User setLanguage(String language);
 
     /**
+     * @return boolean is responsible for returning value of true/false if the {@link User} has entered for the first time or has already died to set the PvP Timer to have its procedure
+     */
+
+    boolean hasTimer();
+
+
+    /**
+     * Set timer state from {@link User}
+     *
+     * @param timer state from timer
+     */
+
+    User setTimer(boolean timer);
+
+    /**
      * @return an object 'StatisticsManager' in order to handle the kills of this user and to be able to keep a better control
      */
 

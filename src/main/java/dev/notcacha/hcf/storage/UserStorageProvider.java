@@ -1,7 +1,6 @@
 package dev.notcacha.hcf.storage;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
@@ -10,6 +9,7 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.file.JsonFile;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.manager.GsonManager;
+import dev.notcacha.hcf.user.HCFUser;
 import dev.notcacha.hcf.user.User;
 
 import java.io.File;
@@ -31,7 +31,7 @@ public class UserStorageProvider implements StorageProvider<User> {
 
     public Optional<User> find(String id) {
         if (!exists(id)) {
-            return Optional.empty();
+            return Optional.of(new HCFUser(id, plugin.getServer().getOfflinePlayer(UUID.fromString(id)).getName()));
         }
 
         JsonFile jsonFile = new JsonFile(plugin, new File(plugin.getDataFolder() + "/users/"), id + ".json");

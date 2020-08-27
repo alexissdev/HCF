@@ -3,6 +3,7 @@ package dev.notcacha.hcf.economy.player;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.hcf.economy.VaultEconomyWrapper;
+import dev.notcacha.hcf.economy.manager.EconomyManager;
 import org.bukkit.entity.Player;
 
 @Singleton

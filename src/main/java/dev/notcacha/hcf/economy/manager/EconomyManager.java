@@ -1,4 +1,4 @@
-package dev.notcacha.hcf.economy.player;
+package dev.notcacha.hcf.economy.manager;
 
 import org.bukkit.entity.Player;
 

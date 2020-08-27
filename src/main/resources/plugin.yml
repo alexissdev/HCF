@@ -5,3 +5,4 @@ api-version: 1.13
 authors: [NotCacha]
 description: HCF Core has been created by NotCacha
 website: cloudly.team
+depends: [PlaceholderAPI, Vault]

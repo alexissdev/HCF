@@ -11,23 +11,29 @@ public class HCFUser implements User {
     private String language;
     private final StatisticsManager killsManager;
     private final StatisticsManager deathsManager;
+    private boolean timer;
 
     public HCFUser(String id, String name) {
-        this(id, name, "EN", new KillsStatisticsManager(), new DeathsStatisticsManager());
+        this(id, name, "EN", false, new KillsStatisticsManager(), new DeathsStatisticsManager());
     }
 
     public HCFUser(String id, String name, String language) {
-        this(id, name, language, new KillsStatisticsManager(), new DeathsStatisticsManager());
+        this(id, name, language, false, new KillsStatisticsManager(), new DeathsStatisticsManager());
     }
 
-    public HCFUser(String id, String name, String language, StatisticsManager killsManager) {
-        this(id, name, language, killsManager, new DeathsStatisticsManager());
+    public HCFUser(String id, String name, String language, boolean timer) {
+        this(id, name, language, timer, new KillsStatisticsManager(), new DeathsStatisticsManager());
     }
 
-    public HCFUser(String id, String name, String language, StatisticsManager killsManager, StatisticsManager deathsManager) {
+    public HCFUser(String id, String name, String language, boolean timer, StatisticsManager killsManager) {
+        this(id, name, language, timer, killsManager, new DeathsStatisticsManager());
+    }
+
+    public HCFUser(String id, String name, String language, boolean timer, StatisticsManager killsManager, StatisticsManager deathsManager) {
         this.id = id;
         this.name = name;
         this.language = language;
+        this.timer = timer;
         this.killsManager = killsManager;
         this.deathsManager = deathsManager;
     }
@@ -50,6 +56,17 @@ public class HCFUser implements User {
     @Override
     public User setLanguage(String language) {
         this.language = language;
+        return this;
+    }
+
+    @Override
+    public boolean hasTimer() {
+        return this.timer;
+    }
+
+    @Override
+    public User setTimer(boolean timer) {
+        this.timer = timer;
         return this;
     }
 
