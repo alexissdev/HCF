@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 @Singleton
-public class SimplePlaceholderApplier implements PlaceholderApplier {
+public class EveryonePlaceholderApplier implements PlaceholderApplier {
 
     @Inject
     @UserCache

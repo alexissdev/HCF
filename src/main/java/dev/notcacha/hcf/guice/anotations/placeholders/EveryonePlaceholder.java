@@ -7,5 +7,5 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(value = RetentionPolicy.RUNTIME)
 @BindingAnnotation
-public @interface SimplePlaceholders {
+public @interface EveryonePlaceholder {
 }

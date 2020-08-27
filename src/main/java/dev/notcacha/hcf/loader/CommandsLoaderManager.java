@@ -39,6 +39,10 @@ public class CommandsLoaderManager implements LoaderManager {
     private RemoveCooldownCommand removeCooldownCommand;
     @Inject
     private LogoutCommand logoutCommand;
+    @Inject
+    private CoordsCommand coordsCommand;
+    @Inject
+    private OresCommand oresCommand;
 
     public CommandsLoaderManager() {
         this.builder = new ReflectionParametricCommandBuilder();
@@ -56,6 +60,8 @@ public class CommandsLoaderManager implements LoaderManager {
         commandList.addAll(builder.fromClass(this.addCooldownCommand));
         commandList.addAll(builder.fromClass(this.removeCooldownCommand));
         commandList.addAll(builder.fromClass(this.logoutCommand));
+        commandList.addAll(builder.fromClass(this.coordsCommand));
+        commandList.addAll(builder.fromClass(this.oresCommand));
 
         commandManager.registerCommands(commandList);
     }

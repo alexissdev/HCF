@@ -93,7 +93,31 @@ logout:
   message: "&cThe logout process has started, wait &l%time% &cseconds!"
   cancel: "&cThe logout process has been canceled!"
   is: "&cYou are already in the process of disconnecting!"
-  leave-message: ""
+  leave-message: "&cYou have successfully disconnected!"
+# Coords message!
+coords:
+  message:
+    - "&7&m-------------------------------------"
+    - "&eSpawn&7: &60&7, &60"
+    - "&7&m-------------------------------------"
+# Stats messages
+stats:
+  ores:
+    - "&7&m-------------------------------------"
+    - "&dDiamonds&7: &f%player_diamonds%"
+    - "&aEmeralds&7: &f%player_emeralds%"
+    - "&cRedstone&7: &f%player_redstone%"
+    - "&9Lapis&7: &f%player_lapis%"
+    - "&6Gold&7: &f%player_gold%"
+    - "&7Iron&7: &f%player_iron%"
+    - "&8Coal&7: &f%player_coal%"
+    - "&7&m-------------------------------------"
+  general:
+    - "&7&m-------------------------------------"
+    - "&eKills&7: &6%player_kills%"
+    - "&eDeaths&7: &6%player_deaths%"
+    - "&eFaction&7: &6%player_faction%"
+    - "&7&m-------------------------------------"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:
