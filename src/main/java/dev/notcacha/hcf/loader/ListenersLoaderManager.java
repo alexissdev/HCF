@@ -4,7 +4,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
-import dev.notcacha.hcf.listeners.*;
+import dev.notcacha.hcf.listeners.AppleListener;
+import dev.notcacha.hcf.listeners.CombatListener;
+import dev.notcacha.hcf.listeners.CombatLoggerListener;
+import dev.notcacha.hcf.listeners.PearlListener;
+import dev.notcacha.hcf.listeners.SotwListener;
+import dev.notcacha.hcf.listeners.UserListener;
 import org.bukkit.plugin.PluginManager;
 
 @Singleton

@@ -11,6 +11,20 @@ import java.util.Set;
 public interface Faction extends Model {
 
     /**
+     * @return leader name from this faction
+     * */
+
+    String getLeader();
+
+    /**
+     * Set leader
+     *
+     * @param name from new leader has been set
+     * */
+
+    Faction setLeader(String name);
+
+    /**
      * @return type from this faction
      **/
 
@@ -49,4 +63,12 @@ public interface Faction extends Model {
      */
 
     Set<String> getMembers();
+
+    /**
+     * Set members
+     *
+     * @param members has been set from faction
+     */
+
+    Faction setMembers(Set<String> members);
 }

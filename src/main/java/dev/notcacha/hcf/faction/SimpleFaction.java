@@ -11,29 +11,31 @@ import java.util.Set;
 public class SimpleFaction implements Faction {
 
     private final String id;
+    private String leader;
     private final FactionType type;
     private Cuboid claim;
     private Location home;
     private Set<String> members;
 
-    public SimpleFaction(String id) {
-        this(id, FactionType.DEFAULT, null, null, new HashSet<>());
+    public SimpleFaction(String id, String leader) {
+        this(id, leader, FactionType.DEFAULT, null, null, new HashSet<>());
     }
 
-    public SimpleFaction(String id, FactionType type) {
-        this(id, type, null, null, new HashSet<>());
+    public SimpleFaction(String id, String leader, FactionType type) {
+        this(id, leader, type, null, null, new HashSet<>());
     }
 
-    public SimpleFaction(String id, FactionType type, Cuboid claim) {
-        this(id, type, claim, null, new HashSet<>());
+    public SimpleFaction(String id, String leader, FactionType type, Cuboid claim) {
+        this(id, leader, type, claim, null, new HashSet<>());
     }
 
-    public SimpleFaction(String id, FactionType type, Cuboid claim, Set<String> members) {
-        this(id, type, claim, null, members);
+    public SimpleFaction(String id, String leader, FactionType type, Cuboid claim, Set<String> members) {
+        this(id, leader, type, claim, null, members);
     }
 
-    public SimpleFaction(String id, FactionType type, Cuboid claim, Location home, Set<String> members) {
+    public SimpleFaction(String id, String leader, FactionType type, Cuboid claim, Location home, Set<String> members) {
         this.id = id;
+        this.leader = leader;
         this.type = type;
         this.claim = claim;
         this.home = home;
@@ -43,6 +45,17 @@ public class SimpleFaction implements Faction {
     @Override
     public String getId() {
         return this.id;
+    }
+
+    @Override
+    public String getLeader() {
+        return this.leader;
+    }
+
+    @Override
+    public Faction setLeader(String name) {
+        this.leader = name;
+        return this;
     }
 
     @Override
@@ -75,5 +88,11 @@ public class SimpleFaction implements Faction {
     @Override
     public Set<String> getMembers() {
         return this.members;
+    }
+
+    @Override
+    public Faction setMembers(Set<String> members) {
+        this.members = members;
+        return this;
     }
 }

@@ -35,4 +35,18 @@ public class LanguageUtils {
 
         return language;
     }
+
+    /**
+     * @return language from {@param player} get from {@link User}
+     */
+
+    public String getLanguage(Player player) {
+        String language = "EN";
+        Optional<User> user = userCache.find(player.getUniqueId());
+        if (user.isPresent()) {
+            language = user.get().getLanguage();
+        }
+
+        return language;
+    }
 }

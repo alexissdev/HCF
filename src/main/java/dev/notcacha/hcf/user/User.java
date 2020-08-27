@@ -2,6 +2,7 @@ package dev.notcacha.hcf.user;
 
 import dev.notcacha.core.model.Model;
 import dev.notcacha.hcf.statistics.StatisticsManager;
+import dev.notcacha.hcf.user.faction.UserFaction;
 
 public interface User extends Model {
 
@@ -24,6 +25,12 @@ public interface User extends Model {
      */
 
     User setLanguage(String language);
+
+    /**
+     * @return faction manager from this user
+     */
+
+    UserFaction getFaction();
 
     /**
      * @return boolean is responsible for returning value of true/false if the {@link User} has entered for the first time or has already died to set the PvP Timer to have its procedure

@@ -2,6 +2,20 @@
 general:
   no-permissions: "&cYou no have permissions to execute this command!"
   target-offline: "&c%target_name% is not connected in server!"
+# Faction message
+faction:
+  usage:
+    '1':
+      - ""
+    '2':
+      - ""
+  error:
+    exists: ""
+    not-exists: ""
+    no-contains-faction: ""
+    is-not-leader: ""
+  create: ""
+  disband: ""
 # SOTW messages
 sotw:
   usage:

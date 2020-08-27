@@ -10,6 +10,8 @@ import dev.notcacha.hcf.statistics.ores.GoldsStatisticsManager;
 import dev.notcacha.hcf.statistics.ores.IronStatisticsManager;
 import dev.notcacha.hcf.statistics.ores.LapisStatisticsManager;
 import dev.notcacha.hcf.statistics.ores.RedstoneStatisticsManager;
+import dev.notcacha.hcf.user.faction.SimpleUserFaction;
+import dev.notcacha.hcf.user.faction.UserFaction;
 
 public class HCFUser implements User {
 
@@ -17,6 +19,8 @@ public class HCFUser implements User {
     private final String name;
     private String language;
     private boolean timer;
+
+    private final UserFaction faction;
 
     private final StatisticsManager killsManager;
     private final StatisticsManager deathsManager;
@@ -41,6 +45,8 @@ public class HCFUser implements User {
         this.name = name;
         this.language = language;
         this.timer = timer;
+
+        this.faction = new SimpleUserFaction();
 
         this.killsManager = new KillsStatisticsManager();
         this.deathsManager = new DeathsStatisticsManager();
@@ -72,6 +78,11 @@ public class HCFUser implements User {
     public User setLanguage(String language) {
         this.language = language;
         return this;
+    }
+
+    @Override
+    public UserFaction getFaction() {
+        return this.faction;
     }
 
     @Override
