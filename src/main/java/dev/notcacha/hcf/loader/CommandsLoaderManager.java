@@ -37,6 +37,8 @@ public class CommandsLoaderManager implements LoaderManager {
     private AddCooldownCommand addCooldownCommand;
     @Inject
     private RemoveCooldownCommand removeCooldownCommand;
+    @Inject
+    private LogoutCommand logoutCommand;
 
     public CommandsLoaderManager() {
         this.builder = new ReflectionParametricCommandBuilder();
@@ -53,6 +55,7 @@ public class CommandsLoaderManager implements LoaderManager {
         commandList.addAll(builder.fromClass(this.factionCommand));
         commandList.addAll(builder.fromClass(this.addCooldownCommand));
         commandList.addAll(builder.fromClass(this.removeCooldownCommand));
+        commandList.addAll(builder.fromClass(this.logoutCommand));
 
         commandManager.registerCommands(commandList);
     }

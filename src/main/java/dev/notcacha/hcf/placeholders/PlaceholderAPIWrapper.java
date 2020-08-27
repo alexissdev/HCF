@@ -66,6 +66,8 @@ public class PlaceholderAPIWrapper extends PlaceholderExpansion {
                 return String.valueOf(user.get().getCoalManager().get());
             case "language":
                 return user.get().getLanguage();
+            case "faction":
+                return (user.get().getFaction().getFactionName().isPresent()) ? user.get().getFaction().getFactionName().get() : "None";
             default:
                 return "";
         }

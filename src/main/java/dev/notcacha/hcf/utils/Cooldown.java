@@ -8,6 +8,7 @@ public class Cooldown {
     public static final String ENCHANT_GOLDEN_APPLE = "%id%_enchant_golden_apple";
     public static final String SOTW_TIMER = "sotw_timer";
     public static final String PVP_TIMER = "%id%_pvp_timer";
+    public static final String LOGOUT_COOLDOWN = "%id%_logout";
 
     /**
      * @return if {@param text} matches some of the cooldown names

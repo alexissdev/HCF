@@ -7,6 +7,7 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.listeners.AppleListener;
 import dev.notcacha.hcf.listeners.CombatListener;
 import dev.notcacha.hcf.listeners.CombatLoggerListener;
+import dev.notcacha.hcf.listeners.LogoutListener;
 import dev.notcacha.hcf.listeners.PearlListener;
 import dev.notcacha.hcf.listeners.SotwListener;
 import dev.notcacha.hcf.listeners.UserListener;
@@ -30,6 +31,8 @@ public class ListenersLoaderManager implements LoaderManager {
     private SotwListener sotwListener;
     @Inject
     private CombatLoggerListener combatLoggerListener;
+    @Inject
+    private LogoutListener logoutListener;
 
 
     @Override
@@ -42,5 +45,6 @@ public class ListenersLoaderManager implements LoaderManager {
         pluginManager.registerEvents(this.appleListener, this.plugin);
         pluginManager.registerEvents(this.sotwListener, this.plugin);
         pluginManager.registerEvents(this.combatLoggerListener, this.plugin);
+        pluginManager.registerEvents(this.logoutListener, this.plugin);
     }
 }

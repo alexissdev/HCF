@@ -6,16 +6,34 @@ general:
 faction:
   usage:
     '1':
-      - ""
+      - "&7&m-------------------------------------------------------------------"
+      - " &6&lFaction Help (Page 1)"
+      - "  &e/faction create <name> &7- &8Create faction!"
+      - "  &e/faction disband &7- &8Disband your faction!"
+      - "  &e/faction invite <player> &7- &8Invite player!"
+      - "  &e/faction join <faction> &7- &8Join Faction invite!"
+      - "  &e/faction leave &7- &8Leave from your faction!"
+      - "  &e/faction kick <player> &7- &8Kick player from your faction!"
+      - "  &e/faction claim &7- &8Claim faction!"
+      - "  &e/faction unclaim &7- &8Clear claim from your faction!"
+      - "&7&m-------------------------------------------------------------------"
     '2':
-      - ""
+      - "&7&m-------------------------------------------------------------------"
+      - " &6&lFaction Help (Page 2)"
+      - "  &e/faction home &7- &8Teleport from your faction home!"
+      - "  &e/faction sethome &7- &8Set home from your faction!"
+      - "  &e/faction deposit <amount> &7- &8Deposit cash from your faction!"
+      - "  &e/faction withdraw <amount> &7- &8Withdraw cash from your faction!"
+      - "  &e/faction message <message> &7- &8Send message from faction members!"
+      - "  &e/faction show <faction (optional)>  &7- &8View your faction or other faction!"
+      - "&7&m-------------------------------------------------------------------"
   error:
-    exists: ""
-    not-exists: ""
-    no-contains-faction: ""
-    is-not-leader: ""
-  create: ""
-  disband: ""
+    exists: "&cThe faction %faction_name% already exists!"
+    not-exists: "&cThe faction %faction_name% does not exist!"
+    no-contains-faction: "&cYou are not in any faction!"
+    is-not-leader: "&cYou can't do this only leaders can!"
+  create: "&e%faction_name% &6has been created by &e%player_name%"
+  disband: "&e%faction_name% &6has been disband by &e%player_name%"
 # SOTW messages
 sotw:
   usage:
@@ -70,6 +88,11 @@ cooldown:
   contains: "&c%player_name% already contains the cooldown %cooldown_name%!"
   remove: "&eYou have removed the cooldown &6%cooldown name% &efrom &6%player_name%&e!"
   add: "&eYou has been added the cooldown &6%cooldown name% &efrom &6%player_name%&e!"
+# Logout messages
+logout:
+  message: "&cThe logout process has started, wait &l%time% &cseconds!"
+  cancel: "&cThe logout process has been canceled!"
+  is: "&cYou are already in the process of disconnecting!"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:
