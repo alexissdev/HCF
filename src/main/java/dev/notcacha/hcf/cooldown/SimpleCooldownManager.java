@@ -16,18 +16,43 @@ public class SimpleCooldownManager implements CooldownManager {
     private CacheProvider<String, Long> cooldownCache;
 
     @Override
+    public Optional<Long> find(String type) {
+        return cooldownCache.find(type);
+    }
+
+    @Override
     public Optional<Long> find(String type, String id) {
-        return cooldownCache.find(type.replace("%id%", id));
+        return find(type.replace("%id%", id));
+    }
+
+    @Override
+    public void add(String type, Long time) {
+        cooldownCache.add(type, time);
     }
 
     @Override
     public void add(String type, String id, Long time) {
-        cooldownCache.add(type.replace("%id%", id), time);
+       add(type.replace("%id%", id), time);
+    }
+
+    @Override
+    public boolean exists(String type) {
+        return cooldownCache.exists(type);
+    }
+
+    @Override
+    public boolean exists(String type, String id) {
+        return exists(type.replace("%id%", id));
+    }
+
+    @Override
+    public void remove(String type) {
+        cooldownCache.remove(type);
     }
 
     @Override
     public void remove(String type, String id) {
-        cooldownCache.remove(type.replace("%id%", id));
+        remove(type.replace("%id%", id));
     }
 
     @Override

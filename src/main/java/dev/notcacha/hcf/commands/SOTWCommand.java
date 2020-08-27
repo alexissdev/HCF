@@ -1,8 +1,8 @@
 package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
-import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
+import dev.notcacha.hcf.cooldown.CooldownManager;
+import dev.notcacha.hcf.utils.CooldownName;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.message.TranslatableMessage;
@@ -22,8 +22,7 @@ public class SOTWCommand implements CommandClass {
     private LanguageLib<Configuration> languageLib;
 
     @Inject
-    @CooldownCache
-    private CacheProvider<String, Long> cooldownCache;
+    private CooldownManager cooldownManager;
 
     @Inject
     private LanguageUtils languageUtils;
@@ -47,13 +46,13 @@ public class SOTWCommand implements CommandClass {
     public boolean startCommand(@Injected(true) CommandSender sender, Integer time) {
         String language = languageUtils.getLanguage(sender);
 
-        if (cooldownCache.exists("sotw")) {
+        if (cooldownManager.exists(CooldownName.SOTW_TIMER)) {
             Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.error.is-started");
             message.ifPresent(translatableMessage -> sender.sendMessage(translatableMessage.setColor(true).getMessage(language)));
             return true;
         }
 
-        cooldownCache.add("sotw", Long.parseLong(String.valueOf(time)));
+        cooldownManager.add(CooldownName.SOTW_TIMER, Long.parseLong(String.valueOf(time)));
         Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.start");
         if (message.isPresent()) {
             message.get().setVariable("%time%", String.valueOf(time))
@@ -69,13 +68,13 @@ public class SOTWCommand implements CommandClass {
     public boolean stopCommand(@Injected(true) CommandSender sender) {
         String language = languageUtils.getLanguage(sender);
 
-        if (!cooldownCache.exists("sotw")) {
+        if (!cooldownManager.exists(CooldownName.SOTW_TIMER)) {
             Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.error.not-started");
             message.ifPresent(translatableMessage -> sender.sendMessage(translatableMessage.setColor(true).getMessage(language)));
             return true;
         }
 
-        cooldownCache.remove("sotw");
+        cooldownManager.remove(CooldownName.SOTW_TIMER);
         Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.stop");
         if (message.isPresent()) {
             message.get().setVariable("%staff_name%", sender.getName()).setColor(true);

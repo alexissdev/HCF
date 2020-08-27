@@ -7,6 +7,7 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.listeners.AppleListener;
 import dev.notcacha.hcf.listeners.CombatListener;
 import dev.notcacha.hcf.listeners.PearlListener;
+import dev.notcacha.hcf.listeners.SotwListener;
 import dev.notcacha.hcf.listeners.UserListener;
 import org.bukkit.plugin.PluginManager;
 
@@ -24,6 +25,8 @@ public class ListenersLoaderManager implements LoaderManager {
     private CombatListener combatListener;
     @Inject
     private AppleListener appleListener;
+    @Inject
+    private SotwListener sotwListener;
 
     @Override
     public void load() {
@@ -33,5 +36,6 @@ public class ListenersLoaderManager implements LoaderManager {
         pluginManager.registerEvents(this.pearlListener, this.plugin);
         pluginManager.registerEvents(this.combatListener, this.plugin);
         pluginManager.registerEvents(this.appleListener, this.plugin);
+        pluginManager.registerEvents(this.sotwListener, this.plugin);
     }
 }

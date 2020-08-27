@@ -1,4 +1,4 @@
-package dev.notcacha.hcf.cache;
+package dev.notcacha.hcf.combatlog;
 
 import dev.notcacha.core.cache.CacheProvider;
 

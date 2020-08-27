@@ -5,8 +5,8 @@ import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.core.service.ServiceManager;
 import dev.notcacha.hcf.HCF;
+import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
 import dev.notcacha.hcf.scheduler.MainScheduler;
 
 @Singleton
@@ -16,8 +16,7 @@ public class SchedulerServiceManager implements ServiceManager {
     private HCF plugin;
 
     @Inject
-    @CooldownCache
-    private CacheProvider<String, Long> cooldownCache;
+    private CooldownManager cooldownManager;
 
     @Inject
     @CombatCache
@@ -31,7 +30,7 @@ public class SchedulerServiceManager implements ServiceManager {
             mainScheduler.cancel();
         }
 
-        mainScheduler = new MainScheduler(cooldownCache, combatCache);
+        mainScheduler = new MainScheduler(cooldownManager, combatCache);
         mainScheduler.runTaskTimer(this.plugin, 20, 20);
     }
 
