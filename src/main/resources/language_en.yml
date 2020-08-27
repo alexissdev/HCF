@@ -93,6 +93,7 @@ logout:
   message: "&cThe logout process has started, wait &l%time% &cseconds!"
   cancel: "&cThe logout process has been canceled!"
   is: "&cYou are already in the process of disconnecting!"
+  leave-message: ""
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

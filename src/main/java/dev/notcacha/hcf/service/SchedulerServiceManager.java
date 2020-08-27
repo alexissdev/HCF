@@ -8,6 +8,9 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
 import dev.notcacha.hcf.scheduler.MainScheduler;
+import dev.notcacha.hcf.utils.LanguageUtils;
+import dev.notcacha.languagelib.LanguageLib;
+import org.bukkit.configuration.Configuration;
 
 @Singleton
 public class SchedulerServiceManager implements ServiceManager {
@@ -22,6 +25,11 @@ public class SchedulerServiceManager implements ServiceManager {
     @CombatCache
     private CacheProvider<String, String> combatCache;
 
+    @Inject
+    private LanguageLib<Configuration> languageLib;
+    @Inject
+    private LanguageUtils languageUtils;
+
     private MainScheduler mainScheduler;
 
     @Override
@@ -30,7 +38,7 @@ public class SchedulerServiceManager implements ServiceManager {
             mainScheduler.cancel();
         }
 
-        mainScheduler = new MainScheduler(cooldownManager, combatCache);
+        mainScheduler = new MainScheduler(cooldownManager, combatCache, languageLib, languageUtils);
         mainScheduler.runTaskTimer(this.plugin, 20, 20);
     }
 

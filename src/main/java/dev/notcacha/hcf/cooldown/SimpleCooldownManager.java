@@ -42,5 +42,6 @@ public class SimpleCooldownManager implements CooldownManager {
         cooldownCache.remove(Cooldown.PEARL_COOLDOWN.replace("%id%", id));
         cooldownCache.remove(Cooldown.GOLDEN_APPLE.replace("%id%", id));
         cooldownCache.remove(Cooldown.ENCHANT_GOLDEN_APPLE.replace("%id%", id));
+        cooldownCache.remove(Cooldown.LOGOUT_COOLDOWN.replace("%id%", id));
     }
 }
