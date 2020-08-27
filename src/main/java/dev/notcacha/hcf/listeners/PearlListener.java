@@ -2,7 +2,7 @@ package dev.notcacha.hcf.listeners;
 
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
+import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.CooldownName;
@@ -30,8 +30,7 @@ public class PearlListener implements Listener {
     private CacheProvider<UUID, User> userCache;
 
     @Inject
-    @CooldownCache
-    private CacheProvider<String, Long> cooldownCache;
+    private CooldownManager cooldownManager;
 
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -42,7 +41,7 @@ public class PearlListener implements Listener {
         if (user.isPresent()) {
             if (itemStack != null && itemStack.getType() == Material.ENDER_PEARL) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    Optional<Long> cooldown = cooldownCache.find(CooldownName.PEARL_COOLDOWN.replace("%id%", player.getUniqueId().toString()));
+                    Optional<Long> cooldown = cooldownManager.find(CooldownName.PEARL_COOLDOWN, player.getUniqueId().toString());
                     if (cooldown.isPresent()) {
                         if (cooldown.get() > 0) {
                             languageLib.getTranslationManager().getTranslation("cooldown.pearl").ifPresent(message -> {
@@ -53,9 +52,9 @@ public class PearlListener implements Listener {
                             });
                             return;
                         }
-                        cooldownCache.remove(CooldownName.PEARL_COOLDOWN.replace("%id%", player.getUniqueId().toString()));
+                        cooldownManager.remove(CooldownName.PEARL_COOLDOWN, player.getUniqueId().toString());
                     }
-                    cooldownCache.add(CooldownName.PEARL_COOLDOWN.replace("%id%", player.getUniqueId().toString()), Long.parseLong("30"));
+                    cooldownManager.add(CooldownName.PEARL_COOLDOWN, player.getUniqueId().toString(), Long.parseLong("30"));
                 }
             }
         }

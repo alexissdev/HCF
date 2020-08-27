@@ -2,7 +2,7 @@ package dev.notcacha.hcf.listeners;
 
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
+import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.CooldownName;
@@ -30,8 +30,7 @@ public class AppleListener implements Listener {
     private CacheProvider<UUID, User> userCache;
 
     @Inject
-    @CooldownCache
-    private CacheProvider<String, Long> cooldownCache;
+    private CooldownManager cooldownManager;
 
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent event) {
@@ -41,7 +40,21 @@ public class AppleListener implements Listener {
         if (item.getType() == Material.GOLDEN_APPLE) {
             Optional<User> user = userCache.find(player.getUniqueId());
             if (user.isPresent()) {
-                Optional<Long> cooldown = cooldownCache.find(CooldownName.GOLDEN_APPLE.replace("%id%", player.getUniqueId().toString()));
+                if (item.getDurability() == 1) {
+                    Optional<Long> cooldown = cooldownManager.find(CooldownName.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString());
+                    if (cooldown.isPresent()) {
+                        Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.enchant-golden-apple");
+                        if (message.isPresent()) {
+                            message.get().setVariable("%cooldown%", new SimpleDateFormat("hh:mm:ss").format(cooldown.get())).setColor(true);
+
+                            player.sendMessage(message.get().getMessage(user.get().getLanguage()));
+                        }
+                        return;
+                    }
+                    cooldownManager.add(CooldownName.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString(), Long.parseLong("3600"));
+                    return;
+                }
+                Optional<Long> cooldown = cooldownManager.find(CooldownName.GOLDEN_APPLE, player.getUniqueId().toString());
                 if (cooldown.isPresent()) {
                     Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.golden-apple");
                     if (message.isPresent()) {
@@ -51,26 +64,10 @@ public class AppleListener implements Listener {
                     }
                     return;
                 }
-                cooldownCache.add(CooldownName.GOLDEN_APPLE.replace("%id%", player.getUniqueId().toString()), Long.parseLong("3600"));
+                cooldownManager.add(CooldownName.GOLDEN_APPLE, player.getUniqueId().toString(), Long.parseLong("30"));
             }
-            return;
+
         }
 
-        if (item.getType() == Material.GOLDEN_APPLE && item.getDurability() == 1) {
-            Optional<User> user = userCache.find(player.getUniqueId());
-            if (user.isPresent()) {
-                Optional<Long> cooldown = cooldownCache.find(CooldownName.ENCHANT_GOLDEN_APPLE.replace("%id%", player.getUniqueId().toString()));
-                if (cooldown.isPresent()) {
-                    Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.enchant-golden-apple");
-                    if (message.isPresent()) {
-                        message.get().setVariable("%cooldown%", new SimpleDateFormat("hh:mm:ss").format(cooldown.get())).setColor(true);
-
-                        player.sendMessage(message.get().getMessage(user.get().getLanguage()));
-                    }
-                    return;
-                }
-                cooldownCache.add(CooldownName.ENCHANT_GOLDEN_APPLE.replace("%id%", player.getUniqueId().toString()), Long.parseLong("3600"));
-            }
-        }
     }
 }

@@ -1,4 +1,4 @@
-package dev.notcacha.hcf.cooldown;
+package dev.notcacha.hcf.cooldown.cache;
 
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;

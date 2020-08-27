@@ -2,8 +2,8 @@ package dev.notcacha.hcf.listeners;
 
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
+import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.CooldownName;
@@ -28,8 +28,7 @@ public class CombatListener implements Listener {
     private CacheProvider<UUID, User> userCache;
 
     @Inject
-    @CooldownCache
-    private CacheProvider<String, Long> cooldownCache;
+    private CooldownManager cooldownManager;
 
     @Inject
     @CombatCache
@@ -73,8 +72,8 @@ public class CombatListener implements Listener {
                 }
             }
 
-            cooldownCache.add(CooldownName.COMBAT_COOLDOWN.replace("%id%", player.getUniqueId().toString()), Long.parseLong("30"));
-            cooldownCache.add(CooldownName.COMBAT_COOLDOWN.replace("%id%", damager.getUniqueId().toString()), Long.parseLong("30"));
+            cooldownManager.add(CooldownName.COMBAT_COOLDOWN, player.getUniqueId().toString(), Long.parseLong("30"));
+            cooldownManager.add(CooldownName.COMBAT_COOLDOWN, damager.getUniqueId().toString(), Long.parseLong("30"));
             combatCache.add(player.getName(), damager.getName());
             combatCache.add(damager.getName(), player.getName());
         }

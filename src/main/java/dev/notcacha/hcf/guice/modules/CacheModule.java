@@ -3,7 +3,7 @@ package dev.notcacha.hcf.guice.modules;
 import com.google.inject.AbstractModule;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.cache.CombatCacheProvider;
-import dev.notcacha.hcf.cooldown.CooldownCacheProvider;
+import dev.notcacha.hcf.cooldown.cache.CooldownCacheProvider;
 import dev.notcacha.hcf.faction.cache.FactionCacheProvider;
 import dev.notcacha.hcf.guice.anotations.cache.*;
 import dev.notcacha.hcf.kit.cache.KitCacheProvider;

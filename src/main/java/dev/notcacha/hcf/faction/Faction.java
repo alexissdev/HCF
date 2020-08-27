@@ -6,6 +6,7 @@ import dev.notcacha.hcf.utils.Cuboid;
 import org.bukkit.Location;
 
 import java.util.Optional;
+import java.util.Set;
 
 public interface Faction extends Model {
 
@@ -42,4 +43,10 @@ public interface Faction extends Model {
      */
 
     Faction setClaim(Cuboid claim);
+
+    /**
+     * @return members from this clan
+     */
+
+    Set<String> getMembers();
 }

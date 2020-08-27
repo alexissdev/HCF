@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
+import dev.notcacha.hcf.listeners.AppleListener;
 import dev.notcacha.hcf.listeners.CombatListener;
 import dev.notcacha.hcf.listeners.PearlListener;
 import dev.notcacha.hcf.listeners.UserListener;
@@ -21,6 +22,8 @@ public class ListenersLoaderManager implements LoaderManager {
     private PearlListener pearlListener;
     @Inject
     private CombatListener combatListener;
+    @Inject
+    private AppleListener appleListener;
 
     @Override
     public void load() {
@@ -29,5 +32,6 @@ public class ListenersLoaderManager implements LoaderManager {
         pluginManager.registerEvents(this.userListener, this.plugin);
         pluginManager.registerEvents(this.pearlListener, this.plugin);
         pluginManager.registerEvents(this.combatListener, this.plugin);
+        pluginManager.registerEvents(this.appleListener, this.plugin);
     }
 }
