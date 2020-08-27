@@ -26,6 +26,7 @@ public class BinderModule extends AbstractModule {
         this.install(new CacheModule());
         this.install(new ManagerModule());
         this.install(new StorageModule());
+        this.install(new EconomyModule());
         this.install(new LoaderModule());
         this.install(new ServiceModule());
     }

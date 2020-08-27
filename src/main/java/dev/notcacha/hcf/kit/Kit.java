@@ -3,7 +3,6 @@ package dev.notcacha.hcf.kit;
 import dev.notcacha.core.model.Model;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
 import java.util.Optional;
 
 public interface Kit extends Model {
