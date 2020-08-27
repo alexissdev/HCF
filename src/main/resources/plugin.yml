@@ -1,0 +1,7 @@
+name: HCF
+version: ${project.version}
+main: dev.notcacha.hcf.HCF
+api-version: 1.13
+authors: [NotCacha]
+description: HCF Core has been created by NotCacha
+website: cloudly.team

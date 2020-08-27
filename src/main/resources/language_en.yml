@@ -1,0 +1,59 @@
+# General message from core
+general:
+  no-permissions: "&cYou no have permissions to execute this command!"
+  target-offline: "&c%target_name% is not connected in server!"
+# SOTW messages
+sotw:
+  usage:
+    - "&7&m----------------------------------------"
+    - "&e/&6sotw start <time> &7- &8Start SOTW Timer"
+    - "&e/&6sotw stop &7- &8Stop SOTW Timer"
+    - "&7&m----------------------------------------"
+  error:
+    is-started: "&cSOTW is started!"
+    not-started: "&cSOTW is not started!"
+  start: "&eSOTW Timer has been started by &6%staff_name% &efrom &6%time%&e!"
+  stop: "&eSOTW Timer has been stopped by &6%staff_name%&e!"
+# Kit Manager messages
+kitmanager:
+  usages:
+    main:
+      - "&7&m-----------------------------------------------------------"
+      - "&7/&ekitmanager create {name} {price (Optional)} &7- &8Create kit"
+      - "&7/&ekitmanager remove {name} &7- &8Remove kit"
+      - "&7/&ekitmanager setitems {name} &7- &8Set items from kit"
+      - "&7/&ekitmanager additems {name} &7- &8Add items from kit"
+      - "&7/&ekitmanager setarmor {name} &7- &8Set armor from kit"
+      - "&7/&ekitmanager addarmor {name} &7- &8Add armor from kit"
+      - "&7&m-----------------------------------------------------------"
+  error:
+    exists: "&c%kit_name% is already created!"
+    not-exists: "&c%kit_name% is not already created!"
+  set:
+    items:
+      inventory-name: "&eSet items from kit &6%kit_name%"
+      message: "&eYou has been set items from kit &6%kit_name%"
+    armor:
+      inventory-name: "&eSet armor from kit &6%kit_name%"
+      message: "&eYou has been set armor from kit &6%kit_name%"
+    cost: "&eYou has been set price from kit &6%kit_name% &eis cost &6%cost%"
+  add:
+    items:
+      inventory-name: "&eAdd items from kit &6%kit_name%"
+      message: "&eYou has been added items from kit &6%kit_name%"
+    armor:
+      inventory-name: "&eAdded armor from kit &6%kit_name%"
+      message: "&eYou has been added armor from kit &6%kit_name%"
+  create: "&eYou has been created &6%kit_name% &ekit!"
+  remove: "&eYou has been deleted &6%kit_name% &ekit!"
+# Cooldowns messages
+cooldown:
+  pearl: "&cYou have to wait %cooldown% seconds!"
+  enchant-golden-apple: "&cYou have to wait %cooldown%!"
+  golden-apple: "&cYou have to wait %cooldown% seconds!"
+# Invalid messages from EBCM Command Manager
+ebcm-i18n:
+  invalid:
+    boolean: "The provided argument(%s%) is not a valid boolean!"
+    integer: "The argument %s% is not a valid number!"
+    double: "The argument %s% is not a valid number!"
