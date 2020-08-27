@@ -33,6 +33,7 @@ public class KitStorageProvider implements StorageProvider<Kit> {
         if (!exists(s)) {
             return Optional.empty();
         }
+
         JsonFile jsonFile = new JsonFile(plugin, new File(plugin.getDataFolder() + "/kits/"), s + ".json");
         Gson gson = gsonManager.getGson();
         return Optional.of(gson.fromJson(jsonFile.getText(), Kit.class));

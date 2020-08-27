@@ -8,6 +8,7 @@ import dev.notcacha.hcf.faction.SimpleFaction;
 import dev.notcacha.hcf.guice.anotations.cache.FactionCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
+import dev.notcacha.hcf.utils.FactionUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
@@ -81,7 +82,7 @@ public class FactionCommand implements CommandClass {
     public boolean createCommand(@Injected(true) @Sender Player player, String factionName) {
         String language = languageUtils.getLanguage(player);
 
-        if (factionCache.exists(factionName)) {
+        if (factionCache.exists(factionName) || FactionUtils.isNotPermittedFactionName(factionName)) {
             languageLib.getTranslationManager().getTranslation("faction.error.exists").ifPresent(message -> {
                 message.setVariable("%faction_name%", factionName).setColor(true);
 
@@ -117,20 +118,24 @@ public class FactionCommand implements CommandClass {
 
             Optional<Faction> faction = factionCache.find(factionName.get());
             if (faction.isPresent()) {
-                if (!faction.get().getLeader().equals(player.getName())) {
-                    languageLib.getTranslationManager().getTranslation("is-not-leader").ifPresent(message -> {
-                        message.setVariable("%faction_name%", factionName.get()).setColor(true);
+                Optional<String> leader = faction.get().getLeader();
+                if (leader.isPresent()) {
+                    if (!leader.get().equals(player.getName())) {
+                        languageLib.getTranslationManager().getTranslation("is-not-leader").ifPresent(message -> {
+                            message.setVariable("%faction_name%", factionName.get()).setColor(true);
 
-                        player.sendMessage(message.getMessage(language));
-                    });
-                    return true;
+                            player.sendMessage(message.getMessage(language));
+                        });
+                        return true;
+                    }
                 }
 
-                faction.get().getMembers().forEach(memberName -> {
+                faction.get().getMembers().ifPresent(member ->
+                        member.forEach(memberName -> {
                     OfflinePlayer memberPlayer = plugin.getServer().getOfflinePlayer(memberName);
 
                     userCache.find(memberPlayer.getUniqueId()).ifPresent(memberUser -> memberUser.getFaction().setFactionName(null));
-                });
+                }));
 
                 languageLib.getTranslationManager().getTranslation("faction.disband").ifPresent(message -> {
                     message.setVariable("%faction_name%", factionName.get()).setColor(true);

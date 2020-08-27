@@ -35,11 +35,11 @@ public class SimpleFaction implements Faction {
 
     public SimpleFaction(String id, String leader, FactionType type, Cuboid claim, Location home, Set<String> members) {
         this.id = id;
-        this.leader = leader;
+        this.leader = (type == FactionType.DEFAULT) ? leader : null;
         this.type = type;
         this.claim = claim;
-        this.home = home;
-        this.members = members;
+        this.home = (type == FactionType.DEFAULT) ? home : null;
+        this.members = (type == FactionType.DEFAULT) ? members : null;
     }
 
     @Override
@@ -48,8 +48,8 @@ public class SimpleFaction implements Faction {
     }
 
     @Override
-    public String getLeader() {
-        return this.leader;
+    public Optional<String> getLeader() {
+        return Optional.ofNullable(this.leader);
     }
 
     @Override
@@ -86,8 +86,8 @@ public class SimpleFaction implements Faction {
     }
 
     @Override
-    public Set<String> getMembers() {
-        return this.members;
+    public Optional<Set<String>> getMembers() {
+        return Optional.ofNullable(this.members);
     }
 
     @Override

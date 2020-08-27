@@ -14,7 +14,7 @@ public interface Faction extends Model {
      * @return leader name from this faction
      * */
 
-    String getLeader();
+    Optional<String> getLeader();
 
     /**
      * Set leader
@@ -62,7 +62,7 @@ public interface Faction extends Model {
      * @return members from this clan
      */
 
-    Set<String> getMembers();
+    Optional<Set<String>> getMembers();
 
     /**
      * Set members
