@@ -1,6 +1,6 @@
 package dev.notcacha.hcf.utils;
 
-public class Cooldown {
+public class CooldownUtils {
 
     public static final String PEARL_COOLDOWN = "%id%_pearl";
     public static final String COMBAT_COOLDOWN = "%id%_combat";

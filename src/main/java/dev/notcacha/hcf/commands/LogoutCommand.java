@@ -2,7 +2,7 @@ package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
 import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.utils.Cooldown;
+import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
@@ -28,7 +28,7 @@ public class LogoutCommand implements CommandClass {
     public boolean mainCommand(@Injected(true) @Sender Player player) {
         String language = languageUtils.getLanguage(player);
 
-        if (cooldownManager.exists(Cooldown.LOGOUT_COOLDOWN, player.getUniqueId().toString())) {
+        if (cooldownManager.exists(CooldownUtils.LOGOUT_COOLDOWN, player.getUniqueId().toString())) {
             languageLib.getTranslationManager().getTranslation("logout.is").ifPresent(message -> {
                 message.setColor(true);
 
@@ -43,7 +43,7 @@ public class LogoutCommand implements CommandClass {
 
             player.sendMessage(message.getMessage(language));
         });
-        cooldownManager.add(Cooldown.LOGOUT_COOLDOWN, player.getUniqueId().toString(), cooldown);
+        cooldownManager.add(CooldownUtils.LOGOUT_COOLDOWN, player.getUniqueId().toString(), cooldown);
         return true;
     }
 }

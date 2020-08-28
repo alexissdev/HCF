@@ -4,12 +4,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
-import dev.notcacha.hcf.utils.Cooldown;
+import dev.notcacha.hcf.utils.CooldownUtils;
 
 import java.util.Optional;
 
 @Singleton
-public class SimpleCooldownManager implements CooldownManager {
+public class BaseCooldownManager implements CooldownManager {
 
     @Inject
     @CooldownCache
@@ -38,10 +38,10 @@ public class SimpleCooldownManager implements CooldownManager {
 
     @Override
     public void removeAll(String id) {
-        cooldownCache.remove(Cooldown.COMBAT_COOLDOWN.replace("%id%", id));
-        cooldownCache.remove(Cooldown.PEARL_COOLDOWN.replace("%id%", id));
-        cooldownCache.remove(Cooldown.GOLDEN_APPLE.replace("%id%", id));
-        cooldownCache.remove(Cooldown.ENCHANT_GOLDEN_APPLE.replace("%id%", id));
-        cooldownCache.remove(Cooldown.LOGOUT_COOLDOWN.replace("%id%", id));
+        cooldownCache.remove(CooldownUtils.COMBAT_COOLDOWN.replace("%id%", id));
+        cooldownCache.remove(CooldownUtils.PEARL_COOLDOWN.replace("%id%", id));
+        cooldownCache.remove(CooldownUtils.GOLDEN_APPLE.replace("%id%", id));
+        cooldownCache.remove(CooldownUtils.ENCHANT_GOLDEN_APPLE.replace("%id%", id));
+        cooldownCache.remove(CooldownUtils.LOGOUT_COOLDOWN.replace("%id%", id));
     }
 }

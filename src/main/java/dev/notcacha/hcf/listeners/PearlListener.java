@@ -5,7 +5,7 @@ import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
-import dev.notcacha.hcf.utils.Cooldown;
+import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
@@ -41,7 +41,7 @@ public class PearlListener implements Listener {
         if (user.isPresent()) {
             if (itemStack != null && itemStack.getType() == Material.ENDER_PEARL) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-                    Optional<Long> cooldown = cooldownManager.find(Cooldown.PEARL_COOLDOWN, player.getUniqueId().toString());
+                    Optional<Long> cooldown = cooldownManager.find(CooldownUtils.PEARL_COOLDOWN, player.getUniqueId().toString());
                     if (cooldown.isPresent()) {
                         if (cooldown.get() > 0) {
                             languageLib.getTranslationManager().getTranslation("cooldown.pearl").ifPresent(message -> {
@@ -52,9 +52,9 @@ public class PearlListener implements Listener {
                             });
                             return;
                         }
-                        cooldownManager.remove(Cooldown.PEARL_COOLDOWN, player.getUniqueId().toString());
+                        cooldownManager.remove(CooldownUtils.PEARL_COOLDOWN, player.getUniqueId().toString());
                     }
-                    cooldownManager.add(Cooldown.PEARL_COOLDOWN, player.getUniqueId().toString(), Long.parseLong("30"));
+                    cooldownManager.add(CooldownUtils.PEARL_COOLDOWN, player.getUniqueId().toString(), Long.parseLong("30"));
                 }
             }
         }

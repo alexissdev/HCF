@@ -2,7 +2,7 @@ package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
 import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.utils.Cooldown;
+import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.parametric.CommandClass;
@@ -38,7 +38,7 @@ public class RemoveCooldownCommand implements CommandClass {
             return true;
         }
 
-        if (!Cooldown.hasCooldown(type)) {
+        if (!CooldownUtils.hasCooldown(type)) {
             languageLib.getTranslationManager().getTranslation("cooldown.not-exists-cooldown").ifPresent(message -> {
                 message.setVariable("%cooldown_name%", type).setColor(true);
 
