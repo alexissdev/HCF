@@ -5,6 +5,7 @@ import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.combatlog.CombatCacheProvider;
 import dev.notcacha.hcf.combatlog.CombatLoggerCacheProvider;
 import dev.notcacha.hcf.cooldown.cache.CooldownCacheProvider;
+import dev.notcacha.hcf.deathban.cache.DeathbanCacheProvider;
 import dev.notcacha.hcf.faction.cache.FactionCacheProvider;
 import dev.notcacha.hcf.guice.anotations.cache.*;
 import dev.notcacha.hcf.kit.cache.KitCacheProvider;
@@ -22,5 +23,6 @@ public class CacheModule extends AbstractModule {
         this.bind(CacheProvider.class).annotatedWith(CooldownCache.class).to(CooldownCacheProvider.class);
         this.bind(CacheProvider.class).annotatedWith(CombatCache.class).to(CombatCacheProvider.class);
         this.bind(CacheProvider.class).annotatedWith(CombatLoggerCache.class).to(CombatLoggerCacheProvider.class);
+        this.bind(CacheProvider.class).annotatedWith(DeathbanCache.class).to(DeathbanCacheProvider.class);
     }
 }

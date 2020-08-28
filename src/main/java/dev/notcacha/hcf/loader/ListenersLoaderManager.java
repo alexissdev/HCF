@@ -4,13 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
-import dev.notcacha.hcf.listeners.AppleListener;
-import dev.notcacha.hcf.listeners.CombatListener;
-import dev.notcacha.hcf.listeners.CombatLoggerListener;
-import dev.notcacha.hcf.listeners.LogoutListener;
-import dev.notcacha.hcf.listeners.PearlListener;
-import dev.notcacha.hcf.listeners.SotwListener;
-import dev.notcacha.hcf.listeners.UserListener;
+import dev.notcacha.hcf.listeners.*;
 import org.bukkit.plugin.PluginManager;
 
 @Singleton
@@ -33,6 +27,10 @@ public class ListenersLoaderManager implements LoaderManager {
     private CombatLoggerListener combatLoggerListener;
     @Inject
     private LogoutListener logoutListener;
+    @Inject
+    private DeathListener deathListener;
+    @Inject
+    private DeathbanListener deathbanListener;
 
 
     @Override
@@ -46,5 +44,7 @@ public class ListenersLoaderManager implements LoaderManager {
         pluginManager.registerEvents(this.sotwListener, this.plugin);
         pluginManager.registerEvents(this.combatLoggerListener, this.plugin);
         pluginManager.registerEvents(this.logoutListener, this.plugin);
+        pluginManager.registerEvents(this.deathListener, this.plugin);
+        pluginManager.registerEvents(this.deathbanListener, this.plugin);
     }
 }

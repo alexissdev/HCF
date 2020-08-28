@@ -5,6 +5,7 @@ import dev.notcacha.core.cache.CacheProvider;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Singleton
 public class CooldownCacheProvider implements CacheProvider<String, Long> {
@@ -18,5 +19,14 @@ public class CooldownCacheProvider implements CacheProvider<String, Long> {
     @Override
     public Map<String, Long> get() {
         return this.cooldownMap;
+    }
+
+    @Override
+    public Optional<Long> find(String id) {
+        if (!exists(id)) {
+            return Optional.empty();
+        }
+
+        return Optional.of((cooldownMap.get(id) - System.currentTimeMillis()) / 1000L);
     }
 }

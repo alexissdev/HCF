@@ -123,6 +123,18 @@ spawn:
   set: "&eYou has been set spawn from server!"
   teleport: "&eYou has been teleport to &6spawn&e!"
   not-exists: "&cThis spawn server is not exists!"
+# Time format messages
+format:
+  week: "week"
+  weeks: "weeks"
+  day: "day"
+  days: "days"
+  hour: "hour"
+  hours: "hours"
+  minute: "minute"
+  minutes: "minutes"
+  second: "second"
+  seconds: "seconds"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

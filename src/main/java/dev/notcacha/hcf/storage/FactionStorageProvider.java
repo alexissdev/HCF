@@ -58,8 +58,8 @@ public class FactionStorageProvider implements StorageProvider<Faction> {
     @Override
     public void delete(String s) {
         if (exists(s)) {
-            File kit = new File(plugin.getDataFolder() + "/factions/", s);
-            kit.delete();
+            File faction = new File(plugin.getDataFolder() + "/factions/", s);
+            faction.delete();
         }
     }
 

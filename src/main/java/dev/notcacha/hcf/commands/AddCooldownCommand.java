@@ -38,7 +38,7 @@ public class AddCooldownCommand implements CommandClass {
             return true;
         }
 
-        if (!CooldownUtils.hasCooldown(type)) {
+        if (CooldownUtils.isNotCooldown(type)) {
             languageLib.getTranslationManager().getTranslation("cooldown.not-exists-cooldown").ifPresent(message -> {
                 message.setVariable("%cooldown_name%", type).setColor(true);
 
