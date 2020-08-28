@@ -1,49 +1,49 @@
 package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
-import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.utils.Cooldown;
+import dev.notcacha.hcf.spawn.SpawnManager;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
+import org.bukkit.Location;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
-import java.text.SimpleDateFormat;
+import java.util.Optional;
 
-public class LogoutCommand implements CommandClass {
+public class SpawnCommand implements CommandClass {
+
+    @Inject
+    private SpawnManager spawnManager;
 
     @Inject
     private LanguageLib<Configuration> languageLib;
 
     @Inject
     private LanguageUtils languageUtils;
-    @Inject
-    private CooldownManager cooldownManager;
 
-    @ACommand(names = "logout", permission = "hcf.logout")
+    @ACommand(names = "spawn", permission = "hcf.spawn")
     public boolean mainCommand(@Injected(true) @Sender Player player) {
         String language = languageUtils.getLanguage(player);
 
-        if (cooldownManager.exists(Cooldown.LOGOUT_COOLDOWN, player.getUniqueId().toString())) {
-            languageLib.getTranslationManager().getTranslation("logout.is").ifPresent(message -> {
+        Optional<Location> location = spawnManager.getSpawn();
+        if (!location.isPresent()) {
+            languageLib.getTranslationManager().getTranslation("spawn.not-exists").ifPresent(message -> {
                 message.setColor(true);
 
                 player.sendMessage(message.getMessage(language));
             });
             return true;
         }
-
-        long cooldown = Long.parseLong("30");
-        languageLib.getTranslationManager().getTranslation("logout.message").ifPresent(message -> {
-            message.setVariable("%time%", new SimpleDateFormat("00.0").format(cooldown)).setColor(true);
+        languageLib.getTranslationManager().getTranslation("spawn.teleport").ifPresent(message -> {
+            message.setColor(true);
 
             player.sendMessage(message.getMessage(language));
         });
-        cooldownManager.add(Cooldown.LOGOUT_COOLDOWN, player.getUniqueId().toString(), cooldown);
+        player.teleport(location.get());
         return true;
     }
 }

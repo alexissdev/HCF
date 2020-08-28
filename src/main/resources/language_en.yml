@@ -118,6 +118,11 @@ stats:
     - "&eDeaths&7: &6%player_deaths%"
     - "&eFaction&7: &6%player_faction%"
     - "&7&m-------------------------------------"
+# Spawn messages
+spawn:
+  set: "&eYou has been set spawn from server!"
+  teleport: "&eYou has been teleport to &6spawn&e!"
+  not-exists: "&cThis spawn server is not exists!"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

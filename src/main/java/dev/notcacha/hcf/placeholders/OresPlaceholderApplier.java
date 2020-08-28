@@ -19,7 +19,8 @@ public class OresPlaceholderApplier implements PlaceholderApplier {
     @Override
     public String set(Player player, String text) {
         return userCache.find(player.getUniqueId()).map(user ->
-                text.replace("%player_emeralds%", String.valueOf(user.getEmeraldsManager().get()))
+                text.replace("%player_name%", player.getName())
+                        .replace("%player_emeralds%", String.valueOf(user.getEmeraldsManager().get()))
                         .replace("%player_readstone%", String.valueOf(user.getRedstoneManager().get()))
                         .replace("%player_lapis%", String.valueOf(user.getLapisManager().get()))
                         .replace("%player_gold%", String.valueOf(user.getGoldManager().get()))
