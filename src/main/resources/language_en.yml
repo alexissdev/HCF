@@ -34,6 +34,13 @@ faction:
     is-not-leader: "&cYou can't do this only leaders can!"
   create: "&e%faction_name% &6has been created by &e%player_name%"
   disband: "&e%faction_name% &6has been disband by &e%player_name%"
+  invite:
+    player: "&eYou has been invited &6%target_name% &efrom your faction!"
+    target: "&6%player_name% &ehas been invited to join from &6%faction_name%&e!"
+  leave:
+    player: ""
+    faction: ""
+    leader-leave-error: ""
 # SOTW messages
 sotw:
   usage:

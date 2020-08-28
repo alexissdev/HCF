@@ -2,8 +2,8 @@ package dev.notcacha.hcf.guice.modules;
 
 import com.google.inject.AbstractModule;
 import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.combatlog.CombatCacheProvider;
-import dev.notcacha.hcf.combatlog.CombatLoggerCacheProvider;
+import dev.notcacha.hcf.combatlog.cache.CombatCacheProvider;
+import dev.notcacha.hcf.combatlog.cache.CombatLoggerCacheProvider;
 import dev.notcacha.hcf.cooldown.cache.CooldownCacheProvider;
 import dev.notcacha.hcf.deathban.cache.DeathbanCacheProvider;
 import dev.notcacha.hcf.faction.cache.FactionCacheProvider;

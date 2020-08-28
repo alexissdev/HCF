@@ -1,4 +1,4 @@
-package dev.notcacha.hcf.combatlog;
+package dev.notcacha.hcf.combatlog.cache;
 
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
