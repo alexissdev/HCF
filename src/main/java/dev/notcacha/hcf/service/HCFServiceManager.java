@@ -38,7 +38,7 @@ public class HCFServiceManager implements ServiceManager {
     public void start() {
         this.schedulerService.start();
         this.apiService.start();
-        this.spawnService.stop();
+        this.spawnService.start();
         this.commandsLoader.load();
         this.listenersLoader.load();
 
