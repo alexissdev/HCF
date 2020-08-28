@@ -17,10 +17,16 @@ public class JsonFile {
     private final File file;
     private final String fileName;
 
+    public JsonFile(Plugin plugin, String fileName) {
+        this.plugin = plugin;
+        this.fileName = fileName;
+        this.file = new File(plugin.getDataFolder(), (fileName.endsWith(".json") ? fileName : fileName + ".json"));
+    }
+
     public JsonFile(Plugin plugin, File folder, String fileName) {
         this.plugin = plugin;
         this.fileName = fileName;
-        file = new File(folder, fileName + ".json");
+        file = new File(folder, (fileName.endsWith(".json") ? fileName : fileName + ".json"));
     }
 
     public void create() {

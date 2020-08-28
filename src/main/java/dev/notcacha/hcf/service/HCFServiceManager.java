@@ -8,6 +8,7 @@ import dev.notcacha.hcf.guice.anotations.loader.CommandsLoader;
 import dev.notcacha.hcf.guice.anotations.loader.ListenersLoader;
 import dev.notcacha.hcf.guice.anotations.service.APIService;
 import dev.notcacha.hcf.guice.anotations.service.SchedulerService;
+import dev.notcacha.hcf.guice.anotations.service.SpawnService;
 import dev.notcacha.hcf.placeholders.PlaceholderAPIWrapper;
 
 @Singleton
@@ -19,6 +20,9 @@ public class HCFServiceManager implements ServiceManager {
     @Inject
     @APIService
     private ServiceManager apiService;
+    @Inject
+    @SpawnService
+    private ServiceManager spawnService;
 
     @Inject
     @CommandsLoader
@@ -34,6 +38,7 @@ public class HCFServiceManager implements ServiceManager {
     public void start() {
         this.schedulerService.start();
         this.apiService.start();
+        this.spawnService.stop();
         this.commandsLoader.load();
         this.listenersLoader.load();
 
@@ -44,5 +49,6 @@ public class HCFServiceManager implements ServiceManager {
     public void stop() {
         this.schedulerService.stop();
         this.apiService.stop();
+        this.spawnService.stop();
     }
 }
