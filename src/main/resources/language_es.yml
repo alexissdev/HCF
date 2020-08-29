@@ -1,0 +1,197 @@
+# General message from core
+general:
+  no-permissions: "&c¡No tienes permisos para ejecutar este comando!"
+  target-offline: "&c¡%target_name% no esta conectado!"
+# Language messages
+language:
+  get:
+    this: "&eTu lenguaje actual es &6%language%"
+    other: "&6El lenguaje de %target_name% es &6%language%"
+  set: "&eAhora tu lenguaje es &6%language%"
+  invalid-language: "&cEl lenguaje '%language%' no es valido, actualmente solo existen [EN, ES]"
+# Faction message
+faction:
+  usage:
+    '1':
+      - "&7&m-------------------------------------------------------------------"
+      - " &6&lFaction Help (Page 1)"
+      - "  &e/faction create <name> &7- &8¡Crea una faction!"
+      - "  &e/faction disband &7- &8¡Cierra tu faction!"
+      - "  &e/faction invite <player> &7- &8¡Invita a un jugador!"
+      - "  &e/faction join <faction> &7- &8J¡Unete con una invitacion!"
+      - "  &e/faction leave &7- &8¡Abandona tu faction!"
+      - "  &e/faction kick <player> &7- &8¡Kickea a un jugador de tu faction!"
+      - "  &e/faction claim &7- &8¡Reclama una faction!"
+      - "  &e/faction unclaim &7- &8Clear claim from your faction!"
+      - "&7&m-------------------------------------------------------------------"
+    '2':
+      - "&7&m-------------------------------------------------------------------"
+      - " &6&lFaction Help (Page 2)"
+      - "  &e/faction home &7- &8Teleportarse a la home de tu faction!"
+      - "  &e/faction sethome &7- &8Establece la home de tu faction!"
+      - "  &e/faction deposit <amount> &7- &8Desposita dinero a tu faction!"
+      - "  &e/faction withdraw <amount> &7- &8Saca dinero de la economia de tu faction!"
+      - "  &e/faction message <message> &7- &8Enviale un mensaje a los miembros de tu faction!"
+      - "  &e/faction show <faction (Opcional)>  &7- &8Mira tu faction o la de otra persona!"
+      - "&7&m-------------------------------------------------------------------"
+  error:
+    exists: "&cLa faction %faction_name% ya existe!"
+    not-exists: "&cLa faction %faction_name% no existe!"
+    no-contains-faction: "&c¡No estas en ninguna faction!"
+    is-not-leader: "&c¡Este comando solo puede ser ejecutado por el lider de la faction!"
+  create: "&6La faction &e%faction_name% &6ha sido creada por &e%player_name%"
+  disband: "&6La faction &e%faction_name% &6ha cerrado por &e%player_name%"
+  invite:
+    player: "&e¡Has invitado a &6%target_name% &ea tu faction!"
+    target: "&6%player_name% &ete ha invitado a la faction &6%faction_name%&e!"
+  leave:
+    player: "&e¡Has abandonado la faction &6%faction_name%&e!"
+    faction: "&6%player_name% &eha abandonado la faction"
+    leader-leave-error: "&c¡No puedes abandonar la faction siendo el lider, otorga tu liderazgo a otro usuario de tu faction!"
+# SOTW messages
+sotw:
+  usage:
+    - "&7&m----------------------------------------"
+    - "&e/&6sotw start <time> &7- &8Empezar el SOTW Timer"
+    - "&e/&6sotw stop &7- &8Parar el SOTW Timer"
+    - "&7&m----------------------------------------"
+  error:
+    is-started: "&c¡El SOTW ha iniciado!"
+    not-started: "&c¡El SOTW no ha iniciado!"
+  start: "&eEl temporizador del SOTW ha empezado por &6%staff_name% &een &6%time%&e!"
+  stop: "&eEl temporizador del SOTW ha sido detenido por &6%staff_name%&e!"
+# Kit Manager messages
+kitmanager:
+  usages:
+    main:
+      - "&7&m-----------------------------------------------------------"
+      - "&7/&ekitmanager create {name} {price (Opcional)} &7- &8Crear kit!"
+      - "&7/&ekitmanager remove {name} &7- &8Borrar kit!"
+      - "&7/&ekitmanager setitems {name} &7- &8Establece los items del kit!"
+      - "&7/&ekitmanager additems {name} &7- &8Agregar items al kit!"
+      - "&7/&ekitmanager setarmor {name} &7- &8Establecer la aradura al kit!"
+      - "&7/&ekitmanager addarmor {name} &7- &8Agregar armadura al kit!"
+      - "&7&m-----------------------------------------------------------"
+  error:
+    exists: "&c¡El kit %kit_name% ya esta creado!"
+    not-exists: "&c¡El kit %kit_name% no existe!"
+  set:
+    items:
+      inventory-name: "&e¡Selecciona los items de &6%kit_name%"
+      message: "&eHas seleccionado los items del kit &6%kit_name%"
+    armor:
+      inventory-name: "&eSelecciona la armadura de &6%kit_name%"
+      message: "&eHas seleccionado la armadura del kit &6%kit_name%"
+    cost: "&eEl costo del kit &6%kit_name% &eahora es de &6%cost%"
+  add:
+    items:
+      inventory-name: "&eAñade items al kit &6%kit_name%"
+      message: "&eHas añadido los items correctamente al kit &6%kit_name%"
+    armor:
+      inventory-name: "&eAñade armadura al kit &6%kit_name%"
+      message: "&eHas añadido armadura correctamente al kit &6%kit_name%"
+  create: "&e¡Has creado el kit &6%kit_name% &e!"
+  remove: "&e¡Has eliminado el kit &6%kit_name% &e!"
+# Cooldowns messages
+cooldown:
+  pearl: "&c¡Necesitas esperar %cooldown% segundos!"
+  enchant-golden-apple: "&c¡Necesitas esperar %cooldown%!"
+  golden-apple: "&c¡Necesitas esperar %cooldown% segundos!"
+  not-exists-cooldown: "&cEl tiempo de espera %cooldown_name% no existe!"
+  no-contains: "&c¡%player_name% no contiene el tiempo de espera %cooldown_name%!"
+  contains: "&c¡%player_name% ya contiene el tiempo de espera %cooldown_name%!"
+  remove: "&e¡Has removido el tiempo de espera &6%cooldown name% &edel jugador &6%player_name%&e!"
+  add: "&e¡Has añadido el tiempo de espera &6%cooldown name% &eal jugador &6%player_name%&e!"
+# Logout messages
+logout:
+  message: "&cEl proceso de desconectarse ha empezado, esperar &l%time%"
+  cancel: "&cEl proceso de desconectarse ha sido cancelado!"
+  is: "&cTu proceso de desconectarse ya se encuentra activo!"
+  leave-message: "&cTe has desconectado correctamente!"
+# Coords message!
+coords:
+  message:
+    - "&7&m-------------------------------------"
+    - "&eSpawn&7: &60&7, &60"
+    - "&7&m-------------------------------------"
+# Help message
+help:
+  message:
+    - '&7&m-----------------------------------------------------'
+    - '&e&l  SeverName Help'
+    - '&a '
+    - '&6  World Border:'
+    - '  &7* &eOverworld&7: &f0,0,0'
+    - '  &7* &eNether&7: &f0,0,0'
+    - '  &7* &eEnd&7: &f&f0,0,0'
+    - '&a '
+    - '&6  End Portals:'
+    - '  &7* &f&f0,0,0'
+    - '&a '
+    - '&6 Soporte:'
+    - '  &7* &ets.servername.net'
+    - '&a '
+    - '&6 Discord:'
+    - '  &7* &servername.net/discord'
+    - '&a '
+    - '&6 Pagina:'
+    - '  &7* &servername.net'
+    - '&7&m-----------------------------------------------------'
+# Stats messages
+stats:
+  ores:
+    - "&7&m-------------------------------------"
+    - "&dDiamantes&7: &f%player_diamonds%"
+    - "&aEsmeraldas&7: &f%player_emeralds%"
+    - "&cRedstone&7: &f%player_redstone%"
+    - "&9Lapislazuli&7: &f%player_lapis%"
+    - "&6Oro&7: &f%player_gold%"
+    - "&7Hierro&7: &f%player_iron%"
+    - "&8Carbon&7: &f%player_coal%"
+    - "&7&m-------------------------------------"
+  general:
+    - "&7&m-------------------------------------"
+    - "&eAsesinatos&7: &6%player_kills%"
+    - "&eMuertes&7: &6%player_deaths%"
+    - "&eFaction&7: &6%player_faction%"
+    - "&7&m-------------------------------------"
+# Spawn messages
+spawn:
+  set: "&e¡Has seleccionado correctamente el punto de spawn!"
+  teleport: "&e¡Has sido teletransportado al &6spawn&e!"
+  not-exists: "&c¡Este spawn no existe!"
+# Time format messages
+format:
+  week: "semana"
+  weeks: "semanas
+  day: "dia"
+  days: "dias"
+  hour: "hora"
+  hours: "horas"
+  minute: "minuto"
+  minutes: "minutos"
+  second: "segundo"
+  seconds: "segundos"
+# Crate messages
+crate:
+  usage:
+    - "&7&m------------------------------------------"
+    - " &7/&ecrate create <name> &7- &8Crear crate!"
+    - " &7/&ecrate delete <name> &7- &8Borrar crate!"
+    - " &7/&ecrate setcolor <name> &7- &8Establecer color a la caja!"
+    - " &7/&ecrate setitems <name> &7- &8Establecer items a la caja!"
+    - " &7/&ecrate give <name from crate> &7- &8Obten la caja!"
+    - "&7&m------------------------------------------"
+  error:
+    exists: "&c¡La caja %crate_name% ya existe!"
+    not-exists: "&c¡La caja %crate_name% no existe!"
+  set-items: "&eLos items de la caja &6%crate_name% &ehan sido seleccionados correctamente!"
+  set-color: "&e¡has seleccionado el color %color_char%%color_name% &epara la caja!"
+  create: "&e¡Has creado la caja &6%crate_name%&e!"
+  delete: "&e¡Has eliminado la caja &6%crate_name%&e!"
+# Invalid messages from EBCM Command Manager
+ebcm-i18n:
+  invalid:
+    boolean: "El argumento (%s%) no es un booleano!"
+    integer: "El argumento %s% no es un numero valido!"
+    double: "El argumento %s% no es un numero doble valido!"
