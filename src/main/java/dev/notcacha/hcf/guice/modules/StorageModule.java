@@ -2,14 +2,8 @@ package dev.notcacha.hcf.guice.modules;
 
 import com.google.inject.AbstractModule;
 import dev.notcacha.core.storage.StorageProvider;
-import dev.notcacha.hcf.guice.anotations.storage.DeathbanStorage;
-import dev.notcacha.hcf.guice.anotations.storage.FactionStorage;
-import dev.notcacha.hcf.guice.anotations.storage.KitStorage;
-import dev.notcacha.hcf.guice.anotations.storage.UserStorage;
-import dev.notcacha.hcf.storage.DeathbanStorageProvider;
-import dev.notcacha.hcf.storage.FactionStorageProvider;
-import dev.notcacha.hcf.storage.KitStorageProvider;
-import dev.notcacha.hcf.storage.UserStorageProvider;
+import dev.notcacha.hcf.guice.anotations.storage.*;
+import dev.notcacha.hcf.storage.*;
 
 public class StorageModule extends AbstractModule {
 
@@ -19,5 +13,6 @@ public class StorageModule extends AbstractModule {
         this.bind(StorageProvider.class).annotatedWith(FactionStorage.class).to(FactionStorageProvider.class);
         this.bind(StorageProvider.class).annotatedWith(KitStorage.class).to(KitStorageProvider.class);
         this.bind(StorageProvider.class).annotatedWith(DeathbanStorage.class).to(DeathbanStorageProvider.class);
+        this.bind(StorageProvider.class).annotatedWith(CrateStorage.class).to(CrateStorageProvider.class);
     }
 }
