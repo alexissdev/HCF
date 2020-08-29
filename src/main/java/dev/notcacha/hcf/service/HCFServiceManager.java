@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.core.service.ServiceManager;
+import dev.notcacha.hcf.economy.VaultEconomyWrapper;
 import dev.notcacha.hcf.guice.anotations.loader.CommandsLoader;
 import dev.notcacha.hcf.guice.anotations.loader.ListenersLoader;
 import dev.notcacha.hcf.guice.anotations.service.APIService;
@@ -34,6 +35,9 @@ public class HCFServiceManager implements ServiceManager {
     @Inject
     private PlaceholderAPIWrapper placeholderAPIWrapper;
 
+    @Inject
+    private VaultEconomyWrapper vaultEconomyWrapper;
+
     @Override
     public void start() {
         this.schedulerService.start();
@@ -43,6 +47,7 @@ public class HCFServiceManager implements ServiceManager {
         this.listenersLoader.load();
 
         placeholderAPIWrapper.register();
+        vaultEconomyWrapper.setup();
     }
 
     @Override

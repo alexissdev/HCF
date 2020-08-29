@@ -26,4 +26,12 @@ public interface Crate extends Model {
      */
 
     List<ItemStack> getItems();
+
+    /**
+     * Set items from crate
+     *
+     * @param itemList has been set
+     */
+
+    void setItems(List<ItemStack> itemList);
 }

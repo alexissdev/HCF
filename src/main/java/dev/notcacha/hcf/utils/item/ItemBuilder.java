@@ -15,8 +15,8 @@ import java.util.Map;
 public class ItemBuilder {
 
     private final Material material;
-    private final int amount;
-    private final byte data;
+    private int amount;
+    private short data;
 
     private String name;
     private List<String> lore;
@@ -28,10 +28,10 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(Material material, int amount) {
-        this(material, amount, (byte) 0);
+        this(material, amount, (short) 0);
     }
 
-    public ItemBuilder(Material material, int amount, byte data) {
+    public ItemBuilder(Material material, int amount, short data) {
         this.material = material;
         this.amount = amount;
         this.data = data;
@@ -56,6 +56,21 @@ public class ItemBuilder {
 
     public ItemBuilder setLore(LoreBuilder lore) {
         this.lore = lore.build();
+        return this;
+    }
+
+    public ItemBuilder setAmount(int amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    public ItemBuilder setData(short data) {
+        this.data = data;
+        return this;
+    }
+
+    public ItemBuilder setData(int data) {
+        this.data = (short) data;
         return this;
     }
 

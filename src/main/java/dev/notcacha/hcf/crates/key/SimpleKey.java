@@ -8,8 +8,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class SimpleKey implements Key {
 
-    private final ChatColor color;
-    private final ItemStack item;
+    private ChatColor color;
+    private ItemStack item;
 
     public SimpleKey() {
         this(ChatColor.WHITE, new ItemBuilder(Material.TRIPWIRE_HOOK)
@@ -29,7 +29,17 @@ public class SimpleKey implements Key {
     }
 
     @Override
+    public void setColor(ChatColor color) {
+        this.color = color;
+    }
+
+    @Override
     public ItemStack getItem() {
         return this.item;
+    }
+
+    @Override
+    public void setItem(ItemStack item) {
+        this.item = item;
     }
 }

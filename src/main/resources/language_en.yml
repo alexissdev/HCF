@@ -172,6 +172,23 @@ format:
   minutes: "minutes"
   second: "second"
   seconds: "seconds"
+# Crate messages
+crate:
+  usage:
+    - "&7&m------------------------------------------"
+    - " &7/&ecrate create <name> &7- &8Create crate!"
+    - " &7/&ecrate delete <name> &7- &8Delete crate!"
+    - " &7/&ecrate setcolor <name> &7- &8Set color from crate!"
+    - " &7/&ecrate setitems <name> &7- &8Set items from crate!"
+    - " &7/&ecrate give <name from crate> &7- &8Give crate from your!"
+    - "&7&m------------------------------------------"
+  error:
+    exists: "&cThe crate %crate_name% already exists!"
+    not-exists: "&cThe crate %crate_name% does not exist!"
+  set-items: "&eItems have been set correctly to the crate &6%crate_name%&e!"
+  set-color: "&eYou have set the color to %color_char%%color_name%&e!"
+  create: "&eYou has been created crate &6%crate_name%&e!"
+  delete: "&eYou has been deleted crate &6%crate_name%&e!"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

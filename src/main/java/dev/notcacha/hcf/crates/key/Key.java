@@ -11,10 +11,26 @@ public interface Key {
 
     ChatColor getColor();
 
+    /**
+     * Set color
+     *
+     * @param color has been set
+     */
+
+    void setColor(ChatColor color);
+
 
     /**
      * @return item from key
      */
 
     ItemStack getItem();
+
+    /**
+     * Set item
+     *
+     * @param item has been set
+     */
+
+    void setItem(ItemStack item);
 }

@@ -16,7 +16,7 @@ public class BaseCrate implements Crate {
     private final String id;
     private final Key key;
     private final List<Location> locationList;
-    private final List<ItemStack> itemList;
+    private List<ItemStack> itemList;
 
     public BaseCrate(String id) {
         this(id, new SimpleKey(), new ArrayList<>(Collections.singleton(new ItemBuilder(Material.IRON_SWORD)
@@ -53,6 +53,11 @@ public class BaseCrate implements Crate {
     @Override
     public List<ItemStack> getItems() {
         return this.itemList;
+    }
+
+    @Override
+    public void setItems(List<ItemStack> itemList) {
+        this.itemList = itemList;
     }
 
 

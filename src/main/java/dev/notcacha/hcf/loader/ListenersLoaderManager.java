@@ -31,6 +31,8 @@ public class ListenersLoaderManager implements LoaderManager {
     private DeathListener deathListener;
     @Inject
     private DeathbanListener deathbanListener;
+    @Inject
+    private CrateListener crateListener;
 
 
     @Override
@@ -46,5 +48,6 @@ public class ListenersLoaderManager implements LoaderManager {
         pluginManager.registerEvents(this.logoutListener, this.plugin);
         pluginManager.registerEvents(this.deathListener, this.plugin);
         pluginManager.registerEvents(this.deathbanListener, this.plugin);
+        pluginManager.registerEvents(this.crateListener, this.plugin);
     }
 }
