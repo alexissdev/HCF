@@ -189,6 +189,10 @@ crate:
   set-color: "&eYou have set the color to %color_char%%color_name%&e!"
   create: "&eYou has been created crate &6%crate_name%&e!"
   delete: "&eYou has been deleted crate &6%crate_name%&e!"
+  inventory-name:
+    set:
+      color: "&eSet color from crate &6%crate_name%&e!"
+      items: "&eSet items from crate &6%crate_name%&e!"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

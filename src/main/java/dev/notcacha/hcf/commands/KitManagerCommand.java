@@ -3,7 +3,6 @@ package dev.notcacha.hcf.commands;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.guice.anotations.cache.KitCache;
-import dev.notcacha.hcf.guice.anotations.cache.KitManagerCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.kit.Kit;
 import dev.notcacha.hcf.kit.SimpleKit;
@@ -35,9 +34,6 @@ public class KitManagerCommand implements CommandClass {
     @Inject
     @KitCache
     private CacheProvider<String, Kit> kitCache;
-    @Inject
-    @KitManagerCache
-    private CacheProvider<String, String> kitManagerCache;
 
     @ACommand(names = "", permission = "hcf.kitmanager")
     public boolean mainCommand(@Injected(true) @Sender Player player) {
@@ -122,7 +118,7 @@ public class KitManagerCommand implements CommandClass {
 
                 player.openInventory(inventory);
             });
-            kitManagerCache.add(player.getName(), kit.get().getId());
+            user.get().getOptions().setKitEdited(kit.get().getId());
             languageLib.getTranslationManager().getTranslation("kitmanager.set.items.message").ifPresent(message -> {
                 message.setVariable("%kit_name%", kitName).setColor(true);
 
@@ -158,7 +154,7 @@ public class KitManagerCommand implements CommandClass {
                 }
                 player.openInventory(inventory);
             });
-            kitManagerCache.add(player.getName(), kit.get().getId());
+            user.get().getOptions().setKitEdited(kit.get().getId());
             languageLib.getTranslationManager().getTranslation("kitmanager.add.items.message").ifPresent(message -> {
                 message.setVariable("%kit_name%", kitName).setColor(true);
 
@@ -189,7 +185,7 @@ public class KitManagerCommand implements CommandClass {
 
                 player.openInventory(inventory);
             });
-            kitManagerCache.add(player.getName(), kit.get().getId());
+            user.get().getOptions().setKitEdited(kit.get().getId());
             languageLib.getTranslationManager().getTranslation("kitmanager.set.armor.message").ifPresent(message -> {
                 message.setVariable("%kit_name%", kitName).setColor(true);
 
@@ -225,7 +221,7 @@ public class KitManagerCommand implements CommandClass {
                 }
                 player.openInventory(inventory);
             });
-            kitManagerCache.add(player.getName(), kit.get().getId());
+            user.get().getOptions().setKitEdited(kit.get().getId());
             languageLib.getTranslationManager().getTranslation("kitmanager.add.items.message").ifPresent(message -> {
                 message.setVariable("%kit_name%", kitName).setColor(true);
 

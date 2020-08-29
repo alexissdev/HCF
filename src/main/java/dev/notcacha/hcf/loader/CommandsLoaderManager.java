@@ -53,6 +53,8 @@ public class CommandsLoaderManager implements LoaderManager {
     private LanguageCommand languageCommand;
     @Inject
     private HelpCommand helpCommand;
+    @Inject
+    private CrateCommand crateCommand;
 
     public CommandsLoaderManager() {
         this.builder = new ReflectionParametricCommandBuilder();
@@ -77,6 +79,7 @@ public class CommandsLoaderManager implements LoaderManager {
         commandList.addAll(builder.fromClass(this.setSpawnCommand));
         commandList.addAll(builder.fromClass(this.languageCommand));
         commandList.addAll(builder.fromClass(this.helpCommand));
+        commandList.addAll(builder.fromClass(this.crateCommand));
 
         commandManager.registerCommands(commandList);
     }

@@ -3,6 +3,7 @@ package dev.notcacha.hcf.user;
 import dev.notcacha.core.model.Model;
 import dev.notcacha.hcf.statistics.StatisticsManager;
 import dev.notcacha.hcf.user.faction.UserFaction;
+import dev.notcacha.hcf.user.options.UserOptions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -50,6 +51,12 @@ public interface User extends Model {
      */
 
     User setTimer(boolean timer);
+
+    /**
+     * @return {@link UserOptions} from manageable options from this user
+     */
+
+    UserOptions getOptions();
 
     /**
      * @return an object 'StatisticsManager' in order to handle the kills of this user and to be able to keep a better control

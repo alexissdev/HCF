@@ -5,9 +5,12 @@ import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.crates.BaseCrate;
 import dev.notcacha.hcf.crates.Crate;
 import dev.notcacha.hcf.guice.anotations.cache.CrateCache;
+import dev.notcacha.hcf.guice.anotations.cache.UserCache;
+import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.hcf.utils.item.ItemBuilder;
 import dev.notcacha.languagelib.LanguageLib;
+import dev.notcacha.languagelib.message.TranslatableMessage;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
@@ -21,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @ACommand(names = "crate", permission = "hcf.crate")
 public class CrateCommand implements CommandClass {
@@ -34,6 +38,10 @@ public class CrateCommand implements CommandClass {
     @Inject
     @CrateCache
     private CacheProvider<String, Crate> crateCache;
+
+    @Inject
+    @UserCache
+    private CacheProvider<UUID, User> userCache;
 
     @ACommand(names = "")
     public boolean mainCommand(@Injected(true) @Sender Player player) {
@@ -101,15 +109,21 @@ public class CrateCommand implements CommandClass {
             });
             return true;
         }
-        Inventory inventory = Bukkit.createInventory(null,
-                54,
-                ChatColor.translateAlternateColorCodes('&', "&6Set items from crate &6" + crateName));
+        Optional<TranslatableMessage> title = languageLib.getTranslationManager().getTranslation("crate.inventory-name.set.items");
+        if (title.isPresent()) {
+            title.get().setVariable("%crate_name%", crateName).setColor(true);
 
-        if (!crate.get().getItems().isEmpty()) {
-            crate.get().getItems().forEach(inventory::addItem);
+            Inventory inventory = Bukkit.createInventory(null,
+                    54,
+                    ChatColor.translateAlternateColorCodes('&', "&6Set items from crate &6" + crateName));
+
+            if (!crate.get().getItems().isEmpty()) {
+                crate.get().getItems().forEach(inventory::addItem);
+            }
+
+            player.openInventory(inventory);
+            userCache.find(player.getUniqueId()).ifPresent(user -> user.getOptions().setCrateEdited(crateName));
         }
-
-        player.openInventory(inventory);
         return true;
     }
 
@@ -128,22 +142,27 @@ public class CrateCommand implements CommandClass {
             return true;
         }
 
-        Inventory inventory = Bukkit.createInventory(null,
-                9,
-                ChatColor.translateAlternateColorCodes('&', "&6Set color from crate &6" + crateName));
+        Optional<TranslatableMessage> title = languageLib.getTranslationManager().getTranslation("crate.inventory-name.set.color");
+        if (title.isPresent()) {
+            title.get().setVariable("%crate_name%", crateName).setColor(true);
 
-        inventory.setItem(0, new ItemBuilder(Material.WOOL).setName("&fWhite Color", true).build());
-        inventory.setItem(1, new ItemBuilder(Material.WOOL).setData(1).setName("&6Orange Color", true).build());
-        inventory.setItem(2, new ItemBuilder(Material.WOOL).setData(11).setName("&9Blue Color", true).build());
-        inventory.setItem(3, new ItemBuilder(Material.WOOL).setData(5).setName("&2Green Color", true).build());
-        inventory.setItem(4, new ItemBuilder(Material.WOOL).setData(4).setName("&eYellow Color", true).build());
-        inventory.setItem(5, new ItemBuilder(Material.WOOL).setData(14).setName("&cRed Color", true).build());
-        inventory.setItem(6, new ItemBuilder(Material.WOOL).setData(14).setName("&4Dark Red Color", true).build());
-        inventory.setItem(7, new ItemBuilder(Material.WOOL).setData(15).setName("&8Black Color", true).build());
-        inventory.setItem(8, new ItemBuilder(Material.WOOL).setData(10).setName("&5Purple Color", true).build());
+            Inventory inventory = Bukkit.createInventory(null,
+                    9,
+                    ChatColor.translateAlternateColorCodes('&', title.get().getMessage(language)));
 
-        player.openInventory(inventory);
+            inventory.setItem(0, new ItemBuilder(Material.WOOL).setName("&fWhite Color", true).build());
+            inventory.setItem(1, new ItemBuilder(Material.WOOL).setData(1).setName("&6Orange Color", true).build());
+            inventory.setItem(2, new ItemBuilder(Material.WOOL).setData(11).setName("&9Blue Color", true).build());
+            inventory.setItem(3, new ItemBuilder(Material.WOOL).setData(5).setName("&2Green Color", true).build());
+            inventory.setItem(4, new ItemBuilder(Material.WOOL).setData(4).setName("&eYellow Color", true).build());
+            inventory.setItem(5, new ItemBuilder(Material.WOOL).setData(14).setName("&cRed Color", true).build());
+            inventory.setItem(6, new ItemBuilder(Material.WOOL).setData(14).setName("&4Dark Red Color", true).build());
+            inventory.setItem(7, new ItemBuilder(Material.WOOL).setData(15).setName("&8Black Color", true).build());
+            inventory.setItem(8, new ItemBuilder(Material.WOOL).setData(10).setName("&5Purple Color", true).build());
 
+            player.openInventory(inventory);
+            userCache.find(player.getUniqueId()).ifPresent(user -> user.getOptions().setCrateEdited(crateName));
+        }
         return true;
     }
 

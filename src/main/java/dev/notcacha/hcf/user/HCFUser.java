@@ -12,6 +12,8 @@ import dev.notcacha.hcf.statistics.ores.LapisStatisticsManager;
 import dev.notcacha.hcf.statistics.ores.RedstoneStatisticsManager;
 import dev.notcacha.hcf.user.faction.SimpleUserFaction;
 import dev.notcacha.hcf.user.faction.UserFaction;
+import dev.notcacha.hcf.user.options.SimpleUserOptions;
+import dev.notcacha.hcf.user.options.UserOptions;
 
 public class HCFUser implements User {
 
@@ -21,6 +23,7 @@ public class HCFUser implements User {
     private boolean timer;
 
     private final UserFaction faction;
+    private final UserOptions options;
 
     private final StatisticsManager killsManager;
     private final StatisticsManager deathsManager;
@@ -47,6 +50,7 @@ public class HCFUser implements User {
         this.timer = timer;
 
         this.faction = new SimpleUserFaction();
+        this.options = new SimpleUserOptions();
 
         this.killsManager = new KillsStatisticsManager();
         this.deathsManager = new DeathsStatisticsManager();
@@ -94,6 +98,11 @@ public class HCFUser implements User {
     public User setTimer(boolean timer) {
         this.timer = timer;
         return this;
+    }
+
+    @Override
+    public UserOptions getOptions() {
+        return this.options;
     }
 
     @Override
