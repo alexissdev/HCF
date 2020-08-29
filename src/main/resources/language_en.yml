@@ -2,6 +2,13 @@
 general:
   no-permissions: "&cYou no have permissions to execute this command!"
   target-offline: "&c%target_name% is not connected in server!"
+# Language messages
+language:
+  get:
+    this: "&eYou language is &6%language%"
+    other: "&6%target_name%'s &elanguage is &6%language%"
+  set: "&eYou language has been set to &6%language%"
+  invalid-language: "&cThe language '%language%' is not valid, the current registered languages are [EN, ES]"
 # Faction message
 faction:
   usage:
@@ -107,6 +114,29 @@ coords:
     - "&7&m-------------------------------------"
     - "&eSpawn&7: &60&7, &60"
     - "&7&m-------------------------------------"
+# Help message
+help:
+  message:
+    - '&7&m-----------------------------------------------------'
+    - '&e&l  SeverName Help'
+    - '&a '
+    - '&6  World Border:'
+    - '  &7* &eOverworld&7: &f0,0,0'
+    - '  &7* &eNether&7: &f0,0,0'
+    - '  &7* &eEnd&7: &f&f0,0,0'
+    - '&a '
+    - '&6  End Portals:'
+    - '  &7* &f&f0,0,0'
+    - '&a '
+    - '&6 Support:'
+    - '  &7* &ets.servername.net'
+    - '&a '
+    - '&6 Discord:'
+    - '  &7* &servername.net/discord'
+    - '&a '
+    - '&6 Website:'
+    - '  &7* &servername.net'
+    - '&7&m-----------------------------------------------------'
 # Stats messages
 stats:
   ores:

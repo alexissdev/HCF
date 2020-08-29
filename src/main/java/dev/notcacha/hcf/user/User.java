@@ -3,6 +3,10 @@ package dev.notcacha.hcf.user;
 import dev.notcacha.core.model.Model;
 import dev.notcacha.hcf.statistics.StatisticsManager;
 import dev.notcacha.hcf.user.faction.UserFaction;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public interface User extends Model {
 
@@ -100,6 +104,14 @@ public interface User extends Model {
      */
 
     StatisticsManager getCoalManager();
+
+    /**
+     * @return Bukkit player using user id
+     */
+
+    default Player getPlayer() {
+        return Bukkit.getPlayer(UUID.fromString(getId()));
+    }
 
 
 }

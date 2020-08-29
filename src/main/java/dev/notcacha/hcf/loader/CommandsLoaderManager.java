@@ -4,17 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
-import dev.notcacha.hcf.commands.AddCooldownCommand;
-import dev.notcacha.hcf.commands.CoordsCommand;
-import dev.notcacha.hcf.commands.FactionCommand;
-import dev.notcacha.hcf.commands.KitManagerCommand;
-import dev.notcacha.hcf.commands.LogoutCommand;
-import dev.notcacha.hcf.commands.OresCommand;
-import dev.notcacha.hcf.commands.RemoveCooldownCommand;
-import dev.notcacha.hcf.commands.SOTWCommand;
-import dev.notcacha.hcf.commands.SetSpawnCommand;
-import dev.notcacha.hcf.commands.SpawnCommand;
-import dev.notcacha.hcf.commands.StatisticsCommand;
+import dev.notcacha.hcf.commands.*;
 import dev.notcacha.hcf.i18n.CustomI18n;
 import me.fixeddev.ebcm.Command;
 import me.fixeddev.ebcm.bukkit.BukkitCommandManager;
@@ -59,6 +49,10 @@ public class CommandsLoaderManager implements LoaderManager {
     private SpawnCommand spawnCommand;
     @Inject
     private SetSpawnCommand setSpawnCommand;
+    @Inject
+    private LanguageCommand languageCommand;
+    @Inject
+    private HelpCommand helpCommand;
 
     public CommandsLoaderManager() {
         this.builder = new ReflectionParametricCommandBuilder();
@@ -81,6 +75,8 @@ public class CommandsLoaderManager implements LoaderManager {
         commandList.addAll(builder.fromClass(this.statisticsCommand));
         commandList.addAll(builder.fromClass(this.spawnCommand));
         commandList.addAll(builder.fromClass(this.setSpawnCommand));
+        commandList.addAll(builder.fromClass(this.languageCommand));
+        commandList.addAll(builder.fromClass(this.helpCommand));
 
         commandManager.registerCommands(commandList);
     }

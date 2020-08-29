@@ -58,4 +58,13 @@ public class LanguageUtils {
 
         return language;
     }
+
+    /**
+     * @return if {@param language} is a valid language among the registered languages
+     */
+
+    public boolean inValid(String language) {
+        return !language.toLowerCase().equalsIgnoreCase("EN")
+                || !language.toLowerCase().equalsIgnoreCase("ES");
+    }
 }
