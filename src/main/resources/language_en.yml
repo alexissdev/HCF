@@ -45,9 +45,9 @@ faction:
     player: "&eYou has been invited &6%target_name% &efrom your faction!"
     target: "&6%player_name% &ehas been invited to join from &6%faction_name%&e!"
   leave:
-    player: ""
-    faction: ""
-    leader-leave-error: ""
+    player: "&eYou have left the faction &6%faction_name%!&e!"
+    faction: "&6%player_name% &ehas left the faction!"
+    leader-leave-error: "&cYou cannot leave the faction being a leader, give the position to another member or delete the faction!"
 # SOTW messages
 sotw:
   usage:
