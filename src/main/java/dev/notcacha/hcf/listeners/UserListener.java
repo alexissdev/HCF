@@ -3,6 +3,8 @@ package dev.notcacha.hcf.listeners;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.core.storage.StorageProvider;
+import dev.notcacha.hcf.HCF;
+import dev.notcacha.hcf.api.events.user.UserJoinEvent;
 import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
@@ -19,6 +21,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class UserListener implements Listener {
+
+    @Inject
+    private HCF plugin;
 
     @Inject
     @UserCache
@@ -42,9 +47,11 @@ public class UserListener implements Listener {
         if (user.isPresent()) {
             if (!user.get().hasTimer()) {
                 cooldownManager.add(CooldownUtils.PVP_TIMER, player.getUniqueId().toString(), Long.parseLong("3600"));
+                user.get().setTimer(true);
             }
 
             userCache.add(player.getUniqueId(), user.get());
+            plugin.getServer().getPluginManager().callEvent(new UserJoinEvent(user.get()));
         }
     }
 
@@ -55,6 +62,10 @@ public class UserListener implements Listener {
         cooldownManager.removeAll(player.getUniqueId().toString());
         combatCache.remove(player.getName());
 
-        userCache.find(player.getUniqueId()).ifPresent(user -> userStorage.save(user));
+        userCache.find(player.getUniqueId()).ifPresent(user -> {
+            plugin.getServer().getPluginManager().callEvent(new UserJoinEvent(user));
+
+            userStorage.save(user);
+        });
     }
 }
