@@ -4,21 +4,19 @@ import dev.notcacha.hcf.utils.item.ItemBuilder;
 import dev.notcacha.hcf.utils.item.LoreBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 public class SimpleKey implements Key {
 
     private ChatColor color;
-    private ItemStack item;
+    private ItemBuilder item;
 
     public SimpleKey() {
         this(ChatColor.WHITE, new ItemBuilder(Material.TRIPWIRE_HOOK)
                 .setName("&6Example Key", true)
-                .setLore(new LoreBuilder().addLines("&7Example lore from this Key"))
-                .build());
+                .setLore(new LoreBuilder().addLines("&7Example lore from this Key")));
     }
 
-    public SimpleKey(ChatColor color, ItemStack item) {
+    public SimpleKey(ChatColor color, ItemBuilder item) {
         this.color = color;
         this.item = item;
     }
@@ -34,12 +32,12 @@ public class SimpleKey implements Key {
     }
 
     @Override
-    public ItemStack getItem() {
-        return this.item;
+    public ItemBuilder getItem() {
+        return this.item.fakeBuild();
     }
 
     @Override
-    public void setItem(ItemStack item) {
+    public void setItem(ItemBuilder item) {
         this.item = item;
     }
 }

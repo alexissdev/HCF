@@ -1,5 +1,6 @@
 package dev.notcacha.hcf.crates.key;
 
+import dev.notcacha.hcf.utils.item.ItemBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
@@ -24,7 +25,7 @@ public interface Key {
      * @return item from key
      */
 
-    ItemStack getItem();
+    ItemBuilder getItem();
 
     /**
      * Set item
@@ -32,5 +33,5 @@ public interface Key {
      * @param item has been set
      */
 
-    void setItem(ItemStack item);
+    void setItem(ItemBuilder item);
 }

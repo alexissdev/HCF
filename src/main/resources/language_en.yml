@@ -193,6 +193,19 @@ crate:
     set:
       color: "&eSet color from crate &6%crate_name%&e!"
       items: "&eSet items from crate &6%crate_name%&e!"
+  key:
+    usage:
+      - "&7&m-------------------------------------------------------"
+      - " &7/&ekey give <crate> <amount> &7- &8Give key from yourself!"
+      - " &7/&ekey give <target> <crate> <amount> &7- &8Give key from target!"
+      - " &7/&ekey giveall <crate> <amount> &7- &8Give key from all players online!"
+      - "&7&m------------------------------------------------------"
+    give:
+      this: "&eYou have received a key from the crate &6%crate_name%&e!"
+      other: "&eYou have given a key of the &6%crate_name% test to &6%target_name%&e!"
+      all: "&eYou have given a crate &6%crate_name% &ekey to all online players!"
+    error:
+      in-valid-amount: "&cPlease enter a number greater than 0"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:

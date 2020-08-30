@@ -95,6 +95,9 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder fakeBuild() {
+        return new ItemBuilder(this.material, this.amount, this.data);
+    }
 
     public ItemStack build() {
         ItemStack item = new ItemStack(material, amount, data);

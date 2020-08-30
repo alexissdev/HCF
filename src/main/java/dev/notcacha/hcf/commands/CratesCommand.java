@@ -26,8 +26,8 @@ import org.bukkit.inventory.Inventory;
 import java.util.Optional;
 import java.util.UUID;
 
-@ACommand(names = "crate", permission = "hcf.crate")
-public class CrateCommand implements CommandClass {
+@ACommand(names = "crate", permission = "hcf.crates")
+public class CratesCommand implements CommandClass {
 
     @Inject
     private LanguageLib<Configuration> languageLib;
@@ -53,7 +53,7 @@ public class CrateCommand implements CommandClass {
         return true;
     }
 
-    @ACommand(names = {"create", "add"}, permission = "hcf.crate.create")
+    @ACommand(names = {"create", "add"}, permission = "hcf.crates.create")
     @Usage(usage = "§cCorrect usage is /crate create <name from crate>")
     public boolean createCommand(@Injected(true) @Sender Player player, String crateName) {
         String language = languageUtils.getLanguage(player);
@@ -74,7 +74,7 @@ public class CrateCommand implements CommandClass {
         return true;
     }
 
-    @ACommand(names = {"delete", "remove"}, permission = "hcf.crate.delete")
+    @ACommand(names = {"delete", "remove"}, permission = "hcf.crates.delete")
     @Usage(usage = "§cCorrect usage is /crate delete <name from crate>")
     public boolean deleteCommand(@Injected(true) @Sender Player player, String crateName) {
         String language = languageUtils.getLanguage(player);
@@ -95,7 +95,7 @@ public class CrateCommand implements CommandClass {
         return true;
     }
 
-    @ACommand(names = {"setitems", "additems"}, permission = "hcf.crate.setitems")
+    @ACommand(names = {"setitems", "additems"}, permission = "hcf.crates.setitems")
     @Usage(usage = "§cCorrect usage is /crate setitems <name from crate>")
     public boolean setItemsCommand(@Injected(true) @Sender Player player, String crateName) {
         String language = languageUtils.getLanguage(player);
@@ -127,7 +127,7 @@ public class CrateCommand implements CommandClass {
         return true;
     }
 
-    @ACommand(names = "setcolor", permission = "hcf.crate.setcolor")
+    @ACommand(names = "setcolor", permission = "hcf.crates.setcolor")
     @Usage(usage = "§cCorrect usage is /crate setcolor <name from crate>")
     public boolean setColorCommand(@Injected(true) @Sender Player player, String crateName) {
         String language = languageUtils.getLanguage(player);

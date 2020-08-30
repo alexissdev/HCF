@@ -193,6 +193,19 @@ crate:
     set:
       color: "&eEstablece el color de la caja &6%crate_name%&e!"
       items: "&eEstablece los items de la caja &6%crate_name%&e!"
+  key:
+    usage:
+      - "&7&m-------------------------------------------------------"
+      - " &7/&ekey give <crate> <amount> &7- &8Date una key a ti mismo!"
+      - " &7/&ekey give <target> <crate> <amount> &7- &8Dale una key a otro jugador!"
+      - " &7/&ekey giveall <crate> <amount> &7- &8Dale una key a todos los jugadores online!"
+      - "&7&m------------------------------------------------------"
+    give:
+      this: "&eHas recibido una key de la crate &6%crate_name%&e!"
+      other: "&eLe has dado una key de la crate &6%crate_name% &ea &6%target_name%&e!"
+      all: "&eLe has dado una key de la crate &6%crate_name% &ea todos los jugadores online!"
+    error:
+      in-valid-amount: "&cIngresa un numero mayor a 0!"
 # Invalid messages from EBCM Command Manager
 ebcm-i18n:
   invalid:
