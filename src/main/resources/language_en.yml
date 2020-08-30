@@ -39,8 +39,12 @@ faction:
     not-exists: "&cThe faction %faction_name% does not exist!"
     no-contains-faction: "&cYou are not in any faction!"
     is-not-leader: "&cYou can't do this only leaders can!"
+    is-your-faction: "&cYou can't hit a member of your faction!"
   create: "&e%faction_name% &6has been created by &e%player_name%"
   disband: "&e%faction_name% &6has been disband by &e%player_name%"
+  on:
+    join: "&eYou has been enter from faction &6%target_name% &eclaim!"
+    left: "&eYou has been left from faction &6%target_name% &eclaim!"
   invite:
     player: "&eYou has been invited &6%target_name% &efrom your faction!"
     target: "&6%player_name% &ehas been invited to join from &6%faction_name%&e!"
@@ -224,3 +228,5 @@ ebcm-i18n:
     boolean: "The provided argument(%s%) is not a valid boolean!"
     integer: "The argument %s% is not a valid number!"
     double: "The argument %s% is not a valid number!"
+    command-sender: "Failed to get the command sender!"
+    only-player: "Only players can execute this command!"

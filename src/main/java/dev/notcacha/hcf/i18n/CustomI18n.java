@@ -51,10 +51,28 @@ public class CustomI18n implements I18n {
                 return message.get().setColor(true).getMessage(language);
             }
         }
-        if (messageId.equals("provider.invalid.boolean")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.boolean");
+        if (messageId.equals("bukkit.invalid.commandsender")) {
+            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.command-sender");
             if (message.isPresent()) {
-                return message.get().setVariable("%s%", "%s").setColor(true).getMessage(language);
+                return message.get().setColor(true).getMessage(language);
+            }
+        }
+        if (messageId.equals("bukkit.only.players")) {
+            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.only-player");
+            if (message.isPresent()) {
+                return message.get().setColor(true).getMessage(language);
+            }
+        }
+        if (messageId.equals("bukkit.invalid.commandsender")) {
+            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.command-sender");
+            if (message.isPresent()) {
+                return message.get().setColor(true).getMessage(language);
+            }
+        }
+        if (messageId.equals("bukkit.player.not.online")) {
+            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("general.target-offline");
+            if (message.isPresent()) {
+                return message.get().setVariable("%target_name%", "%s").setColor(true).getMessage(language);
             }
         }
         if (messageId.equals("provider.invalid.double")) {

@@ -11,8 +11,16 @@ import java.util.Set;
 public interface Faction extends Model {
 
     /**
+     * Set new name from faction
+     *
+     * @param name has been set
+     */
+
+    void setName(String name);
+
+    /**
      * @return leader name from this faction
-     * */
+     */
 
     Optional<String> getLeader();
 
@@ -20,7 +28,7 @@ public interface Faction extends Model {
      * Set leader
      *
      * @param name from new leader has been set
-     * */
+     */
 
     Faction setLeader(String name);
 
@@ -29,6 +37,40 @@ public interface Faction extends Model {
      **/
 
     FactionType getType();
+
+    /**
+     * @return dtr from faction
+     */
+
+    double getDTR();
+
+    /**
+     * Set DTR from faction
+     *
+     * @param dtr has been set
+     */
+
+    void setDTR(double dtr);
+
+    /**
+     * Add DTR from faction
+     *
+     * @param dtr has been added
+     */
+
+    default void addDTR(double dtr) {
+        setDTR(getDTR() + dtr);
+    }
+
+    /**
+     * Take DTR from faction
+     *
+     * @param dtr has been take
+     */
+
+    default void takeDTR(double dtr) {
+        setDTR(getDTR() - dtr);
+    }
 
     /**
      * @return home location from this faction

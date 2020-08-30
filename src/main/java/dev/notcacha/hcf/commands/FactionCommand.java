@@ -25,6 +25,7 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @ACommand(names = {"faction", "f"})
@@ -257,6 +258,47 @@ public class FactionCommand implements CommandClass {
             }
             user.get().getFaction().setFactionName(null);
             user.get().getFaction().setRole(null);
+        }
+        return true;
+    }
+
+    @ACommand(names = "rename", permission = "hcf.faction.rename")
+    @Usage(usage = "§cCorrect usage is /faction rename <name has been set from faction>")
+    public boolean renameCommand(@Injected(true) @Sender Player player, String name) {
+        String language = languageUtils.getLanguage(player);
+
+        Optional<User> user = userCache.find(player.getUniqueId());
+        if (user.isPresent()) {
+            Optional<String> userFaction = user.get().getFaction().getFactionName();
+            if (!userFaction.isPresent()) {
+                languageLib.getTranslationManager().getTranslation("faction.no-contains-faction").ifPresent(message -> {
+                    message.setColor(true);
+
+                    player.sendMessage(message.getMessage(language));
+                });
+                return true;
+            }
+            if (factionCache.exists(name) || FactionUtils.isNotPermittedFactionName(name)) {
+                languageLib.getTranslationManager().getTranslation("faction.error.exists").ifPresent(message -> {
+                    message.setVariable("%faction_name%", name).setColor(true);
+
+                    player.sendMessage(message.getMessage(language));
+                });
+                return true;
+            }
+            Optional<Faction> faction = factionCache.find(userFaction.get());
+            if (faction.isPresent()) {
+                faction.get().setName(name);
+
+                faction.get().getMembers().ifPresent(members -> {
+                    members.forEach(member -> {
+                        OfflinePlayer memberPlayer = plugin.getServer().getOfflinePlayer(member);
+
+                        userCache.find(memberPlayer.getUniqueId()).ifPresent(memberUser -> memberUser.getFaction().setFactionName(name));
+                    });
+                });
+            }
+
         }
         return true;
     }

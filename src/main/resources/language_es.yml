@@ -39,8 +39,12 @@ faction:
     not-exists: "&cLa faction %faction_name% no existe!"
     no-contains-faction: "&c¡No estas en ninguna faction!"
     is-not-leader: "&c¡Este comando solo puede ser ejecutado por el lider de la faction!"
+    is-your-faction: "&cNo puedes pegarle a un miembro de tu faction!"
   create: "&6La faction &e%faction_name% &6ha sido creada por &e%player_name%"
   disband: "&6La faction &e%faction_name% &6ha cerrado por &e%player_name%"
+  on:
+    join: "&eHas entrado al claim de la faction &6%target_name%&e!"
+    left: "&eHas salido del claim de la faction &6%target_name%&e!"
   invite:
     player: "&e¡Has invitado a &6%target_name% &ea tu faction!"
     target: "&6%player_name% &ete ha invitado a la faction &6%faction_name%&e!"
@@ -224,3 +228,5 @@ ebcm-i18n:
     boolean: "El argumento (%s%) no es un booleano!"
     integer: "El argumento %s% no es un numero valido!"
     double: "El argumento %s% no es un numero doble valido!"
+    command-sender: "No se puedo obtener el command sender!"
+    only-player: "Solo jugadores online pueden ejecutar este comando!"
