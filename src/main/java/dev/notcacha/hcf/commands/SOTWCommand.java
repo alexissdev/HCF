@@ -37,7 +37,6 @@ public class SOTWCommand implements CommandClass {
 
             message.get().getMessages(language).forEach(sender::sendMessage);
         }
-
         return true;
     }
 

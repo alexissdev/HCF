@@ -27,7 +27,7 @@ public class CombatLogger {
         LivingEntity entity = (LivingEntity) player.getWorld().spawnEntity(player.getLocation(), EntityType.SKELETON);
         entity.getEquipment().setArmorContents(player.getInventory().getArmorContents());
 
-        entity.setCustomName(ChatColor.translateAlternateColorCodes('&', "&c" + player.getName() + " &7[§4&lCombat Logger&7]"));
+        entity.setCustomName(ChatColor.translateAlternateColorCodes('&', "&c" + player.getName() + " &7[&4&lCombat Logger&7]"));
         entity.setCustomNameVisible(true);
 
     }
