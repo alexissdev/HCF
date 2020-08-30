@@ -5,6 +5,8 @@ import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.listeners.*;
+import dev.notcacha.hcf.listeners.items.EggListener;
+import dev.notcacha.hcf.listeners.items.SnowballListener;
 import org.bukkit.plugin.PluginManager;
 
 @Singleton
@@ -35,6 +37,10 @@ public class ListenersLoaderManager implements LoaderManager {
     private CrateListener crateListener;
     @Inject
     private KitListener kitListener;
+    @Inject
+    private SnowballListener snowballListener;
+    @Inject
+    private EggListener eggListener;
 
 
     @Override
@@ -52,5 +58,7 @@ public class ListenersLoaderManager implements LoaderManager {
         pluginManager.registerEvents(this.deathbanListener, this.plugin);
         pluginManager.registerEvents(this.crateListener, this.plugin);
         pluginManager.registerEvents(this.kitListener, this.plugin);
+        pluginManager.registerEvents(this.snowballListener, this.plugin);
+        pluginManager.registerEvents(this.eggListener, this.plugin);
     }
 }

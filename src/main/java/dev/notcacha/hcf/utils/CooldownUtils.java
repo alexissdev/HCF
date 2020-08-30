@@ -11,6 +11,9 @@ public class CooldownUtils {
     public static final String LOGOUT_COOLDOWN = "%id%_logout";
     public static final String DEATHBAN_COOLDOWN = "%id%_deathban";
 
+    public static final String SNOWBALL_COOLDOWN = "%id%_snowball";
+    public static final String EGG_COOLDOWN = "%id%_egg";
+
     /**
      * @return if {@param text} matches some of the cooldown names
      */
@@ -21,7 +24,9 @@ public class CooldownUtils {
                 && !text.equals(GOLDEN_APPLE)
                 && !text.equals(ENCHANT_GOLDEN_APPLE)
                 && !text.equals(PVP_TIMER)
-                && !text.equals(DEATHBAN_COOLDOWN);
+                && !text.equals(DEATHBAN_COOLDOWN)
+                && !text.equals(SNOWBALL_COOLDOWN)
+                && !text.equals(EGG_COOLDOWN);
     }
 
 }

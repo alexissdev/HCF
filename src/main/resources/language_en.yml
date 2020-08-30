@@ -97,11 +97,23 @@ cooldown:
   pearl: "&cYou have to wait %cooldown% seconds!"
   enchant-golden-apple: "&cYou have to wait %cooldown%!"
   golden-apple: "&cYou have to wait %cooldown% seconds!"
+  snowball: "&cYou have to wait %cooldown% seconds!"
+  egg: "&cYou have to wait %cooldown% seconds!"
   not-exists-cooldown: "&cThe cooldown %cooldown_name% does not exist!"
   no-contains: "&c%player_name% does not contain the cooldown %cooldown_name%!"
   contains: "&c%player_name% already contains the cooldown %cooldown_name%!"
   remove: "&eYou have removed the cooldown &6%cooldown name% &efrom &6%player_name%&e!"
   add: "&eYou has been added the cooldown &6%cooldown name% &efrom &6%player_name%&e!"
+# Ability items message
+ability-items:
+  snowball:
+    message:
+      player: "&eYou have hit &6%target_name% &ewith a &6SNOWBALL&e!"
+      target: "&6%target_mame% &ehas hit you with a &6SNOWBALL&e!"
+  egg:
+    message:
+      player: "&eYou have hit &6%target_name% &ewith a &6EGG&e!"
+      target: "&6%target_mame% &ehas hit you with a &6EGG&e!"
 # Logout messages
 logout:
   message: "&cThe logout process has started, wait &l%time% &cseconds!"

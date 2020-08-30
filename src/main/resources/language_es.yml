@@ -97,11 +97,23 @@ cooldown:
   pearl: "&c¡Necesitas esperar %cooldown% segundos!"
   enchant-golden-apple: "&c¡Necesitas esperar %cooldown%!"
   golden-apple: "&c¡Necesitas esperar %cooldown% segundos!"
+  snowball: "&c¡Necesitas esperar %cooldown% segundos!"
+  egg: "&c¡Necesitas esperar %cooldown% segundos!"
   not-exists-cooldown: "&cEl tiempo de espera %cooldown_name% no existe!"
   no-contains: "&c¡%player_name% no contiene el tiempo de espera %cooldown_name%!"
   contains: "&c¡%player_name% ya contiene el tiempo de espera %cooldown_name%!"
   remove: "&e¡Has removido el tiempo de espera &6%cooldown name% &edel jugador &6%player_name%&e!"
   add: "&e¡Has añadido el tiempo de espera &6%cooldown name% &eal jugador &6%player_name%&e!"
+# Ability items message
+ability-items:
+  snowball:
+    message:
+      player: "&eLe has dado a &6%target_name% &econ una &6SNOWBALL&e!"
+      target: "&6%player_name% &ete ha pegado con una &6SNOWBALL&e!"
+  egg:
+    message:
+      player: "&eLe has dado a &6%target_name% &econ una &6EGG&e!"
+      target: "&6%player_name% &ete ha pegado con una &6EGG&e!"
 # Logout messages
 logout:
   message: "&cEl proceso de desconectarse ha empezado, esperar &l%time%"

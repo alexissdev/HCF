@@ -29,7 +29,8 @@ public class EveryonePlaceholderApplier implements PlaceholderApplier {
                         .replace("%player_gold%", String.valueOf(user.getGoldManager().get()))
                         .replace("%player_iron%", String.valueOf(user.getIronManager().get()))
                         .replace("%player_coal%", String.valueOf(user.getCoalManager().get()))
-                        .replace("%player_faction%", (user.getFaction().getFactionName().isPresent()) ? user.getFaction().getFactionName().get() : "None")
+                        .replace("%player_faction%", (user.getFaction().getFactionName().isPresent()) ?
+                                user.getFaction().getFactionName().get() : "None")
         ).orElse(text);
     }
 }
