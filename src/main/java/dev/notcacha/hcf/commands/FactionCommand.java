@@ -5,6 +5,7 @@ import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.api.events.faction.FactionCreateEvent;
 import dev.notcacha.hcf.api.events.faction.FactionDisbandEvent;
+import dev.notcacha.hcf.api.events.faction.FactionRenameEvent;
 import dev.notcacha.hcf.api.events.faction.UserLeftFactionEvent;
 import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.faction.Faction;
@@ -15,18 +16,21 @@ import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.FactionUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
+import dev.notcacha.hcf.utils.item.ItemBuilder;
+import dev.notcacha.hcf.utils.item.LoreBuilder;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 import me.fixeddev.ebcm.parametric.annotation.Usage;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @ACommand(names = {"faction", "f"})
@@ -64,12 +68,7 @@ public class FactionCommand implements CommandClass {
     @Usage(usage = "§cCorrect usage /faction help <page>")
     public boolean helpCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, Integer page) {
         if (page > 2) {
-            languageLib.getTranslationManager().getTranslation("faction.usage.1").ifPresent(message -> {
-                message.setColor(true);
-
-                message.getMessages(language).forEach(player::sendMessage);
-            });
-            return true;
+            page = 1;
         }
 
         languageLib.getTranslationManager().getTranslation("faction.usage." + page).ifPresent(message -> {
@@ -83,7 +82,6 @@ public class FactionCommand implements CommandClass {
     @ACommand(names = {"create", "add", "c"}, permission = "hcf.faction.create")
     @Usage(usage = "§cCorrect usage is /faction create <name from faction>")
     public boolean createCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String factionName) {
-
         if (factionCache.exists(factionName) || FactionUtils.isNotPermittedFactionName(factionName)) {
             languageLib.getTranslationManager().getTranslation("faction.error.exists").ifPresent(message -> {
                 message.setVariable("%faction_name%", factionName).setColor(true);
@@ -105,7 +103,6 @@ public class FactionCommand implements CommandClass {
 
     @ACommand(names = {"disband", "d"}, permission = "hcf.faction.disband")
     public boolean disbandCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
-
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
             Optional<String> factionName = user.get().getFaction().getFactionName();
@@ -290,6 +287,7 @@ public class FactionCommand implements CommandClass {
                         userCache.find(memberPlayer.getUniqueId()).ifPresent(memberUser -> memberUser.getFaction().setFactionName(name));
                     });
                 });
+                plugin.getServer().getPluginManager().callEvent(new FactionRenameEvent(faction.get(), player.getName()));
             }
 
         }
@@ -300,8 +298,16 @@ public class FactionCommand implements CommandClass {
     @ACommand(names = "claim", permission = "hcf.faction.claim")
     public boolean claimCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
         Configuration languageFile = languageLib.getFileManager().getFile(language);
+        ItemStack item = new ItemBuilder(Material.GOLD_SPADE)
+                .setName(languageFile.getString("faction.claim.item.name", "&6Claim Item"), true)
+                .setLore(new LoreBuilder(languageFile.getStringList("faction.claim.item.lore")).setColor().build())
+                .build();
+        player.getInventory().addItem(item);
+        languageLib.getTranslationManager().getTranslation("faction.claim.get").ifPresent(message -> {
+            message.setColor(true);
 
-
+            player.sendMessage(message.getMessage(language));
+        });
         return true;
     }
 

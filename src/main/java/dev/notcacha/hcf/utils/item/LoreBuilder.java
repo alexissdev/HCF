@@ -15,7 +15,7 @@ public class LoreBuilder {
     }
 
     public LoreBuilder(List<String> lore) {
-        this.lore = lore;
+        this.lore = (lore) != null ? lore : new ArrayList<>();
     }
 
     public LoreBuilder addLines(String... lines) {

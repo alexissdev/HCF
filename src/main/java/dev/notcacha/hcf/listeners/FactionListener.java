@@ -9,14 +9,19 @@ import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.Cuboid;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -110,6 +115,55 @@ public class FactionListener implements Listener {
                     damager.sendMessage(message.getMessage(languageUtils.getLanguage(damager)));
                 });
                 event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        ItemStack item = event.getItem();
+
+        String language = languageUtils.getLanguage(player);
+
+        Optional<User> user = userCache.find(player.getUniqueId());
+        if (!user.isPresent()) return;
+
+        if (item != null && item.getType() == Material.GOLD_SPADE) {
+            if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                event.setCancelled(true);
+
+                if (player.isSneaking()) {
+                    Optional<Location> positionOne = user.get().getOptions().getClaimOptions().getPosition(1);
+                    Optional<Location> positionTwo = user.get().getOptions().getClaimOptions().getPosition(2);
+                    if (!positionOne.isPresent()) {
+                        languageLib.getTranslationManager().getTranslation("faction.claim.no-contains-position").ifPresent(message -> {
+                            message.setVariable("%position%", String.valueOf(1)).setColor(true);
+
+                            player.sendMessage(message.getMessage(language));
+                        });
+                        return;
+                    }
+                    if (!positionTwo.isPresent()) {
+                        languageLib.getTranslationManager().getTranslation("faction.claim.no-contains-position").ifPresent(message -> {
+                            message.setVariable("%position%", String.valueOf(2)).setColor(true);
+
+                            player.sendMessage(message.getMessage(language));
+                        });
+                        return;
+                    }
+
+                    return;
+                }
+
+                return;
+            }
+            if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+                event.setCancelled(true);
+
+                if (player.isSneaking()) {
+                    return;
+                }
             }
         }
     }

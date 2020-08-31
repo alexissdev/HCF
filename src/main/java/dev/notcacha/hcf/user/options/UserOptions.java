@@ -1,5 +1,7 @@
 package dev.notcacha.hcf.user.options;
 
+import dev.notcacha.hcf.user.options.claim.ClaimOptions;
+
 import java.util.Optional;
 
 public interface UserOptions {
@@ -31,4 +33,10 @@ public interface UserOptions {
      */
 
     void setCrateEdited(String name);
+
+    /**
+     * @return {@link ClaimOptions} instance from manageable claim from this user
+     */
+
+    ClaimOptions getClaimOptions();
 }

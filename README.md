@@ -16,7 +16,7 @@ API#findFation(id);
 ```
 FactionCreateEvent
 FactionDisbandEvent
-FactionRenameEvent (in progess...)
+FactionRenameEvent
 UserJoinFactionEvent
 UserLeftFactionEvent
 ```

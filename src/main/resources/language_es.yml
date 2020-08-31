@@ -52,6 +52,18 @@ faction:
     player: "&e¡Has abandonado la faction &6%faction_name%&e!"
     faction: "&6%player_name% &eha abandonado la faction"
     leader-leave-error: "&c¡No puedes abandonar la faction siendo el lider, otorga tu liderazgo a otro usuario de tu faction!"
+  claim:
+    get: "&eHas obtenido el item para &6Claimear&e!"
+    no-contains-position: "&cNo tienes secionada la posición %position%!"
+    item:
+      name: "&6Claim Wand"
+      lore:
+        - "&7&m---------------------------------------"
+        - " &eClick derecho para selecionar la pos &71&e!"
+        - " &eClick izquirdo para selecionar la pos &72&e!"
+        - " &eShift &7+ &eClick derecho para claimear&7!&e"
+        - " &eShift &7+ &eClick izquierdo para borrar el claim&7!&e"
+        - "&7&m---------------------------------------"
 # SOTW messages
 sotw:
   usage:

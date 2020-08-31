@@ -52,6 +52,17 @@ faction:
     player: "&eYou have left the faction &6%faction_name%!&e!"
     faction: "&6%player_name% &ehas left the faction!"
     leader-leave-error: "&cYou cannot leave the faction being a leader, give the position to another member or delete the faction!"
+  claim:
+    get: "&eYou has been get &6Claim item&e!"
+    no-contains-position: "&cYou no have set position %position%!"
+    item:
+      name: "&6Claim Wand"
+      lore:
+        - "&7&m---------------------------------------"
+        - " &eRight click from select pos &71&e!"
+        - " &eLeft click from select pos &72&e!"
+        - " &eShift &7+ &eRight click from claim&7!&e"
+        - " &eShift &7+ &eLeft click from clear claim&7!&e
 # SOTW messages
 sotw:
   usage:
