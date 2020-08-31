@@ -92,4 +92,12 @@ public class Cuboid {
         }
         return has(playerLocation);
     }
+
+    /**
+     * @return {@param cuboid} equals this class
+     */
+
+    public boolean compare(Cuboid cuboid) {
+        return cuboid.equals(this);
+    }
 }

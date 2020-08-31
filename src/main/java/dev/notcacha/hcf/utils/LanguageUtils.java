@@ -25,10 +25,6 @@ public class LanguageUtils {
     public String getLanguage(CommandSender sender) {
         String language = "EN";
 
-        if (sender == null) {
-            return language;
-        }
-
         if (sender instanceof Player) {
             Player player = (Player) sender;
             Optional<User> user = userCache.find(player.getUniqueId());
@@ -46,10 +42,6 @@ public class LanguageUtils {
 
     public String getLanguage(Player player) {
         String language = "EN";
-
-        if (player == null) {
-            return language;
-        }
 
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {

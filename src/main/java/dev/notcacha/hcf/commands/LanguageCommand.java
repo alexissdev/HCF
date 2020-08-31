@@ -2,6 +2,7 @@ package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.LanguageUtils;
@@ -32,8 +33,7 @@ public class LanguageCommand implements CommandClass {
     private CacheProvider<UUID, User> userCache;
 
     @ACommand(names = "")
-    public boolean mainCommand(@Injected(true) @Sender Player player, @Alternative OfflinePlayer target) {
-        String playerLanguage = languageUtils.getLanguage(player);
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String playerLanguage, @Alternative OfflinePlayer target) {
         if (target == null) {
             languageLib.getTranslationManager().getTranslation("language.get.this").ifPresent(message -> {
                 message.setVariable("%language%", playerLanguage).setColor(true);
@@ -61,8 +61,7 @@ public class LanguageCommand implements CommandClass {
 
     @ACommand(names = "set", permission = "hcf.language.set")
     @Usage(usage = "§cCorrect usage is /language set <language has been set>")
-    public boolean mainCommand(@Injected(true) @Sender Player player, String language) {
-        String playerLanguage = languageUtils.getLanguage(player);
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String playerLanguage, String language) {
         if (languageUtils.inValid(language)) {
             languageLib.getTranslationManager().getTranslation("language.invalid-language").ifPresent(message -> {
                 message.setVariable("%language%", language).setColor(true);

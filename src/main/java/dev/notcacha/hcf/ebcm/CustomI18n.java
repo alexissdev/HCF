@@ -1,4 +1,4 @@
-package dev.notcacha.hcf.i18n;
+package dev.notcacha.hcf.ebcm;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

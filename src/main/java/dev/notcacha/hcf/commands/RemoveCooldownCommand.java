@@ -2,8 +2,8 @@ package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
 import dev.notcacha.hcf.cooldown.CooldownManager;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.utils.CooldownUtils;
-import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
@@ -19,15 +19,11 @@ public class RemoveCooldownCommand implements CommandClass {
     private LanguageLib<Configuration> languageLib;
 
     @Inject
-    private LanguageUtils languageUtils;
-
-    @Inject
     private CooldownManager cooldownManager;
 
     @ACommand(names = {"removecooldown", "rmc"}, permission = "hcf.cooldown.remove")
     @Usage(usage = "§cCorrect usage /removecooldown <name from player> <cooldown type>")
-    public boolean mainCommand(@Injected(true) CommandSender sender, OfflinePlayer player, String type) {
-        String language = languageUtils.getLanguage(sender);
+    public boolean mainCommand(@Injected(true) CommandSender sender, @Injected(true) @Language String language, OfflinePlayer player, String type) {
 
         if (player.getPlayer() == null) {
             languageLib.getTranslationManager().getTranslation("general.target-offline").ifPresent(message -> {

@@ -6,6 +6,7 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.api.events.faction.FactionCreateEvent;
 import dev.notcacha.hcf.api.events.faction.FactionDisbandEvent;
 import dev.notcacha.hcf.api.events.faction.UserLeftFactionEvent;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.faction.Faction;
 import dev.notcacha.hcf.faction.SimpleFaction;
 import dev.notcacha.hcf.faction.role.Role;
@@ -49,8 +50,7 @@ public class FactionCommand implements CommandClass {
     private CacheProvider<String, Faction> factionCache;
 
     @ACommand(names = "", permission = "hcf.faction")
-    public boolean mainCommand(@Injected(true) @Sender Player player) {
-        String language = languageUtils.getLanguage(player);
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
 
         languageLib.getTranslationManager().getTranslation("faction.usage.1").ifPresent(message -> {
             message.setColor(true);
@@ -62,9 +62,7 @@ public class FactionCommand implements CommandClass {
 
     @ACommand(names = {"help", "h"}, permission = "hcf.faction.help")
     @Usage(usage = "§cCorrect usage /faction help <page>")
-    public boolean helpCommand(@Injected(true) @Sender Player player, Integer page) {
-        String language = languageUtils.getLanguage(player);
-
+    public boolean helpCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, Integer page) {
         if (page > 2) {
             languageLib.getTranslationManager().getTranslation("faction.usage.1").ifPresent(message -> {
                 message.setColor(true);
@@ -84,8 +82,7 @@ public class FactionCommand implements CommandClass {
 
     @ACommand(names = {"create", "add", "c"}, permission = "hcf.faction.create")
     @Usage(usage = "§cCorrect usage is /faction create <name from faction>")
-    public boolean createCommand(@Injected(true) @Sender Player player, String factionName) {
-        String language = languageUtils.getLanguage(player);
+    public boolean createCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String factionName) {
 
         if (factionCache.exists(factionName) || FactionUtils.isNotPermittedFactionName(factionName)) {
             languageLib.getTranslationManager().getTranslation("faction.error.exists").ifPresent(message -> {
@@ -107,8 +104,7 @@ public class FactionCommand implements CommandClass {
     }
 
     @ACommand(names = {"disband", "d"}, permission = "hcf.faction.disband")
-    public boolean disbandCommand(@Injected(true) @Sender Player player) {
-        String language = languageUtils.getLanguage(player);
+    public boolean disbandCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
 
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
@@ -158,8 +154,7 @@ public class FactionCommand implements CommandClass {
 
     @ACommand(names = "invite", permission = "hcf.faction.invite")
     @Usage(usage = "§cCorrect usage is /faction invite <player has been invited from your faction>")
-    public boolean inviteCommand(@Injected(true) @Sender Player player, OfflinePlayer target) {
-        String language = languageUtils.getLanguage(player);
+    public boolean inviteCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, OfflinePlayer target) {
 
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
@@ -211,8 +206,7 @@ public class FactionCommand implements CommandClass {
     }
 
     @ACommand(names = "leave", permission = "hcf.faction.leave")
-    public boolean leaveCommand(@Injected(true) @Sender Player player) {
-        String language = languageUtils.getLanguage(player);
+    public boolean leaveCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
 
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
@@ -264,8 +258,7 @@ public class FactionCommand implements CommandClass {
 
     @ACommand(names = "rename", permission = "hcf.faction.rename")
     @Usage(usage = "§cCorrect usage is /faction rename <name has been set from faction>")
-    public boolean renameCommand(@Injected(true) @Sender Player player, String name) {
-        String language = languageUtils.getLanguage(player);
+    public boolean renameCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String name) {
 
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
@@ -300,6 +293,15 @@ public class FactionCommand implements CommandClass {
             }
 
         }
+        return true;
+    }
+
+
+    @ACommand(names = "claim", permission = "hcf.faction.claim")
+    public boolean claimCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
+        Configuration languageFile = languageLib.getFileManager().getFile(language);
+
+
         return true;
     }
 

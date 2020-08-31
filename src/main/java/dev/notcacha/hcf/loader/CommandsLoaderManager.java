@@ -4,10 +4,27 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.loader.LoaderManager;
 import dev.notcacha.hcf.HCF;
-import dev.notcacha.hcf.commands.*;
-import dev.notcacha.hcf.i18n.CustomI18n;
+import dev.notcacha.hcf.commands.AddCooldownCommand;
+import dev.notcacha.hcf.commands.CoordsCommand;
+import dev.notcacha.hcf.commands.CratesCommand;
+import dev.notcacha.hcf.commands.FactionCommand;
+import dev.notcacha.hcf.commands.HelpCommand;
+import dev.notcacha.hcf.commands.KeyCommand;
+import dev.notcacha.hcf.commands.KitManagerCommand;
+import dev.notcacha.hcf.commands.LanguageCommand;
+import dev.notcacha.hcf.commands.LogoutCommand;
+import dev.notcacha.hcf.commands.OresCommand;
+import dev.notcacha.hcf.commands.RemoveCooldownCommand;
+import dev.notcacha.hcf.commands.SOTWCommand;
+import dev.notcacha.hcf.commands.SetSpawnCommand;
+import dev.notcacha.hcf.commands.SpawnCommand;
+import dev.notcacha.hcf.commands.StatisticsCommand;
+import dev.notcacha.hcf.ebcm.CustomI18n;
+import dev.notcacha.hcf.ebcm.parameter.provider.LanguageProvider;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import me.fixeddev.ebcm.Command;
 import me.fixeddev.ebcm.bukkit.BukkitCommandManager;
+import me.fixeddev.ebcm.parameter.provider.Key;
 import me.fixeddev.ebcm.parametric.ParametricCommandBuilder;
 import me.fixeddev.ebcm.parametric.ReflectionParametricCommandBuilder;
 
@@ -22,6 +39,9 @@ public class CommandsLoaderManager implements LoaderManager {
 
     @Inject
     private CustomI18n i18n;
+
+    @Inject
+    private LanguageProvider languageProvider;
 
     private final ParametricCommandBuilder builder;
     private final BukkitCommandManager commandManager;
@@ -66,6 +86,7 @@ public class CommandsLoaderManager implements LoaderManager {
     @Override
     public void load() {
         commandManager.setI18n(i18n);
+        commandManager.getProviderRegistry().registerParameterProvider(new Key<>(LanguageProvider.LANGUAGE_MODIFIER, String.class), this.languageProvider);
 
         List<Command> commandList = new ArrayList<>();
         commandList.addAll(builder.fromClass(this.sotwCommand));

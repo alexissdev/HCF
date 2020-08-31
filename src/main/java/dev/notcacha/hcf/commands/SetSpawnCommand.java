@@ -1,8 +1,8 @@
 package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.spawn.SpawnManager;
-import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
@@ -20,11 +20,8 @@ public class SetSpawnCommand implements CommandClass {
     @Inject
     private LanguageLib<Configuration> languageLib;
 
-    @Inject
-    private LanguageUtils languageUtils;
-
     @ACommand(names = "setspawn", permission = "hcf.setspawn")
-    public boolean mainCommand(@Injected(true) @Sender Player player) {
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
         Location location = player.getLocation();
 
         spawnManager.setSpawn(location);
@@ -36,7 +33,7 @@ public class SetSpawnCommand implements CommandClass {
                     .setVariable("%world_name%", location.getWorld().getName())
                     .setColor(true);
 
-            player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
+            player.sendMessage(message.getMessage(language));
         });
         return true;
     }

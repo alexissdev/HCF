@@ -4,10 +4,10 @@ import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.crates.BaseCrate;
 import dev.notcacha.hcf.crates.Crate;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.guice.anotations.cache.CrateCache;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
-import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.hcf.utils.item.ItemBuilder;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.message.TranslatableMessage;
@@ -33,9 +33,6 @@ public class CratesCommand implements CommandClass {
     private LanguageLib<Configuration> languageLib;
 
     @Inject
-    private LanguageUtils languageUtils;
-
-    @Inject
     @CrateCache
     private CacheProvider<String, Crate> crateCache;
 
@@ -44,19 +41,18 @@ public class CratesCommand implements CommandClass {
     private CacheProvider<UUID, User> userCache;
 
     @ACommand(names = "")
-    public boolean mainCommand(@Injected(true) @Sender Player player) {
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
         languageLib.getTranslationManager().getTranslation("crate.usage").ifPresent(message -> {
             message.setColor(true);
 
-            message.getMessages(languageUtils.getLanguage(player)).forEach(player::sendMessage);
+            message.getMessages(language).forEach(player::sendMessage);
         });
         return true;
     }
 
     @ACommand(names = {"create", "add"}, permission = "hcf.crates.create")
     @Usage(usage = "§cCorrect usage is /crate create <name from crate>")
-    public boolean createCommand(@Injected(true) @Sender Player player, String crateName) {
-        String language = languageUtils.getLanguage(player);
+    public boolean createCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String crateName) {
         if (crateCache.exists(crateName)) {
             languageLib.getTranslationManager().getTranslation("crate.error.exists").ifPresent(message -> {
                 message.setVariable("%crate_name%", crateName).setColor(true);
@@ -76,8 +72,7 @@ public class CratesCommand implements CommandClass {
 
     @ACommand(names = {"delete", "remove"}, permission = "hcf.crates.delete")
     @Usage(usage = "§cCorrect usage is /crate delete <name from crate>")
-    public boolean deleteCommand(@Injected(true) @Sender Player player, String crateName) {
-        String language = languageUtils.getLanguage(player);
+    public boolean deleteCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String crateName) {
         if (!crateCache.exists(crateName)) {
             languageLib.getTranslationManager().getTranslation("crate.error.not-exists").ifPresent(message -> {
                 message.setVariable("%crate_name%", crateName).setColor(true);
@@ -97,8 +92,8 @@ public class CratesCommand implements CommandClass {
 
     @ACommand(names = {"setitems", "additems"}, permission = "hcf.crates.setitems")
     @Usage(usage = "§cCorrect usage is /crate setitems <name from crate>")
-    public boolean setItemsCommand(@Injected(true) @Sender Player player, String crateName) {
-        String language = languageUtils.getLanguage(player);
+    public boolean setItemsCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String crateName) {
+        
 
         Optional<Crate> crate = crateCache.find(crateName);
         if (!crate.isPresent()) {
@@ -129,8 +124,8 @@ public class CratesCommand implements CommandClass {
 
     @ACommand(names = "setcolor", permission = "hcf.crates.setcolor")
     @Usage(usage = "§cCorrect usage is /crate setcolor <name from crate>")
-    public boolean setColorCommand(@Injected(true) @Sender Player player, String crateName) {
-        String language = languageUtils.getLanguage(player);
+    public boolean setColorCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String crateName) {
+        
 
         Optional<Crate> crate = crateCache.find(crateName);
         if (!crate.isPresent()) {

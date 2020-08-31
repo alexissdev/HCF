@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.crates.Crate;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.guice.anotations.cache.CrateCache;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
@@ -36,19 +37,19 @@ public class KeyCommand implements CommandClass {
     private CacheProvider<String, Crate> crateCache;
 
     @ACommand(names = "")
-    public boolean mainCommand(@Injected(true) @Sender Player player) {
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
         languageLib.getTranslationManager().getTranslation("crate.key.usage").ifPresent(message -> {
             message.setColor(true);
 
-            message.getMessages(languageUtils.getLanguage(player)).forEach(player::sendMessage);
+            message.getMessages(language).forEach(player::sendMessage);
         });
         return true;
     }
 
     @ACommand(names = "give", permission = "hcf.crates.key.give")
     @Usage(usage = "§cCorrect usage is /key give <crate> <amount> or /key give <target> <crate> <amount>")
-    public boolean giveCommand(@Injected(true) @Sender Player player, @Alternative OfflinePlayer target, String crateName, Integer amount) {
-        String language = languageUtils.getLanguage(player);
+    public boolean giveCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language,
+                               @Alternative OfflinePlayer target, String crateName, Integer amount) {
 
         Optional<Crate> crate = crateCache.find(crateName);
         if (!crate.isPresent()) {
@@ -100,9 +101,7 @@ public class KeyCommand implements CommandClass {
 
     @ACommand(names = "giveall", permission = "hcf.crates.key.giveall")
     @Usage(usage = "§cCorrect usage is /key giveall <crate> <amount>")
-    public boolean giveAllCommand(@Injected(true) @Sender Player player, String crateName, Integer amount) {
-        String language = languageUtils.getLanguage(player);
-
+    public boolean giveAllCommand(@Injected(true) @Sender Player player,@Injected(true) @Language String language, String crateName, Integer amount) {
         Optional<Crate> crate = crateCache.find(crateName);
         if (!crate.isPresent()) {
             languageLib.getTranslationManager().getTranslation("crate.error.not-exists").ifPresent(message -> {

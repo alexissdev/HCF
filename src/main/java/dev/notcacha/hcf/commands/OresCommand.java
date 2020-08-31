@@ -2,11 +2,11 @@ package dev.notcacha.hcf.commands;
 
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
+import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.guice.anotations.placeholders.OresPlaceholder;
 import dev.notcacha.hcf.placeholders.PlaceholderApplier;
 import dev.notcacha.hcf.user.User;
-import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
@@ -28,16 +28,13 @@ public class OresCommand implements CommandClass {
 
     @Inject
     private LanguageLib<Configuration> languageLib;
-    @Inject
-    private LanguageUtils languageUtils;
 
     @Inject
     @OresPlaceholder
     private PlaceholderApplier oresPlaceholder;
 
     @ACommand(names = "ores", permission = "hcf.ores")
-    public boolean mainCommand(@Injected(true) @Sender Player player, @Alternative OfflinePlayer target) {
-        String language = languageUtils.getLanguage(player);
+    public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, @Alternative OfflinePlayer target) {
 
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
