@@ -152,17 +152,46 @@ public class FactionListener implements Listener {
                         });
                         return;
                     }
-
+                    //create claim
                     return;
                 }
+                user.get().getOptions().getClaimOptions().setPosition(event.getClickedBlock().getLocation(), 1);
+                languageLib.getTranslationManager().getTranslation("faction.claim.set-position").ifPresent(message -> {
+                    message.setVariable("%position%", String.valueOf(1)).setColor(true);
 
+                    player.sendMessage(message.getMessage(language));
+                });
                 return;
             }
             if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
                 event.setCancelled(true);
 
                 if (player.isSneaking()) {
-                    return;
+                    Optional<Location> positionOne = user.get().getOptions().getClaimOptions().getPosition(1);
+                    Optional<Location> positionTwo = user.get().getOptions().getClaimOptions().getPosition(2);
+                    if (!positionOne.isPresent()) {
+                        languageLib.getTranslationManager().getTranslation("faction.claim.no-contains-position").ifPresent(message -> {
+                            message.setVariable("%position%", String.valueOf(1)).setColor(true);
+
+                            player.sendMessage(message.getMessage(language));
+                        });
+                        return;
+                    }
+                    if (!positionTwo.isPresent()) {
+                        languageLib.getTranslationManager().getTranslation("faction.claim.no-contains-position").ifPresent(message -> {
+                            message.setVariable("%position%", String.valueOf(2)).setColor(true);
+
+                            player.sendMessage(message.getMessage(language));
+                        });
+                        return;
+                    }
+
+                    user.get().getOptions().getClaimOptions().setPosition(event.getClickedBlock().getLocation(), 2);
+                    languageLib.getTranslationManager().getTranslation("faction.claim.set-position").ifPresent(message -> {
+                        message.setVariable("%position%", String.valueOf(2)).setColor(true);
+
+                        player.sendMessage(message.getMessage(language));
+                    });
                 }
             }
         }

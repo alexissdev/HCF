@@ -55,6 +55,7 @@ faction:
   claim:
     get: "&eHas obtenido el item para &6Claimear&e!"
     no-contains-position: "&cNo tienes secionada la posición %position%!"
+    set-position: "&eHas establecido la selecion &6%position%&e!"
     item:
       name: "&6Claim Wand"
       lore:

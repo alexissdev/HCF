@@ -55,6 +55,7 @@ faction:
   claim:
     get: "&eYou has been get &6Claim item&e!"
     no-contains-position: "&cYou no have set position %position%!"
+    set-position: "&eYou has been set &6%position%&e!"
     item:
       name: "&6Claim Wand"
       lore:
