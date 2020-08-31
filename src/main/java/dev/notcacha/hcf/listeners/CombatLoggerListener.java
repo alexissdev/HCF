@@ -3,9 +3,12 @@ package dev.notcacha.hcf.listeners;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.combatlog.CombatLogger;
+import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
 import dev.notcacha.hcf.guice.anotations.cache.CombatLoggerCache;
+import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
 import dev.notcacha.hcf.user.inventory.UserInventory;
+import dev.notcacha.hcf.utils.CooldownUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -14,11 +17,16 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Optional;
+
 public class CombatLoggerListener implements Listener {
 
     @Inject
     @CombatCache
     private CacheProvider<String, String> combatLogCache;
+
+    @Inject
+    private CooldownManager cooldownManager;
 
     @Inject
     private CombatLogger combatLogger;
@@ -29,8 +37,12 @@ public class CombatLoggerListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        if (combatLogCache.exists(event.getPlayer().getName())) {
-            combatLogger.addLogger(event.getPlayer());
+        Optional<Long> combatCooldown = cooldownManager.find(CooldownUtils.COMBAT_COOLDOWN, event.getPlayer().getUniqueId().toString());
+        if (combatCooldown.isPresent()) {
+            if (combatCooldown.get() > 0) {
+                combatLogger.addLogger(event.getPlayer());
+            }
+            combatLogCache.remove(event.getPlayer().getName());
         }
     }
 

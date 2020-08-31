@@ -38,14 +38,6 @@ public class MainScheduler extends BukkitRunnable {
         }
 
         plugin.getServer().getOnlinePlayers().forEach(player -> {
-            Optional<Long> combatCooldown = cooldownManager.find(CooldownUtils.COMBAT_COOLDOWN, player.getUniqueId().toString());
-            if (combatCooldown.isPresent()) {
-                if (combatCooldown.get() <= 0) {
-                    cooldownManager.remove(CooldownUtils.COMBAT_COOLDOWN, player.getUniqueId().toString());
-                    combatCache.remove(player.getName());
-                }
-            }
-
             Optional<Long> logoutCooldown = cooldownManager.find(CooldownUtils.LOGOUT_COOLDOWN, player.getUniqueId().toString());
             if (logoutCooldown.isPresent()) {
                 if (logoutCooldown.get() <= 0) {
