@@ -10,6 +10,10 @@ public class IronStatisticsManager implements StatisticsManager {
         this.iron = 0;
     }
 
+    public IronStatisticsManager(int iron) {
+        this.iron = iron;
+    }
+
     @Override
     public int get() {
         return this.iron;

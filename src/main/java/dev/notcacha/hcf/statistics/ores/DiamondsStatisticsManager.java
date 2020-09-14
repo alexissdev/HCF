@@ -10,6 +10,10 @@ public class DiamondsStatisticsManager implements StatisticsManager {
         this.diamonds = 0;
     }
 
+    public DiamondsStatisticsManager(int diamonds) {
+        this.diamonds = diamonds;
+    }
+
     @Override
     public int get() {
         return this.diamonds;

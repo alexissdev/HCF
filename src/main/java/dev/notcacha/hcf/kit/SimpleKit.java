@@ -14,10 +14,6 @@ public class SimpleKit implements Kit {
         this(name, null, null);
     }
 
-    public SimpleKit(String name, ItemStack[] items) {
-        this(name, items, null);
-    }
-
     public SimpleKit(String name, ItemStack[] items, ItemStack[] armor) {
         this.name = name;
         this.items = items;

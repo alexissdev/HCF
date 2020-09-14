@@ -3,7 +3,6 @@ package dev.notcacha.hcf.utils;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,7 +14,6 @@ import java.util.UUID;
 public class LanguageUtils {
 
     @Inject
-    @UserCache
     private CacheProvider<UUID, User> userCache;
 
     /**

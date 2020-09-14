@@ -10,6 +10,10 @@ public class RedstoneStatisticsManager implements StatisticsManager {
         this.redstone = 0;
     }
 
+    public RedstoneStatisticsManager(int redstone) {
+        this.redstone = redstone;
+    }
+
     @Override
     public int get() {
         return this.redstone;

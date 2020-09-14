@@ -4,8 +4,6 @@ import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.deathban.Deathban;
 import dev.notcacha.hcf.deathban.SimpleDeathban;
-import dev.notcacha.hcf.guice.anotations.cache.DeathbanCache;
-import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,11 +16,9 @@ import java.util.UUID;
 public class DeathListener implements Listener {
 
     @Inject
-    @UserCache
     private CacheProvider<UUID, User> userCache;
 
     @Inject
-    @DeathbanCache
     private CacheProvider<UUID, Deathban> deathbanCache;
 
     @EventHandler

@@ -3,7 +3,6 @@ package dev.notcacha.hcf.combatlog;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.guice.anotations.cache.CombatLoggerCache;
 import dev.notcacha.hcf.user.inventory.UserInventory;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
@@ -14,7 +13,6 @@ import org.bukkit.entity.Player;
 public class CombatLogger {
 
     @Inject
-    @CombatLoggerCache
     private CacheProvider<String, UserInventory> combatLoggerCache;
 
     /**

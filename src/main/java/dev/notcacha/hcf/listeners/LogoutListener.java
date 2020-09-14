@@ -5,7 +5,8 @@ import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
-import org.bukkit.configuration.Configuration;
+
+import dev.notcacha.languagelib.message.TranslatableMessage;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class LogoutListener implements Listener {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
     private CooldownManager cooldownManager;
@@ -27,11 +28,10 @@ public class LogoutListener implements Listener {
         Player player = event.getPlayer();
         if (cooldownManager.exists(CooldownUtils.LOGOUT_COOLDOWN, player.getUniqueId().toString())) {
             cooldownManager.remove(CooldownUtils.LOGOUT_COOLDOWN, player.getUniqueId().toString());
-            languageLib.getTranslationManager().getTranslation("logout.cancel").ifPresent(message -> {
-                message.setColor(true);
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("logout.cancel");
+            message.colorize();
 
-                player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
-            });
+            player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
         }
     }
 }

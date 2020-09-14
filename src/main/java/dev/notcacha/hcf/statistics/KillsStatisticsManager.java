@@ -8,6 +8,10 @@ public class KillsStatisticsManager implements StatisticsManager {
         this.kills = 0;
     }
 
+    public KillsStatisticsManager(int kills) {
+        this.kills = kills;
+    }
+
     @Override
     public int get() {
         return this.kills;

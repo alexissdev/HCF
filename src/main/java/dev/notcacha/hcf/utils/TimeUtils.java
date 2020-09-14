@@ -3,7 +3,6 @@ package dev.notcacha.hcf.utils;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.languagelib.LanguageLib;
-import org.bukkit.configuration.Configuration;
 
 import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class TimeUtils {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     public String format(long time, String language) {
         StringJoiner stringJoiner = new StringJoiner(" ");
@@ -27,9 +26,9 @@ public class TimeUtils {
             String unit;
 
             if (unitValue == 1) {
-                unit = languageLib.getFileManager().getFile(language).getString("format.week");
+                unit = languageLib.getFileManageable().find(language).getString("format.week");
             } else {
-                unit = languageLib.getFileManager().getFile(language).getString("format.weeks");
+                unit = languageLib.getFileManageable().find(language).getString("format.weeks");
             }
 
             stringJoiner.add(unitValue + " " + unit);
@@ -43,9 +42,9 @@ public class TimeUtils {
             String unit;
 
             if (unitValue == 1) {
-                unit = languageLib.getFileManager().getFile(language).getString("format.day");
+                unit = languageLib.getFileManageable().find(language).getString("format.day");
             } else {
-                unit = languageLib.getFileManager().getFile(language).getString("format.days");
+                unit = languageLib.getFileManageable().find(language).getString("format.days");
             }
 
             stringJoiner.add(unitValue + " " + unit);
@@ -59,9 +58,9 @@ public class TimeUtils {
             String unit;
 
             if (unitValue == 1) {
-                unit = languageLib.getFileManager().getFile(language).getString("format.hour");
+                unit = languageLib.getFileManageable().find(language).getString("format.hour");
             } else {
-                unit = languageLib.getFileManager().getFile(language).getString("format.hours");
+                unit = languageLib.getFileManageable().find(language).getString("format.hours");
             }
 
             stringJoiner.add(unitValue + " " + unit);
@@ -75,9 +74,9 @@ public class TimeUtils {
             String unit;
 
             if (unitValue == 1) {
-                unit = languageLib.getFileManager().getFile(language).getString("format.minute");
+                unit = languageLib.getFileManageable().find(language).getString("format.minute");
             } else {
-                unit = languageLib.getFileManager().getFile(language).getString("format.minutes");
+                unit = languageLib.getFileManageable().find(language).getString("format.minutes");
             }
 
             stringJoiner.add(unitValue + " " + unit);
@@ -87,9 +86,9 @@ public class TimeUtils {
             String unit;
 
             if (seconds == 1) {
-                unit = languageLib.getFileManager().getFile(language).getString("format.second");
+                unit = languageLib.getFileManageable().find(language).getString("format.second");
             } else {
-                unit = languageLib.getFileManager().getFile(language).getString("format.seconds");
+                unit = languageLib.getFileManageable().find(language).getString("format.seconds");
             }
 
             stringJoiner.add(seconds + " " + unit);

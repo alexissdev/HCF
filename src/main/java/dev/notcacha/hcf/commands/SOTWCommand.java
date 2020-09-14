@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import dev.notcacha.hcf.utils.CooldownUtils;
-import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.message.TranslatableMessage;
 import me.fixeddev.ebcm.parametric.CommandClass;
@@ -12,72 +11,61 @@ import me.fixeddev.ebcm.parametric.annotation.ACommand;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 import me.fixeddev.ebcm.parametric.annotation.Usage;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-
-import java.util.Optional;
 
 @ACommand(names = "sotw")
 public class SOTWCommand implements CommandClass {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
     private CooldownManager cooldownManager;
 
-    @Inject
-    private LanguageUtils languageUtils;
-
     @ACommand(names = "", permission = "hcf.sotw")
     public boolean mainCommand(@Injected(true) CommandSender sender, @Injected(true) @Language String language) {
 
-        Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.usage");
-        if (message.isPresent()) {
-            message.get().setColor(true);
+        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("sotw.usage");
+        message.colorize();
 
-            message.get().getMessages(language).forEach(sender::sendMessage);
-        }
+        message.getMessages(language).forEach(sender::sendMessage);
         return true;
     }
 
     @ACommand(names = "start", permission = "hcf.sotw.start")
     @Usage(usage = "§cCorrect usage is /sotw start <time>")
     public boolean startCommand(@Injected(true) CommandSender sender, @Injected(true) @Language String language, Integer time) {
-
         if (cooldownManager.exists(CooldownUtils.SOTW_TIMER)) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.error.is-started");
-            message.ifPresent(translatableMessage -> sender.sendMessage(translatableMessage.setColor(true).getMessage(language)));
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("sotw.error.is-started");
+
+            sender.sendMessage(message.colorize().getMessage(language));
             return true;
         }
 
         cooldownManager.add(CooldownUtils.SOTW_TIMER, Long.parseLong(String.valueOf(time)));
-        Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.start");
-        if (message.isPresent()) {
-            message.get().setVariable("%time%", String.valueOf(time))
-                    .setVariable("%staff_name%", sender.getName())
-                    .setColor(true);
+        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("sotw.start");
+        message.setVariable("%time%", String.valueOf(time))
+                .setVariable("%staff_name%", sender.getName())
+                .colorize();
 
-            sender.sendMessage(message.get().getMessage(language));
-        }
+        sender.sendMessage(message.getMessage(language));
         return true;
     }
 
     @ACommand(names = "stop", permission = "hcf.sotw.stop")
     public boolean stopCommand(@Injected(true) CommandSender sender, @Injected(true) @Language String language) {
-
         if (!cooldownManager.exists(CooldownUtils.SOTW_TIMER)) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.error.not-started");
-            message.ifPresent(translatableMessage -> sender.sendMessage(translatableMessage.setColor(true).getMessage(language)));
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("sotw.error.not-started");
+
+            sender.sendMessage(message.colorize().getMessage(language));
             return true;
         }
 
         cooldownManager.remove(CooldownUtils.SOTW_TIMER);
-        Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("sotw.stop");
-        if (message.isPresent()) {
-            message.get().setVariable("%staff_name%", sender.getName()).setColor(true);
+        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("sotw.stop");
+        message.setVariable("%staff_name%", sender.getName())
+                .colorize();
 
-            sender.sendMessage(message.get().getMessage(language));
-        }
+        sender.sendMessage(message.getMessage(language));
 
         return true;
     }

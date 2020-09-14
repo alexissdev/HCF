@@ -10,7 +10,7 @@ import me.fixeddev.ebcm.bukkit.BukkitCommandManager;
 import me.fixeddev.ebcm.i18n.I18n;
 import me.fixeddev.ebcm.i18n.Message;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class CustomI18n implements I18n {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
     private LanguageUtils languageUtils;
@@ -46,47 +46,34 @@ public class CustomI18n implements I18n {
         String language = languageUtils.getLanguage(sender);
 
         if (messageId.equals(Message.COMMAND_NO_PERMISSIONS.getId())) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("general.no-permissions");
-            if (message.isPresent()) {
-                return message.get().setColor(true).getMessage(language);
-            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("general.no-permissions");
+            return message.colorize().getMessage(language);
         }
         if (messageId.equals("bukkit.invalid.commandsender")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.command-sender");
-            if (message.isPresent()) {
-                return message.get().setColor(true).getMessage(language);
-            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.command-sender");
+            return message.colorize().getMessage(language);
+
         }
         if (messageId.equals("bukkit.only.players")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.only-player");
-            if (message.isPresent()) {
-                return message.get().setColor(true).getMessage(language);
-            }
-        }
-        if (messageId.equals("bukkit.invalid.commandsender")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.command-sender");
-            if (message.isPresent()) {
-                return message.get().setColor(true).getMessage(language);
-            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.invalid.only-player");
+            return message.colorize().getMessage(language);
+
         }
         if (messageId.equals("bukkit.player.not.online")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("general.target-offline");
-            if (message.isPresent()) {
-                return message.get().setVariable("%target_name%", "%s").setColor(true).getMessage(language);
-            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("general.target-offline");
+
+            return message.setVariable("%target_name%", "%s").colorize().getMessage(language);
+
         }
         if (messageId.equals("provider.invalid.double")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.double");
-            if (message.isPresent()) {
-                return message.get().setVariable("%s%", "%s").setColor(true).getMessage(language);
-            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.double");
+            return message.setVariable("%s%", "%s").colorize().getMessage(language);
 
         }
         if (messageId.equals("provider.invalid.int")) {
-            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.integer");
-            if (message.isPresent()) {
-                return message.get().setVariable("%s%", "%s").setColor(true).getMessage(language);
-            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("ebcm-i18n.integer");
+            return message.setVariable("%s%", "%s").colorize().getMessage(language);
+            
         }
 
         return this.messageMap.get(messageId);

@@ -8,6 +8,10 @@ public class DeathsStatisticsManager implements StatisticsManager {
         this.deaths = 0;
     }
 
+    public DeathsStatisticsManager(int deaths) {
+        this.deaths = deaths;
+    }
+
     @Override
     public int get() {
         return this.deaths;

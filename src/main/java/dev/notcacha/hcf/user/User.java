@@ -7,6 +7,7 @@ import dev.notcacha.hcf.user.options.UserOptions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Map;
 import java.util.UUID;
 
 public interface User extends Model {
@@ -42,7 +43,6 @@ public interface User extends Model {
      */
 
     boolean hasTimer();
-
 
     /**
      * Set timer state from {@link User}
@@ -120,5 +120,101 @@ public interface User extends Model {
         return Bukkit.getPlayer(UUID.fromString(getId()));
     }
 
+    interface Builder {
 
+        /**
+         * {@param name} has been set from user
+         */
+
+        Builder setName(String name);
+
+        /**
+         * {@param language} has been set from user
+         */
+
+        Builder setLanguage(String language);
+
+        /**
+         * {@param timer} has been set from user
+         */
+
+        Builder setTimer(boolean timer);
+
+        /**
+         * {@param factions} has been set from user
+         */
+
+        Builder setFaction(UserFaction faction);
+
+        /**
+         * {@param options} has been set from user
+         */
+
+        Builder setOptions(UserOptions options);
+
+        /**
+         * {@param killsStatistics} has been set from user
+         */
+
+        Builder setKillsStatistics(StatisticsManager killsStatistics);
+
+        /**
+         * {@param deathsStatistics} has been set from user
+         */
+
+        Builder setDeathsStatistics(StatisticsManager deathsStatistics);
+
+        /**
+         * {@param diamondsStatistics} has been set from user
+         */
+
+        Builder setDiamondsStatistics(StatisticsManager diamondsStatistics);
+
+        /**
+         * {@param emeraldsStatistics} has been set from user
+         */
+
+        Builder setEmeraldsStatistics(StatisticsManager emeraldsStatistics);
+
+        /**
+         * {@param redstoneStatistics} has been set from user
+         */
+
+        Builder setRedstoneStatistics(StatisticsManager redstoneStatistics);
+
+        /**
+         * {@param lapisStatistics} has been set from user
+         */
+
+        Builder setLapisStatistics(StatisticsManager lapisStatistics);
+
+        /**
+         * {@param goldStatistics} has been set from user
+         */
+
+        Builder setGoldStatistics(StatisticsManager goldStatistics);
+
+        /**
+         * {@param ironStatistics} has been set from user
+         */
+
+        Builder setIronStatistics(StatisticsManager ironStatistics);
+
+        /**
+         * {@param coalStatistics} has been set from user
+         */
+
+        Builder setCoalStatistics(StatisticsManager coalStatistics);
+
+        /**
+         * @return new {@link User}
+         */
+
+        User build();
+
+    }
+
+    static Builder builder(String id) {
+        return new HCFUser.Builder(id);
+    }
 }

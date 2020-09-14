@@ -5,9 +5,10 @@ import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
+import dev.notcacha.languagelib.message.TranslatableMessage;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.configuration.Configuration;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,7 +26,7 @@ import java.util.Optional;
 public class EggListener implements Listener {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
     private LanguageUtils languageUtils;
@@ -43,11 +44,10 @@ public class EggListener implements Listener {
                 Optional<Long> cooldown = cooldownManager.find(CooldownUtils.EGG_COOLDOWN, player.getUniqueId().toString());
                 if (cooldown.isPresent()) {
                     if (cooldown.get() > 0) {
-                        languageLib.getTranslationManager().getTranslation("cooldown.egg").ifPresent(message -> {
-                            message.setVariable("%cooldown%", String.valueOf(cooldown.get())).setColor(true);
+                        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("cooldown.egg");
+                        message.setVariable("%cooldown%", String.valueOf(cooldown.get())).colorize();
 
-                            player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
-                        });
+                        player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
                         return;
                     }
                 }
@@ -72,16 +72,15 @@ public class EggListener implements Listener {
                 player.teleport(shooterLocation);
                 shooter.teleport(playerLocation);
 
-                languageLib.getTranslationManager().getTranslation("ability-items.egg.message.player").ifPresent(message -> {
-                    message.setVariable("%target_name%", player.getName()).setColor(true);
+                TranslatableMessage shooterMessage = languageLib.getTranslationManager().getTranslation("ability-items.egg.message.player");
+                shooterMessage.setVariable("%target_name%", player.getName()).colorize();
 
-                    shooter.sendMessage(message.getMessage(languageUtils.getLanguage(shooter)));
-                });
-                languageLib.getTranslationManager().getTranslation("ability-items.egg.message.target").ifPresent(message -> {
-                    message.setVariable("%player_name%", shooter.getName()).setColor(true);
+                shooter.sendMessage(shooterMessage.getMessage(languageUtils.getLanguage(shooter)));
 
-                    player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
-                });
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("ability-items.egg.message.target");
+                message.setVariable("%player_name%", shooter.getName()).colorize();
+
+                player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
             }
         }
     }

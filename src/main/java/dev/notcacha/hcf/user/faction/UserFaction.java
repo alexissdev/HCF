@@ -41,19 +41,5 @@ public interface UserFaction {
 
     Set<String> getInvites();
 
-    /**
-     * @return the name of the last fac that has walked in your claim
-     */
-
-    Optional<String> getLastFactionIsMove();
-
-    /**
-     * Set last faction is move from user
-     *
-     * @param name from faction
-     */
-
-    void setLastFactionIsMove(String name);
-
 
 }

@@ -3,10 +3,7 @@ package dev.notcacha.hcf.listeners;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.combatlog.CombatLogger;
-import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
-import dev.notcacha.hcf.guice.anotations.cache.CombatLoggerCache;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
+import dev.notcacha.hcf.cooldown.CooldownManager;;
 import dev.notcacha.hcf.user.inventory.UserInventory;
 import dev.notcacha.hcf.utils.CooldownUtils;
 import org.bukkit.entity.Entity;
@@ -22,18 +19,15 @@ import java.util.Optional;
 public class CombatLoggerListener implements Listener {
 
     @Inject
-    @CombatCache
+    private CacheProvider<String, UserInventory> combatLoggerCache;
+    @Inject
     private CacheProvider<String, String> combatLogCache;
 
     @Inject
     private CooldownManager cooldownManager;
-
     @Inject
     private CombatLogger combatLogger;
 
-    @Inject
-    @CombatLoggerCache
-    private CacheProvider<String, UserInventory> combatLoggerCache;
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {

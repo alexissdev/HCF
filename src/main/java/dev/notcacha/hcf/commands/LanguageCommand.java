@@ -3,10 +3,10 @@ package dev.notcacha.hcf.commands;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
-import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
+import dev.notcacha.languagelib.message.TranslatableMessage;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
@@ -14,7 +14,7 @@ import me.fixeddev.ebcm.parametric.annotation.Alternative;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 import me.fixeddev.ebcm.parametric.annotation.Usage;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.Configuration;
+
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -23,39 +23,37 @@ import java.util.UUID;
 public class LanguageCommand implements CommandClass {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
     private LanguageUtils languageUtils;
 
     @Inject
-    @UserCache
     private CacheProvider<UUID, User> userCache;
 
     @ACommand(names = "")
     public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String playerLanguage, @Alternative OfflinePlayer target) {
         if (target == null) {
-            languageLib.getTranslationManager().getTranslation("language.get.this").ifPresent(message -> {
-                message.setVariable("%language%", playerLanguage).setColor(true);
-
-                player.sendMessage(message.getMessage(playerLanguage));
-            });
-            return true;
-        }
-        if (target.getPlayer() == null) {
-            languageLib.getTranslationManager().getTranslation("general.target-offline").ifPresent(message -> {
-                message.setVariable("%target_name%", target.getName()).setColor(true);
-
-                player.sendMessage(message.getMessage(playerLanguage));
-            });
-            return true;
-        }
-        languageLib.getTranslationManager().getTranslation("language.get.other").ifPresent(message -> {
-            message.setVariable("%target_name%", target.getName())
-                    .setVariable("%language%", languageUtils.getLanguage(target.getPlayer())).setColor(true);
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("language.get.this");
+            message.setVariable("%language%", playerLanguage).colorize();
 
             player.sendMessage(message.getMessage(playerLanguage));
-        });
+            return true;
+        }
+
+        if (target.getPlayer() == null) {
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("general.target-offline");
+            message.setVariable("%target_name%", target.getName()).colorize();
+
+            player.sendMessage(message.getMessage(playerLanguage));
+            return true;
+        }
+
+        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("language.get.other");
+        message.setVariable("%target_name%", target.getName())
+                .setVariable("%language%", languageUtils.getLanguage(target.getPlayer())).colorize();
+
+        player.sendMessage(message.getMessage(playerLanguage));
         return true;
     }
 
@@ -63,21 +61,19 @@ public class LanguageCommand implements CommandClass {
     @Usage(usage = "§cCorrect usage is /language set <language has been set>")
     public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String playerLanguage, String language) {
         if (languageUtils.inValid(language)) {
-            languageLib.getTranslationManager().getTranslation("language.invalid-language").ifPresent(message -> {
-                message.setVariable("%language%", language).setColor(true);
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("language.invalid-language");
+            message.setVariable("%language%", language).colorize();
 
-                player.sendMessage(message.getMessage(playerLanguage));
-            });
+            player.sendMessage(message.getMessage(playerLanguage));
             return true;
         }
         userCache.find(player.getUniqueId()).ifPresent(user -> {
             user.setLanguage(language);
 
-            languageLib.getTranslationManager().getTranslation("language.set").ifPresent(message -> {
-                message.setVariable("%language%", user.getLanguage()).setColor(true);
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("language.set");
+            message.setVariable("%language%", user.getLanguage()).colorize();
 
-                player.sendMessage(message.getMessage(user.getLanguage()));
-            });
+            player.sendMessage(message.getMessage(user.getLanguage()));
         });
 
         return true;

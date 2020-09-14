@@ -7,6 +7,7 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.listeners.*;
 import dev.notcacha.hcf.listeners.items.EggListener;
 import dev.notcacha.hcf.listeners.items.SnowballListener;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 
 @Singleton
@@ -43,22 +44,31 @@ public class ListenersLoaderManager implements LoaderManager {
     private EggListener eggListener;
 
 
+    private void register(Listener... listeners) {
+        PluginManager pluginManager = plugin.getServer().getPluginManager();
+        for (Listener listener : listeners) {
+            pluginManager.registerEvents(listener, plugin);
+        }
+    }
+
     @Override
     public void load() {
-        PluginManager pluginManager = plugin.getServer().getPluginManager();
 
-        pluginManager.registerEvents(this.userListener, this.plugin);
-        pluginManager.registerEvents(this.pearlListener, this.plugin);
-        pluginManager.registerEvents(this.combatListener, this.plugin);
-        pluginManager.registerEvents(this.appleListener, this.plugin);
-        pluginManager.registerEvents(this.sotwListener, this.plugin);
-        pluginManager.registerEvents(this.combatLoggerListener, this.plugin);
-        pluginManager.registerEvents(this.logoutListener, this.plugin);
-        pluginManager.registerEvents(this.deathListener, this.plugin);
-        pluginManager.registerEvents(this.deathbanListener, this.plugin);
-        pluginManager.registerEvents(this.crateListener, this.plugin);
-        pluginManager.registerEvents(this.kitListener, this.plugin);
-        pluginManager.registerEvents(this.snowballListener, this.plugin);
-        pluginManager.registerEvents(this.eggListener, this.plugin);
+        register(
+                userListener,
+                pearlListener,
+                combatListener,
+                appleListener,
+                sotwListener,
+                combatListener,
+                logoutListener,
+                deathbanListener,
+                deathListener,
+                crateListener,
+                kitListener,
+                snowballListener,
+                eggListener,
+                combatLoggerListener
+        );
     }
 }

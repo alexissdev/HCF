@@ -5,8 +5,9 @@ import dev.notcacha.hcf.cooldown.CooldownManager;
 import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.hcf.utils.LanguageUtils;
 import dev.notcacha.languagelib.LanguageLib;
+import dev.notcacha.languagelib.message.TranslatableMessage;
 import org.bukkit.Material;
-import org.bukkit.configuration.Configuration;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ import java.util.Optional;
 public class SnowballListener implements Listener {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
     private LanguageUtils languageUtils;
@@ -44,11 +45,10 @@ public class SnowballListener implements Listener {
                 Optional<Long> cooldown = cooldownManager.find(CooldownUtils.SNOWBALL_COOLDOWN, player.getUniqueId().toString());
                 if (cooldown.isPresent()) {
                     if (cooldown.get() > 0) {
-                        languageLib.getTranslationManager().getTranslation("cooldown.snowball").ifPresent(message -> {
-                            message.setVariable("%cooldown%", String.valueOf(cooldown.get())).setColor(true);
+                        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("cooldown.snowball");
+                        message.setVariable("%cooldown%", String.valueOf(cooldown.get())).colorize();
 
-                            player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
-                        });
+                        player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
                         return;
                     }
                 }
@@ -67,16 +67,16 @@ public class SnowballListener implements Listener {
             if (entity instanceof Player && source instanceof Player) {
                 Player player = (Player) entity;
                 Player shooter = (Player) source;
-                languageLib.getTranslationManager().getTranslation("ability-items.snowball.message.player").ifPresent(message -> {
-                    message.setVariable("%target_name%", player.getName()).setColor(true);
 
-                    shooter.sendMessage(message.getMessage(languageUtils.getLanguage(shooter)));
-                });
-                languageLib.getTranslationManager().getTranslation("ability-items.snowball.message.target").ifPresent(message -> {
-                    message.setVariable("%player_name%", shooter.getName()).setColor(true);
+                TranslatableMessage shooterMessage = languageLib.getTranslationManager().getTranslation("ability-items.snowball.message.player");
+                shooterMessage.setVariable("%target_name%", player.getName()).colorize();
 
-                    player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
-                });
+                shooter.sendMessage(shooterMessage.getMessage(languageUtils.getLanguage(shooter)));
+
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("ability-items.snowball.message.target");
+                message.setVariable("%player_name%", shooter.getName()).colorize();
+
+                player.sendMessage(message.getMessage(languageUtils.getLanguage(player)));
 
                 player.damage(3);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 120, 0));

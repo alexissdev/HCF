@@ -6,9 +6,6 @@ import dev.notcacha.core.storage.StorageProvider;
 import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.api.events.user.UserJoinEvent;
 import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.guice.anotations.cache.CombatCache;
-import dev.notcacha.hcf.guice.anotations.cache.UserCache;
-import dev.notcacha.hcf.guice.anotations.storage.UserStorage;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.CooldownUtils;
 import org.bukkit.entity.Player;
@@ -26,18 +23,15 @@ public class UserListener implements Listener {
     private HCF plugin;
 
     @Inject
-    @UserCache
     private CacheProvider<UUID, User> userCache;
 
     @Inject
-    @UserStorage
     private StorageProvider<User> userStorage;
 
     @Inject
     private CooldownManager cooldownManager;
 
     @Inject
-    @CombatCache
     private CacheProvider<String, String> combatCache;
 
     @EventHandler

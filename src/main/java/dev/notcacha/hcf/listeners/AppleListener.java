@@ -3,13 +3,12 @@ package dev.notcacha.hcf.listeners;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.cooldown.CooldownManager;
-import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.hcf.utils.CooldownUtils;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.message.TranslatableMessage;
 import org.bukkit.Material;
-import org.bukkit.configuration.Configuration;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,10 +22,9 @@ import java.util.UUID;
 public class AppleListener implements Listener {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
 
     @Inject
-    @UserCache
     private CacheProvider<UUID, User> userCache;
 
     @Inject
@@ -44,12 +42,10 @@ public class AppleListener implements Listener {
                     Optional<Long> cooldown = cooldownManager.find(CooldownUtils.ENCHANT_GOLDEN_APPLE, player.getUniqueId().toString());
                     if (cooldown.isPresent()) {
                         if (cooldown.get() > 0) {
-                            Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.enchant-golden-apple");
-                            if (message.isPresent()) {
-                                message.get().setVariable("%cooldown%", new SimpleDateFormat("hh:mm:ss").format(cooldown.get())).setColor(true);
+                            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("cooldown.enchant-golden-apple");
+                            message.setVariable("%cooldown%", new SimpleDateFormat("hh:mm:ss").format(cooldown.get())).colorize();
 
-                                player.sendMessage(message.get().getMessage(user.get().getLanguage()));
-                            }
+                            player.sendMessage(message.getMessage(user.get().getLanguage()));
                             return;
                         }
                     }
@@ -59,12 +55,10 @@ public class AppleListener implements Listener {
                 Optional<Long> cooldown = cooldownManager.find(CooldownUtils.GOLDEN_APPLE, player.getUniqueId().toString());
                 if (cooldown.isPresent()) {
                     if (cooldown.get() > 0) {
-                        Optional<TranslatableMessage> message = languageLib.getTranslationManager().getTranslation("cooldown.golden-apple");
-                        if (message.isPresent()) {
-                            message.get().setVariable("%cooldown%", new SimpleDateFormat("mm:ss").format(cooldown.get())).setColor(true);
+                        TranslatableMessage message = languageLib.getTranslationManager().getTranslation("cooldown.golden-apple");
+                        message.setVariable("%cooldown%", new SimpleDateFormat("mm:ss").format(cooldown.get())).colorize();
 
-                            player.sendMessage(message.get().getMessage(user.get().getLanguage()));
-                        }
+                        player.sendMessage(message.getMessage(user.get().getLanguage()));
                         return;
                     }
                 }

@@ -2,15 +2,15 @@ package dev.notcacha.hcf;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.google.inject.name.Named;
 import dev.notcacha.core.service.ServiceManager;
 import dev.notcacha.hcf.guice.BinderModule;
-import dev.notcacha.hcf.guice.anotations.service.HCFService;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class HCF extends JavaPlugin {
 
     @Inject
-    @HCFService
+    @Named("hcf-service")
     private ServiceManager hcfService;
 
     @Override

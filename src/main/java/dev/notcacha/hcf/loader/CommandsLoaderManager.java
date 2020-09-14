@@ -16,15 +16,13 @@ import dev.notcacha.hcf.commands.LogoutCommand;
 import dev.notcacha.hcf.commands.OresCommand;
 import dev.notcacha.hcf.commands.RemoveCooldownCommand;
 import dev.notcacha.hcf.commands.SOTWCommand;
-import dev.notcacha.hcf.commands.SetSpawnCommand;
-import dev.notcacha.hcf.commands.SpawnCommand;
 import dev.notcacha.hcf.commands.StatisticsCommand;
 import dev.notcacha.hcf.ebcm.CustomI18n;
 import dev.notcacha.hcf.ebcm.parameter.provider.LanguageProvider;
-import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
 import me.fixeddev.ebcm.Command;
 import me.fixeddev.ebcm.bukkit.BukkitCommandManager;
 import me.fixeddev.ebcm.parameter.provider.Key;
+import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.ParametricCommandBuilder;
 import me.fixeddev.ebcm.parametric.ReflectionParametricCommandBuilder;
 
@@ -66,10 +64,6 @@ public class CommandsLoaderManager implements LoaderManager {
     @Inject
     private StatisticsCommand statisticsCommand;
     @Inject
-    private SpawnCommand spawnCommand;
-    @Inject
-    private SetSpawnCommand setSpawnCommand;
-    @Inject
     private LanguageCommand languageCommand;
     @Inject
     private HelpCommand helpCommand;
@@ -83,28 +77,31 @@ public class CommandsLoaderManager implements LoaderManager {
         this.commandManager = new BukkitCommandManager(plugin.getName());
     }
 
+    private void registerCommands(CommandClass... commands) {
+        for (CommandClass command : commands) {
+            commandManager.registerCommands(builder.fromClass(command));
+        }
+    }
+
     @Override
     public void load() {
         commandManager.setI18n(i18n);
         commandManager.getProviderRegistry().registerParameterProvider(new Key<>(LanguageProvider.LANGUAGE_MODIFIER, String.class), this.languageProvider);
 
-        List<Command> commandList = new ArrayList<>();
-        commandList.addAll(builder.fromClass(this.sotwCommand));
-        commandList.addAll(builder.fromClass(this.kitManagerCommand));
-        commandList.addAll(builder.fromClass(this.factionCommand));
-        commandList.addAll(builder.fromClass(this.addCooldownCommand));
-        commandList.addAll(builder.fromClass(this.removeCooldownCommand));
-        commandList.addAll(builder.fromClass(this.logoutCommand));
-        commandList.addAll(builder.fromClass(this.coordsCommand));
-        commandList.addAll(builder.fromClass(this.oresCommand));
-        commandList.addAll(builder.fromClass(this.statisticsCommand));
-        commandList.addAll(builder.fromClass(this.spawnCommand));
-        commandList.addAll(builder.fromClass(this.setSpawnCommand));
-        commandList.addAll(builder.fromClass(this.languageCommand));
-        commandList.addAll(builder.fromClass(this.helpCommand));
-        commandList.addAll(builder.fromClass(this.cratesCommand));
-        commandList.addAll(builder.fromClass(this.keyCommand));
-
-        commandManager.registerCommands(commandList);
+        registerCommands(
+                sotwCommand,
+                kitManagerCommand,
+                factionCommand,
+                addCooldownCommand,
+                removeCooldownCommand,
+                logoutCommand,
+                coordsCommand,
+                oresCommand,
+                statisticsCommand,
+                languageCommand,
+                helpCommand,
+                cratesCommand,
+                keyCommand
+        );
     }
 }

@@ -11,13 +11,15 @@ public class SimpleUserFaction implements UserFaction {
     private String name;
     private final Set<String> invites;
     private Role role;
-    private String lastFactionIsMove;
 
     public SimpleUserFaction() {
-        this.name = null;
-        this.invites = new HashSet<>();
-        this.role = null;
-        this.lastFactionIsMove = null;
+        this(null, new HashSet<>(), null);
+    }
+
+    public SimpleUserFaction(String name, Set<String> invites, Role role) {
+        this.name = name;
+        this.invites = invites;
+        this.role = role;
     }
 
     @Override
@@ -45,13 +47,4 @@ public class SimpleUserFaction implements UserFaction {
         return this.invites;
     }
 
-    @Override
-    public Optional<String> getLastFactionIsMove() {
-        return Optional.ofNullable(this.lastFactionIsMove);
-    }
-
-    @Override
-    public void setLastFactionIsMove(String name) {
-        this.lastFactionIsMove = name;
-    }
 }

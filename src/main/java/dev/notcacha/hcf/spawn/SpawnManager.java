@@ -4,19 +4,23 @@ import org.bukkit.Location;
 
 import java.util.Optional;
 
-public interface SpawnManager {
+public class SpawnManager {
 
-    /**
-     * @return spawn in {@link Location} format
-     */
+    private Location location;
 
-    Optional<Location> getSpawn();
+    public SpawnManager() {
+        this.location = null;
+    }
 
-    /**
-     * Set spawn
-     *
-     * @param spawn has been set
-     */
+    public SpawnManager(Location location) {
+        this.location = location;
+    }
 
-    void setSpawn(Location spawn);
+    public Optional<Location> get() {
+        return Optional.ofNullable(this.location);
+    }
+
+    public void set(Location location) {
+        this.location = location;
+    }
 }

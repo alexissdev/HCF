@@ -10,6 +10,10 @@ public class GoldsStatisticsManager implements StatisticsManager {
         this.golds = 0;
     }
 
+    public GoldsStatisticsManager(int gold) {
+        this.golds = gold;
+    }
+
     @Override
     public int get() {
         return this.golds;

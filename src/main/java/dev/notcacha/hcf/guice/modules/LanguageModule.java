@@ -6,7 +6,7 @@ import dev.notcacha.hcf.HCF;
 import dev.notcacha.hcf.file.YamlFile;
 import dev.notcacha.languagelib.LanguageLib;
 import dev.notcacha.languagelib.bukkit.BukkitLanguageLib;
-import org.bukkit.configuration.Configuration;
+
 
 public class LanguageModule extends AbstractModule {
 
@@ -19,8 +19,8 @@ public class LanguageModule extends AbstractModule {
     @Override
     protected void configure() {
         this.bind(LanguageLib.class).toProvider(() -> {
-            LanguageLib<Configuration> languageLib = new BukkitLanguageLib("en", new YamlFile(this.plugin, "language_en"));
-            languageLib.getFileManager().addFile("es", new YamlFile(this.plugin, "language_es"));
+            LanguageLib languageLib = BukkitLanguageLib.builder(plugin, "en", true).build();
+            languageLib.getFileManageable().add("es", true);
 
             return languageLib;
         }).in(Scopes.SINGLETON);

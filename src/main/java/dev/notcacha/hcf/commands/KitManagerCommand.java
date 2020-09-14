@@ -3,12 +3,11 @@ package dev.notcacha.hcf.commands;
 import com.google.inject.Inject;
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.ebcm.parameter.provider.annotation.Language;
-import dev.notcacha.hcf.guice.anotations.cache.KitCache;
-import dev.notcacha.hcf.guice.anotations.cache.UserCache;
 import dev.notcacha.hcf.kit.Kit;
 import dev.notcacha.hcf.kit.SimpleKit;
 import dev.notcacha.hcf.user.User;
 import dev.notcacha.languagelib.LanguageLib;
+import dev.notcacha.languagelib.message.TranslatableMessage;
 import me.fixeddev.ebcm.bukkit.parameter.provider.annotation.Sender;
 import me.fixeddev.ebcm.parametric.CommandClass;
 import me.fixeddev.ebcm.parametric.annotation.ACommand;
@@ -16,7 +15,7 @@ import me.fixeddev.ebcm.parametric.annotation.Alternative;
 import me.fixeddev.ebcm.parametric.annotation.Injected;
 import me.fixeddev.ebcm.parametric.annotation.Usage;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.Configuration;
+
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -28,23 +27,20 @@ import java.util.UUID;
 public class KitManagerCommand implements CommandClass {
 
     @Inject
-    private LanguageLib<Configuration> languageLib;
+    private LanguageLib languageLib;
     @Inject
-    @UserCache
     private CacheProvider<UUID, User> userCache;
     @Inject
-    @KitCache
     private CacheProvider<String, Kit> kitCache;
 
     @ACommand(names = "", permission = "hcf.kitmanager")
     public boolean mainCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language) {
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
-            languageLib.getTranslationManager().getTranslation("kitmanager.usages.main").ifPresent(message -> {
-                message.setColor(true);
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.usages.main");
+            message.colorize();
 
-                message.getMessages(language).forEach(player::sendMessage);
-            });
+            message.getMessages(language).forEach(player::sendMessage);
             return true;
         }
         return true;
@@ -52,23 +48,21 @@ public class KitManagerCommand implements CommandClass {
 
     @ACommand(names = {"create", "add"}, permission = "hcf.kitmanager.create")
     @Usage(usage = "§cCorrect usage /kitmanager create <name from kit> <true/false set your items inventory from kit> <true/false set your armor items from kit>")
-    public boolean createCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language,
-                                 String kitName, @Alternative Boolean items, @Alternative Boolean armor) {
+    public boolean createCommand(@Injected(true) @Sender Player player, @Injected(true) @Language String language, String kitName, @Alternative Boolean items, @Alternative Boolean armor) {
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
             if (kitCache.find(kitName).isPresent()) {
-                languageLib.getTranslationManager().getTranslation("kitmanager.error.exists").ifPresent(message -> {
-                    message.setVariable("%kit_name%", kitName).setColor(true);
-
-                    player.sendMessage(message.getMessage(language));
-                });
-                return true;
-            }
-            languageLib.getTranslationManager().getTranslation("kitmanager.create").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.error.exists");
+                message.setVariable("%kit_name%", kitName).colorize();
 
                 player.sendMessage(message.getMessage(language));
-            });
+                return true;
+            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.create");
+            message.setVariable("%kit_name%", kitName).colorize();
+
+            player.sendMessage(message.getMessage(language));
+
             kitCache.add(kitName, new SimpleKit(kitName)
                     .setItems((items != null && items) ? player.getInventory().getContents() : null)
                     .setArmor((armor != null && armor) ? player.getInventory().getArmorContents() : null));
@@ -82,18 +76,18 @@ public class KitManagerCommand implements CommandClass {
         Optional<User> user = userCache.find(player.getUniqueId());
         if (user.isPresent()) {
             if (!kitCache.find(kitName).isPresent()) {
-                languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exists").ifPresent(message -> {
-                    message.setVariable("%kit_name%", kitName).setColor(true);
-
-                    player.sendMessage(message.getMessage(language));
-                });
-                return true;
-            }
-            languageLib.getTranslationManager().getTranslation("kitmanager.remove").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exists");
+                message.setVariable("%kit_name%", kitName).colorize();
 
                 player.sendMessage(message.getMessage(language));
-            });
+
+                return true;
+            }
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.remove");
+            message.setVariable("%kit_name%", kitName).colorize();
+
+            player.sendMessage(message.getMessage(language));
+
             kitCache.remove(kitName);
         }
         return true;
@@ -106,26 +100,24 @@ public class KitManagerCommand implements CommandClass {
         if (user.isPresent()) {
             Optional<Kit> kit = kitCache.find(kitName);
             if (!kit.isPresent()) {
-                languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exists").ifPresent(message -> {
-                    message.setVariable("%kit_name%", kitName).setColor(true);
-
-                    player.sendMessage(message.getMessage(language));
-                });
-                return true;
-            }
-            languageLib.getTranslationManager().getTranslation("kitmanager.set.items.inventory-name").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
-
-                Inventory inventory = Bukkit.createInventory(null, 54, message.getMessage(language));
-
-                player.openInventory(inventory);
-            });
-            user.get().getOptions().setKitEdited(kit.get().getId());
-            languageLib.getTranslationManager().getTranslation("kitmanager.set.items.message").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exists");
+                message.setVariable("%kit_name%", kitName).colorize();
 
                 player.sendMessage(message.getMessage(language));
-            });
+                return true;
+            }
+            TranslatableMessage title = languageLib.getTranslationManager().getTranslation("kitmanager.set.items.inventory-name");
+            title.setVariable("%kit_name%", kitName).colorize();
+
+            Inventory inventory = Bukkit.createInventory(null, 54, title.getMessage(language));
+
+            player.openInventory(inventory);
+
+            user.get().getOptions().setKitEdited(kit.get().getId());
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.set.items.message");
+            message.setVariable("%kit_name%", kitName).colorize();
+
+            player.sendMessage(message.getMessage(language));
         }
         return true;
     }
@@ -137,31 +129,30 @@ public class KitManagerCommand implements CommandClass {
         if (user.isPresent()) {
             Optional<Kit> kit = kitCache.find(kitName);
             if (!kit.isPresent()) {
-                languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exits").ifPresent(message -> {
-                    message.setVariable("%kit_name%", kitName).setColor(true);
-
-                    player.sendMessage(message.getMessage(language));
-                });
-                return true;
-            }
-            languageLib.getTranslationManager().getTranslation("kitmanager.add.items.inventory-name").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
-
-                Inventory inventory = Bukkit.createInventory(null, 54, message.getMessage(language));
-
-                if (kit.get().getItems().isPresent()) {
-                    for (ItemStack item : kit.get().getItems().get()) {
-                        inventory.addItem(item);
-                    }
-                }
-                player.openInventory(inventory);
-            });
-            user.get().getOptions().setKitEdited(kit.get().getId());
-            languageLib.getTranslationManager().getTranslation("kitmanager.add.items.message").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exits");
+                message.setVariable("%kit_name%", kitName).colorize();
 
                 player.sendMessage(message.getMessage(language));
-            });
+                return true;
+            }
+
+            TranslatableMessage title = languageLib.getTranslationManager().getTranslation("kitmanager.add.items.inventory-name");
+            title.setVariable("%kit_name%", kitName).colorize();
+
+            Inventory inventory = Bukkit.createInventory(null, 54, title.getMessage(language));
+
+            if (kit.get().getItems().isPresent()) {
+                for (ItemStack item : kit.get().getItems().get()) {
+                    inventory.addItem(item);
+                }
+            }
+            player.openInventory(inventory);
+
+            user.get().getOptions().setKitEdited(kit.get().getId());
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.add.items.message");
+            message.setVariable("%kit_name%", kitName).colorize();
+
+            player.sendMessage(message.getMessage(language));
         }
         return true;
     }
@@ -173,26 +164,24 @@ public class KitManagerCommand implements CommandClass {
         if (user.isPresent()) {
             Optional<Kit> kit = kitCache.find(kitName);
             if (!kit.isPresent()) {
-                languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exits").ifPresent(message -> {
-                    message.setVariable("%kit_name%", kitName).setColor(true);
-
-                    player.sendMessage(message.getMessage(language));
-                });
-                return true;
-            }
-            languageLib.getTranslationManager().getTranslation("kitmanager.set.armor.inventory-name").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
-
-                Inventory inventory = Bukkit.createInventory(null, 9, message.getMessage(language));
-
-                player.openInventory(inventory);
-            });
-            user.get().getOptions().setKitEdited(kit.get().getId());
-            languageLib.getTranslationManager().getTranslation("kitmanager.set.armor.message").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exits");
+                message.setVariable("%kit_name%", kitName).colorize();
 
                 player.sendMessage(message.getMessage(language));
-            });
+                return true;
+            }
+            TranslatableMessage title = languageLib.getTranslationManager().getTranslation("kitmanager.set.armor.inventory-name");
+            title.setVariable("%kit_name%", kitName).colorize();
+
+            Inventory inventory = Bukkit.createInventory(null, 9, title.getMessage(language));
+
+            player.openInventory(inventory);
+
+            user.get().getOptions().setKitEdited(kit.get().getId());
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.set.armor.message");
+            message.setVariable("%kit_name%", kitName).colorize();
+
+            player.sendMessage(message.getMessage(language));
         }
         return true;
     }
@@ -204,31 +193,29 @@ public class KitManagerCommand implements CommandClass {
         if (user.isPresent()) {
             Optional<Kit> kit = kitCache.find(kitName);
             if (!kit.isPresent()) {
-                languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exits").ifPresent(message -> {
-                    message.setVariable("%kit_name%", kitName).setColor(true);
-
-                    player.sendMessage(message.getMessage(language));
-                });
-                return true;
-            }
-            languageLib.getTranslationManager().getTranslation("kitmanager.add.armor.inventory-name").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
-
-                Inventory inventory = Bukkit.createInventory(null, 9, message.getMessage(language));
-
-                if (kit.get().getArmor().isPresent()) {
-                    for (ItemStack item : kit.get().getArmor().get()) {
-                        inventory.addItem(item);
-                    }
-                }
-                player.openInventory(inventory);
-            });
-            user.get().getOptions().setKitEdited(kit.get().getId());
-            languageLib.getTranslationManager().getTranslation("kitmanager.add.items.message").ifPresent(message -> {
-                message.setVariable("%kit_name%", kitName).setColor(true);
+                TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.error.not-exits");
+                message.setVariable("%kit_name%", kitName).colorize();
 
                 player.sendMessage(message.getMessage(language));
-            });
+                return true;
+            }
+            TranslatableMessage title =  languageLib.getTranslationManager().getTranslation("kitmanager.add.armor.inventory-name");
+            title.setVariable("%kit_name%", kitName).colorize();
+
+            Inventory inventory = Bukkit.createInventory(null, 9, title.getMessage(language));
+
+            if (kit.get().getArmor().isPresent()) {
+                for (ItemStack item : kit.get().getArmor().get()) {
+                    inventory.addItem(item);
+                }
+            }
+            player.openInventory(inventory);
+
+            user.get().getOptions().setKitEdited(kit.get().getId());
+            TranslatableMessage message = languageLib.getTranslationManager().getTranslation("kitmanager.add.items.message");
+            message.setVariable("%kit_name%", kitName).colorize();
+
+            player.sendMessage(message.getMessage(language));
         }
         return true;
     }

@@ -3,7 +3,6 @@ package dev.notcacha.hcf.cooldown;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dev.notcacha.core.cache.CacheProvider;
-import dev.notcacha.hcf.guice.anotations.cache.CooldownCache;
 import dev.notcacha.hcf.utils.CooldownUtils;
 
 import java.util.Optional;
@@ -12,7 +11,6 @@ import java.util.Optional;
 public class BaseCooldownManager implements CooldownManager {
 
     @Inject
-    @CooldownCache
     private CacheProvider<String, Long> cooldownCache;
 
     @Override

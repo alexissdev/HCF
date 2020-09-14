@@ -1,4 +1,4 @@
-package dev.notcacha.hcf.cache;
+package dev.notcacha.hcf.user.inventory.cache;
 
 import dev.notcacha.core.cache.CacheProvider;
 import dev.notcacha.hcf.user.inventory.UserInventory;

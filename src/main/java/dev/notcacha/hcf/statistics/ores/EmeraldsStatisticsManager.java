@@ -10,6 +10,10 @@ public class EmeraldsStatisticsManager implements StatisticsManager {
         this.emeralds = 0;
     }
 
+    public EmeraldsStatisticsManager(int emeralds) {
+        this.emeralds = emeralds;
+    }
+
     @Override
     public int get() {
         return this.emeralds;

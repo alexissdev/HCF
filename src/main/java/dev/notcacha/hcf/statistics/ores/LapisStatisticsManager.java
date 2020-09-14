@@ -10,6 +10,10 @@ public class LapisStatisticsManager implements StatisticsManager {
         this.lapis = 0;
     }
 
+    public LapisStatisticsManager(int lapis) {
+        this.lapis = lapis;
+    }
+
     @Override
     public int get() {
         return this.lapis;
